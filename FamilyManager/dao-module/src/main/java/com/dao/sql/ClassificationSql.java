@@ -1,0 +1,66 @@
+package com.dao.sql;
+
+import com.pojo.Classification;
+import org.apache.ibatis.jdbc.SQL;
+
+import java.util.Date;
+
+public class ClassificationSql {
+
+
+    /**
+     * 添加数据
+     * @param classification
+     * @return
+     */
+    public String insertData(Classification classification){
+        return new SQL(){{
+            INSERT_INTO("db_classification");
+            INTO_COLUMNS("id , name , sort , del , insertUserId , insertTime , updateUserId , updateTime");
+            INTO_VALUES("#{id} , #{name} , #{sort} , #{del} , #{insertUserId} , #{insertTime} , #{updateUserId} , #{updateTime}");
+        }}.toString();
+    }
+
+
+    /**
+     * 查询所有数据（升序排序）
+     * @return
+     */
+    public String selectAll(){
+        return new SQL(){{
+            SELECT("id , name , sort , del , insertUserId , insertTime , updateUserId , updateTime");
+            FROM("db_classification");
+            WHERE("del = '0' order by sort");
+        }}.toString();
+    }
+
+
+    /**
+     * 修改数据
+     * @param classification
+     * @return
+     */
+    public String updateData(Classification classification){
+        return new SQL(){{
+            UPDATE("db_classification");
+            SET("name = #{name} , sort = #{sort} , updateUserId = #{updateUserId} , updateTime = #{updateTime}");
+            WHERE("id = #{id} , del = '0'");
+        }}.toString();
+    }
+
+
+    /**
+     * 删除数据
+     * @param id
+     * @param updateUserId
+     * @param updateTime
+     * @return
+     */
+    public String deleteData(String id , String updateUserId , Date updateTime){
+        return new SQL(){{
+            UPDATE("db_classification");
+            SET("del = '-1' , updateUserId = #{param2} , updateTime = #{param3}");
+            WHERE("id = #{param1}");
+        }}.toString();
+    }
+}
