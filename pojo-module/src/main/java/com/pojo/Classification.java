@@ -7,6 +7,8 @@ public class Classification extends CommonBean {
 
     private String name;
 
+    private String kind;
+
     private Integer sort;//排序
 
     public String getName() {
@@ -15,6 +17,14 @@ public class Classification extends CommonBean {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getKind() {
+        return kind;
+    }
+
+    public void setKind(String kind) {
+        this.kind = kind;
     }
 
     public Integer getSort() {
@@ -29,7 +39,8 @@ public class Classification extends CommonBean {
     public String toString() {
         return "Classification{" +
                 "name='" + name + '\'' +
-                ", sort='" + sort + '\'' +
+                ", kind='" + kind + '\'' +
+                ", sort=" + sort +
                 '}';
     }
 }

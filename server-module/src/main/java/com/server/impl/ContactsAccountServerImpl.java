@@ -4,7 +4,10 @@ import com.dao.mapper.BusinessOrderMapper;
 import com.dao.mapper.ContactsAccountMapper;
 import com.pojo.BusinessOrder;
 import com.pojo.ContactsAccount;
+import com.server.BusinessOrderServer;
 import com.server.ContactsAccountServer;
+import com.tools.DateUtilEnum;
+import com.tools.DateUtils;
 import com.tools.ResultBeanUtil;
 import com.tools.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +24,9 @@ public class ContactsAccountServerImpl implements ContactsAccountServer {
 
     @Autowired
     private BusinessOrderMapper businessOrderMapper;
+
+    @Autowired
+    private BusinessOrderServer businessOrderServerImpl;
 
     private ResultBeanUtil<Object> resultBeanUtilObject;
 
@@ -64,8 +70,12 @@ public class ContactsAccountServerImpl implements ContactsAccountServer {
         contactsAccount.setUpdateTime(new Date());
         contactsAccount.setUpdateUserId("");
         try {
-            contactsAccountMapperImpl.updateData(contactsAccount);
-            resultBeanUtilObject = ResultBeanUtil.getResultBeanUtil("修改成功" , true);
+
+            boolean b = this.insertDocuments(contactsAccount , token);
+            if(b){
+                contactsAccountMapperImpl.updateData(contactsAccount);//修改基础数据
+                resultBeanUtilObject = ResultBeanUtil.getResultBeanUtil("修改成功" , true);
+            }
         }catch (Exception e){
             throw e;
         }
@@ -101,24 +111,17 @@ public class ContactsAccountServerImpl implements ContactsAccountServer {
      */
     @Override
     public ResultBeanUtil<Object> deleteData(String id, String token) throws Exception {
-        List<BusinessOrder> businessOrders = null;
         try {
-            businessOrders = businessOrderMapper.selectDataByIncomeOrExpenditure(id);
-        }catch (Exception e){
-            throw e;
-        }
-
-        if(null != businessOrders && businessOrders.size() > 0){
-            //有关联数据，无法进行删除操作。
-            resultBeanUtilObject = ResultBeanUtil.getResultBeanUtil("有数据关联，无法进行删除操作。" , true);
-        }else {
-            //无关联数据，可以进行删除操作。
-            try {
+            List<BusinessOrder> businessOrders = businessOrderMapper.selectDataByIncomeOrExpenditure(id);
+            if(businessOrders.size() > 0){
+                //有关联数据，无法进行删除操作。
+                resultBeanUtilObject = ResultBeanUtil.getResultBeanUtil("有数据关联，无法进行删除操作。" , true);
+            }else {
                 contactsAccountMapperImpl.deleteData(id , "" , new Date());
                 resultBeanUtilObject = ResultBeanUtil.getResultBeanUtil("删除成功" , true);
-            }catch (Exception e){
-                throw e;
             }
+        }catch (Exception e){
+            throw e;
         }
         return resultBeanUtilObject;
     }
@@ -160,6 +163,45 @@ public class ContactsAccountServerImpl implements ContactsAccountServer {
         }
 
         return resultBeanUtilObject;
+    }
+
+
+    /**
+     * 修改余额数据的时候生成对应的业务单据
+     * @param contactsAccount
+     * @param token
+     * @return
+     * @throws Exception
+     */
+    public Boolean insertDocuments(ContactsAccount contactsAccount , String token) throws Exception{
+        boolean b = false;
+        try {
+            this.contactsAccount = contactsAccountMapperImpl.selectDataById(contactsAccount.getId());//获取原始数据
+            Integer difference = Integer.valueOf(this.contactsAccount.getBalance())
+                    - Integer.valueOf(contactsAccount.getBalance());
+            //构建对象
+            BusinessOrder businessOrder = new BusinessOrder();
+            businessOrder.setDocumentDate(DateUtils.getCurrentDateTime(DateUtilEnum.SHORTBAR , DateUtilEnum.COLON));
+            businessOrder.setDocumentNumber(UUIDUtil.getUUID(30));
+            businessOrder.setHandMan("");
+
+            if(0 > difference){//减少
+                businessOrder.setDocumentType("1");
+                businessOrder.setExpenditure(contactsAccount.getId());
+                businessOrder.setAmount(String.valueOf(difference * -1));
+                businessOrder.setRemark("账户余额变动，减少" + difference * -1 + "金额");
+            }else if(0 < difference){//增加
+                businessOrder.setDocumentType("2");
+                businessOrder.setIncome(contactsAccount.getId());
+                businessOrder.setAmount(String.valueOf(difference));
+                businessOrder.setRemark("账户余额变动，增加" + difference + "金额");
+            }
+
+            businessOrderServerImpl.insertData(businessOrder , token);
+        }catch (Exception e){
+            throw e;
+        }
+        return b;
     }
 
 

@@ -16,9 +16,9 @@ public class BusinessOrderSql {
     public String insertData(BusinessOrder businessOrder){
         return new SQL(){{
             INSERT_INTO("db_business_order");
-            INTO_COLUMNS("id , documentDate , documentNumber , documentType , income , expenditure , amount , handMan");
+            INTO_COLUMNS("id , documentDate , documentNumber , documentType , income , expenditure , amount , classificationValue , handMan");
             INTO_COLUMNS("remark , del , insertUserId , insertTime , updateUserId , updateTime");
-            INTO_VALUES("#{id} , #{documentDate} , #{documentNumber} , #{documentType} , #{income} , #{expenditure} , #{amount} , #{handMan}");
+            INTO_VALUES("#{id} , #{documentDate} , #{documentNumber} , #{documentType} , #{income} , #{expenditure} , #{amount} , #{classificationValue} , #{handMan}");
             INTO_VALUES("#{remark} , #{del} , #{insertUserId} , #{insertTime} , #{updateUserId} , #{updateTime}");
         }}.toString();
     }
@@ -32,7 +32,7 @@ public class BusinessOrderSql {
     public String updateData(BusinessOrder businessOrder){
         return new SQL(){{
             UPDATE("db_business_order");
-            SET("income = #{income} , expenditure = #{expenditure} , amount = #{amount} , handMan = #{handMan}");
+            SET("income = #{income} , expenditure = #{expenditure} , amount = #{amount} , classificationValue = #{classificationValue} , handMan = #{handMan}");
             SET("remark = #{remark} , updateUserId = #{updateUserId} , updateTime = #{updateTime}");
             WHERE("id = #{id}");
         }}.toString();
@@ -45,7 +45,7 @@ public class BusinessOrderSql {
      */
     public String selectAll(Integer start , Integer size){
         return new SQL(){{
-            SELECT("id , documentDate , documentNumber , documentType , income , expenditure , amount , handMan , remark");
+            SELECT("id , documentDate , documentNumber , documentType , income , expenditure , amount , classificationValue , handMan , remark");
             FROM("db_business_order");
             WHERE("del = '0' order by documentDate desc limit #{param1},#{param2}");
         }}.toString();
@@ -72,7 +72,7 @@ public class BusinessOrderSql {
      */
     public String selectDataByIncomeOrExpenditure(String id){
         return new SQL(){{
-            SELECT("id , documentDate , documentNumber , documentType , income , expenditure , amount , handMan , remark");
+            SELECT("id , documentDate , documentNumber , documentType , income , expenditure , amount , classificationValue , handMan , remark");
             FROM("db_business_order");
             WHERE("del = '0' and income = #{id} or expenditure = #{id}");
         }}.toString();
@@ -102,9 +102,23 @@ public class BusinessOrderSql {
      */
     public String selectDataByid(String id){
         return new SQL(){{
-            SELECT("id , documentDate , documentNumber , documentType , income , expenditure , amount , handMan , remark");
+            SELECT("id , documentDate , documentNumber , documentType , income , expenditure , amount , classificationValue , handMan , remark");
             FROM("db_business_order");
             WHERE("del = '0' and id = #{id}");
+        }}.toString();
+    }
+
+
+    /**
+     * 根据分类值id查询数据
+     * @param classificationValue
+     * @return
+     */
+    public String selectDataByClassificationValue(String classificationValue){
+        return new SQL(){{
+            SELECT("id , documentDate , documentNumber , documentType , income , expenditure , amount , classificationValue , handMan , remark");
+            FROM("db_business_order");
+            WHERE("del = '0' and classificationValue = #{classificationValue}");
         }}.toString();
     }
 }

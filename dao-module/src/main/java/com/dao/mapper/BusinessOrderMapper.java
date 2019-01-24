@@ -71,4 +71,13 @@ public interface BusinessOrderMapper {
      */
     @SelectProvider(type = BusinessOrderSql.class , method = "selectDataByid")
     BusinessOrder selectDataByid(String id);
+
+
+    /**
+     * 根据分类值id查询数据
+     * @param classificationValue
+     * @return
+     */
+    @SelectProvider(type = BusinessOrderSql.class , method = "selectDataByClassificationValue")
+    List<BusinessOrder> selectDataByClassificationValue(String classificationValue);
 }

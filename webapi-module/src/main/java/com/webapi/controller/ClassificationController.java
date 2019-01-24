@@ -33,7 +33,6 @@ public class ClassificationController {
         if(StringUtils.isNotEmpty(token) && null != classification){
             try {
                 resultBeanUtilObject = classificationServerImpl.insertData(classification , token);
-                resultBeanUtilObject = ResultBeanUtil.getResultBeanUtil("添加成功" , true);
             } catch (Exception e) {
                 e.printStackTrace();
                 resultBeanUtilObject = ResultBeanUtil.getResultBeanUtil("逻辑处理异常" , false);
@@ -46,16 +45,21 @@ public class ClassificationController {
 
 
     /**
-     * 查询所有数据
+     * 根据种类id查询数据
+     * @param kind
      * @return
      */
-    @RequestMapping(value = "/selectAll")
-    public ResultBeanUtil<List<Classification>> selectAll(){
-        try {
-            resultBeanUtilList = classificationServerImpl.selectAll();
-        }catch (Exception e){
-            e.printStackTrace();
-            resultBeanUtilList = ResultBeanUtil.getResultBeanUtil("逻辑处理异常" , false , null);
+    @RequestMapping(value = "/selectDataByKind")
+    public ResultBeanUtil<List<Classification>> selectDataByKind(String kind){
+        if(StringUtils.isNotEmpty(kind)){
+            try {
+                resultBeanUtilList = classificationServerImpl.selectDataByKind(kind);
+            }catch (Exception e){
+                e.printStackTrace();
+                resultBeanUtilList = ResultBeanUtil.getResultBeanUtil("逻辑处理异常" , false);
+            }
+        }else {
+            resultBeanUtilList = ResultBeanUtil.getResultBeanUtil("参数异常" , false);
         }
         return resultBeanUtilList;
     }

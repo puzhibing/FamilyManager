@@ -54,13 +54,15 @@ public class ClassificationServerImpl implements ClassificationServer {
 
 
     /**
-     * 查询所有数据
+     * 根据种类id查询数据
+     * @param kind
      * @return
+     * @throws Exception
      */
     @Override
-    public ResultBeanUtil<List<Classification>> selectAll() throws Exception {
+    public ResultBeanUtil<List<Classification>> selectDataByKind(String kind) throws Exception {
         try {
-            classifications = classificationMapper.selectAll();
+            classifications = classificationMapper.selectDataByKind(kind);
             resultBeanUtilList = ResultBeanUtil.getResultBeanUtil("查询成功" , true , classifications);
         }catch (Exception e){
             throw e;
@@ -100,18 +102,16 @@ public class ClassificationServerImpl implements ClassificationServer {
      */
     @Override
     public ResultBeanUtil<Object> deleteData(String id, String token) throws Exception {
-        List<ContactsAccount> contactsAccounts;
         try {
-            contactsAccounts = contactsAccountMapper.selectDataByClassification(id);
+            List<ContactsAccount> contactsAccounts = contactsAccountMapper.selectDataByClassification(id);
+            if(null != contactsAccounts && contactsAccounts.size() > 0){
+                resultBeanUtilObject = ResultBeanUtil.getResultBeanUtil("有数据关联，无法进行删除操作。" , true);
+            }else{
+                classificationMapper.deleteData(id , "" , new Date());
+                resultBeanUtilObject = ResultBeanUtil.getResultBeanUtil("删除成功" , true);
+            }
         }catch (Exception e){
             throw e;
-        }
-
-        if(null != contactsAccounts && contactsAccounts.size() > 0){
-            resultBeanUtilObject = ResultBeanUtil.getResultBeanUtil("有数据关联，无法进行删除操作。" , true);
-        }else{
-            classificationMapper.deleteData(id , "" , new Date());
-            resultBeanUtilObject = ResultBeanUtil.getResultBeanUtil("删除成功" , true);
         }
         return resultBeanUtilObject;
     }

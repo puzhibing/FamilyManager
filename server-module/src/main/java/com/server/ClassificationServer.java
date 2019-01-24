@@ -19,11 +19,12 @@ public interface ClassificationServer {
 
 
     /**
-     * 查询所有数据
+     * 根据种类id查询数据
+     * @param kind
      * @return
      * @throws Exception
      */
-    ResultBeanUtil<List<Classification>> selectAll() throws Exception;
+    ResultBeanUtil<List<Classification>> selectDataByKind(String kind) throws Exception;
 
 
     /**

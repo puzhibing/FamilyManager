@@ -16,8 +16,8 @@ public class ClassificationSql {
     public String insertData(Classification classification){
         return new SQL(){{
             INSERT_INTO("db_classification");
-            INTO_COLUMNS("id , name , sort , del , insertUserId , insertTime , updateUserId , updateTime");
-            INTO_VALUES("#{id} , #{name} , #{sort} , #{del} , #{insertUserId} , #{insertTime} , #{updateUserId} , #{updateTime}");
+            INTO_COLUMNS("id , name , kind , sort , del , insertUserId , insertTime , updateUserId , updateTime");
+            INTO_VALUES("#{id} , #{name} , #{kind} , #{sort} , #{del} , #{insertUserId} , #{insertTime} , #{updateUserId} , #{updateTime}");
         }}.toString();
     }
 
@@ -28,7 +28,7 @@ public class ClassificationSql {
      */
     public String selectAll(){
         return new SQL(){{
-            SELECT("id , name , sort , del , insertUserId , insertTime , updateUserId , updateTime");
+            SELECT("id , name , kind , sort , del , insertUserId , insertTime , updateUserId , updateTime");
             FROM("db_classification");
             WHERE("del = '0' order by sort");
         }}.toString();
@@ -61,6 +61,20 @@ public class ClassificationSql {
             UPDATE("db_classification");
             SET("del = '-1' , updateUserId = #{param2} , updateTime = #{param3}");
             WHERE("id = #{param1}");
+        }}.toString();
+    }
+
+
+    /**
+     * 根据种类id查询数据
+     * @param kind
+     * @return
+     */
+    public String selectDataByKind(String kind){
+        return new SQL(){{
+            SELECT("id , name , kind , sort");
+            FROM("db_classification");
+            WHERE("del = '0' and kind = #{kind} order by sort");
         }}.toString();
     }
 }

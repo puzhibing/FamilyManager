@@ -15,6 +15,8 @@ public class BusinessOrder extends CommonBean{
 
     private String amount;//金额
 
+    private Object classificationValue;
+
     private String handMan;//经手人
 
     private String remark;//备注
@@ -67,6 +69,14 @@ public class BusinessOrder extends CommonBean{
         this.amount = amount;
     }
 
+    public Object getClassificationValue() {
+        return classificationValue;
+    }
+
+    public void setClassificationValue(Object classificationValue) {
+        this.classificationValue = classificationValue;
+    }
+
     public String getHandMan() {
         return handMan;
     }
@@ -92,6 +102,7 @@ public class BusinessOrder extends CommonBean{
                 ", income=" + income +
                 ", expenditure=" + expenditure +
                 ", amount='" + amount + '\'' +
+                ", classificationValue=" + classificationValue +
                 ", handMan='" + handMan + '\'' +
                 ", remark='" + remark + '\'' +
                 '}';

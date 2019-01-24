@@ -46,7 +46,6 @@ public class BusinessOrderServerImpl implements BusinessOrderServer {
          * 1:扣减账户余额
          * 2:添加账户余额
          * 3:往来账户之间转换金额
-         * 4:数据修改变动
          */
         String id = UUIDUtil.getUUID(20);
         businessOrder.setId(id);
@@ -151,9 +150,8 @@ public class BusinessOrderServerImpl implements BusinessOrderServer {
      */
     @Override
     public ResultBeanUtil<Object> deleteData(String id , String token) throws Exception {
-        boolean b = false;
         try {
-            b = this.reduction(id , token);
+            boolean b = this.reduction(id , token);
             if(b){
                 businessOrderMapper.deleteData(id , "" , new Date());
                 resultBeanUtilObject = ResultBeanUtil.getResultBeanUtil("删除成功" , true);

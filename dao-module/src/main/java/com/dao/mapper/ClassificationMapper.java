@@ -44,4 +44,13 @@ public interface ClassificationMapper {
      */
     @UpdateProvider(type = ClassificationSql.class , method = "deleteData")
     void deleteData(String id , String updateUserId , Date updateTime);
+
+
+    /**
+     * 根据种类id查询数据
+     * @param kind
+     * @return
+     */
+    @SelectProvider(type = ClassificationSql.class , method = "selectDataByKind")
+    List<Classification> selectDataByKind(String kind);
 }
