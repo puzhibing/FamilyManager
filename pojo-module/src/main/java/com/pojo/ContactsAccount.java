@@ -17,6 +17,8 @@ public class ContactsAccount extends CommonBean {
 
     private String balance;//余额
 
+    private String sort;//排序
+
     public Object getClassification() {
         return classification;
     }
@@ -65,6 +67,14 @@ public class ContactsAccount extends CommonBean {
         this.balance = balance;
     }
 
+    public String getSort() {
+        return sort;
+    }
+
+    public void setSort(String sort) {
+        this.sort = sort;
+    }
+
     @Override
     public String toString() {
         return "ContactsAccount{" +
@@ -74,6 +84,7 @@ public class ContactsAccount extends CommonBean {
                 ", agency='" + agency + '\'' +
                 ", accountNumber='" + accountNumber + '\'' +
                 ", balance='" + balance + '\'' +
+                ", sort='" + sort + '\'' +
                 '}';
     }
 }

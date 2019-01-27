@@ -30,7 +30,8 @@ public class ClassificationSql {
         return new SQL(){{
             SELECT("id , name , kind , sort , del , insertUserId , insertTime , updateUserId , updateTime");
             FROM("db_classification");
-            WHERE("del = '0' order by sort");
+            WHERE("del = '0'");
+            ORDER_BY("sort");
         }}.toString();
     }
 
@@ -74,7 +75,8 @@ public class ClassificationSql {
         return new SQL(){{
             SELECT("id , name , kind , sort");
             FROM("db_classification");
-            WHERE("del = '0' and kind = #{kind} order by sort");
+            WHERE("del = '0' and kind = #{kind}");
+            ORDER_BY("sort");
         }}.toString();
     }
 }

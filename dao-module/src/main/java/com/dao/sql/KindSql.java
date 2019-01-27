@@ -44,7 +44,8 @@ public class KindSql {
         return new SQL(){{
             SELECT("id , name , sort");
             FROM("db_kind");
-            WHERE("del = '0' order by sort");
+            WHERE("del = '0'");
+            ORDER_BY("sort");
         }}.toString();
     }
 

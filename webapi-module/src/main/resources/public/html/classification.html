@@ -12,70 +12,72 @@
     <div class="home">
         <div class="content">
             <div class="box">
-                <div class="kind">
-                    <div class="title">
-                        <span></span>
+                <div>
+                    <span></span>
+                    <div class="kind">
+                        <div class="title">
+                            <span>类型</span>
+                        </div>
+                        <div class="tools">
+                            <i class="fa fa-plus"></i>
+                            <i class="fa fa-cog"></i>
+                            <i class="fa fa-trash-o"></i>
+                            <i class="fa fa-refresh"></i>
+                        </div>
+                        <div>
+                            <table>
+                                <tr>
+                                    <th>编号</th>
+                                    <th>名称</th>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
-                    <div class="tools">
-                        <i class="fa fa-plus"></i>
-                        <i class="fa fa-trash-o"></i>
-                        <i class="fa fa-refresh"></i>
-                    </div>
-                    <div>
-                        <table>
-                            <tr>
-                                <th>编号</th>
-                                <th>名称</th>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>这是名称字段</td>
-                            </tr>
-                        </table>
-                    </div>
+                    <input type="hidden" class="kindId">
                 </div>
-                <div class="classification">
-                    <div class="title">
-                        <span></span>
+                <div>
+                    <span></span>
+                    <div class="classification">
+                        <div class="title">
+                            <span>分类</span>
+                        </div>
+                        <div class="tools">
+                            <i class="fa fa-plus" id="classification"></i>
+                            <i class="fa fa-cog"></i>
+                            <i class="fa fa-trash-o"></i>
+                            <i class="fa fa-refresh"></i>
+                        </div>
+                        <div>
+                            <table>
+                                <tr>
+                                    <th>编号</th>
+                                    <th>名称</th>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
-                    <div class="tools">
-                        <i class="fa fa-plus"></i>
-                        <i class="fa fa-trash-o"></i>
-                        <i class="fa fa-refresh"></i>
-                    </div>
-                    <div>
-                        <table>
-                            <tr>
-                                <th>编号</th>
-                                <th>名称</th>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>这是名称字段</td>
-                            </tr>
-                        </table>
-                    </div>
+                    <input type="hidden" class="classificationId">
                 </div>
-                <div class="classificationValue">
-                    <div class="title">
-                        <span></span>
-                    </div>
-                    <div class="tools">
-                        <i class="fa fa-plus"></i>
-                        <i class="fa fa-trash-o"></i>
-                        <i class="fa fa-refresh"></i>
-                    </div>
-                    <div>
-                        <table>
-                            <tr>
-                                <th>编号</th>
-                                <th>名称</th>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>这是名称字段</td>
-                            </tr>
-                        </table>
+                <div>
+                    <span></span>
+                    <div class="classificationValue">
+                        <div class="title">
+                            <span>数据</span>
+                        </div>
+                        <div class="tools">
+                            <i class="fa fa-plus" id="classificationValue"></i>
+                            <i class="fa fa-cog"></i>
+                            <i class="fa fa-trash-o"></i>
+                            <i class="fa fa-refresh"></i>
+                        </div>
+                        <div>
+                            <table>
+                                <tr>
+                                    <th>编号</th>
+                                    <th>名称</th>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -84,13 +86,81 @@
         <!-- 蒙板 -->
         <div class="mask"></div>
         <!-- 选择面板 -->
-        <div class="selected">
+        <div class="selected classificationPopup">
             <div class="title">
-                <span>标题</span>
+                <span>添加分类</span>
                 <i class="fa fa-close"></i>
             </div>
             <div class="con">
+                <div>
+                    <div>
+                        <span>分类名称</span>
+                        <input type="text" class="classificationName">
+                    </div>
+                    <div>
+                        <span>排序</span>
+                        <input type="text" class="classificationSort">
+                    </div>
+                    <div>
+                        <button>保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        <div class="selected classificationValuePopup1">
+            <div class="title">
+                <span>添加数据</span>
+                <i class="fa fa-close"></i>
+            </div>
+            <div class="con">
+                <div>
+                    <div>
+                        <span>数据名称</span>
+                        <input type="text" class="classificationValueName">
+                    </div>
+                    <div>
+                        <span>排序</span>
+                        <input type="text" class="classificationValueSort">
+                    </div>
+                    <div>
+                        <button>保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="selected classificationValuePopup2">
+            <div class="title">
+                <span>添加账户</span>
+                <i class="fa fa-close"></i>
+            </div>
+            <div class="con">
+                <div>
+                    <div>
+                        <span>账户名称</span>
+                        <input type="text" class="contactsAccountName">
+                    </div>
+                    <div>
+                        <span>开户机构</span>
+                        <input type="text" class="agency">
+                    </div>
+                    <div>
+                        <span>账户编号</span>
+                        <input type="text" class="accountNumber">
+                    </div>
+                    <div>
+                        <span>账户余额</span>
+                        <input type="text" class="balance">
+                    </div>
+                    <div>
+                        <span>排序</span>
+                        <input type="text" class="contactsAccountSort">
+                    </div>
+                    <div>
+                        <button>保存</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

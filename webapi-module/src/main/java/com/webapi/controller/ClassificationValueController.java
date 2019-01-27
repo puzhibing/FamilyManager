@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RestController(value = "/ClassificationValue")
+@RestController
+@RequestMapping(value = "/ClassificationValue")
 public class ClassificationValueController {
 
     @Autowired

@@ -49,6 +49,7 @@ public class ClassificationValueSql {
             SELECT("id , classification , name , sort");
             FROM("db_classification_value");
             WHERE("classification = #{classification} and del = '0'");
+            ORDER_BY("sort");
         }}.toString();
     }
 

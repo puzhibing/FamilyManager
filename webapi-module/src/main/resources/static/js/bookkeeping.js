@@ -12,6 +12,9 @@ $(function () {
     });
 
     $('.select').click(function () {
+        var clazz = $(this).attr('clazz');
+        dynamicContent(clazz);
+
         selectPopup('show');
     });
 
@@ -71,5 +74,34 @@ function selectPopup(show){
 
 
 
-//点击关闭按钮关闭弹窗
-function closePopup(){}
+//根据点击的类型不同，定义选择面板的不同数据
+function dynamicContent(clazz){
+    switch (clazz) {
+        case 'typeOfExpenditure'://支出类型
+            getTypeOfExpenditure();
+            break;
+        case '':
+            break;
+        default:
+            break;
+    }
+}
+
+
+
+
+//获取支出类数据
+function getTypeOfExpenditure() {
+    $.ajax({
+        url: '/Classification/selectDataByKind',
+        type: 'POST',
+        data: {
+            kind: 'ils5hnlfbysciwppvvpk'
+        },
+        success: function (res) {
+            if(res.b){
+                $('.selected .title span').text('支出类型');
+            }
+        }
+    });
+}

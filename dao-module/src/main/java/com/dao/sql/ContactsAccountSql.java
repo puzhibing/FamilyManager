@@ -16,9 +16,9 @@ public class ContactsAccountSql {
     public String insertData(ContactsAccount contactsAccount){
         return new SQL(){{
             INSERT_INTO("db_contacts_account");
-            INTO_COLUMNS("id , classification , type , name , agency , accountNumber , balance");
+            INTO_COLUMNS("id , classification , type , name , agency , accountNumber , balance , sort");
             INTO_COLUMNS("del , insertUserId , insertTime , updateUserId , updateTime");
-            INTO_VALUES("#{id} , #{classification} , #{type} , #{name} , #{agency} , #{accountNumber} , #{balance}");
+            INTO_VALUES("#{id} , #{classification} , #{type} , #{name} , #{agency} , #{accountNumber} , #{balance} , #{sort}");
             INTO_VALUES("#{del} , #{insertUserId} , #{insertTime} , #{updateUserId} , #{updateTime}");
         }}.toString();
     }
@@ -32,7 +32,7 @@ public class ContactsAccountSql {
     public String updateData(ContactsAccount contactsAccount){
         return new SQL(){{
             UPDATE("db_contacts_account");
-            SET("name = #{name} , agency = #{agency} , accountNumber = #{accountNumber} , balance = #{balance}");
+            SET("name = #{name} , agency = #{agency} , accountNumber = #{accountNumber} , balance = #{balance} , sort = #{sort}");
             SET("updateUserId = #{updateUserId} , updateTime = #{updateTime}");
             WHERE("id = #{id} and del = '0'");
         }}.toString();
@@ -46,9 +46,10 @@ public class ContactsAccountSql {
      */
     public String selectDataByClassification(String classification){
         return new SQL(){{
-            SELECT("id , classification , type , name , agency , accountNumber , balance");
+            SELECT("id , classification , type , name , agency , accountNumber , balance , sort");
             FROM("db_contacts_account");
             WHERE("classification = #{classification} and del = '0'");
+            ORDER_BY("sort");
         }}.toString();
     }
 
@@ -76,7 +77,7 @@ public class ContactsAccountSql {
      */
     public String selectDataById(String id){
         return new SQL(){{
-            SELECT("id , classification , name , agency , accountNumber , balance");
+            SELECT("id , classification , name , agency , accountNumber , balance , sort");
             SELECT("del , insertUserId , insertTime , updateUserId , updateTime");
             FROM("db_contacts_account");
             WHERE("id = #{id} and del = '0'");

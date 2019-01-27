@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RestController(value = "/Kind")
+@RestController
+@RequestMapping(value = "/Kind")
 public class KindController {
 
     @Autowired
@@ -92,7 +93,7 @@ public class KindController {
      * 查询所有数据
      * @return
      */
-    @RequestMapping(value = "/deleteData")
+    @RequestMapping(value = "/selectAll")
     public ResultBeanUtil<List<Kind>> selectAll(){
         try {
             resultBeanUtilList = kindServiceImpl.selectAll();

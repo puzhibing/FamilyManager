@@ -38,6 +38,7 @@ public class ContactsAccountServerImpl implements ContactsAccountServer {
 
     /**
      * 添加数据
+     * 添加新账户数据的同时需要添加对应的业务单据数据
      * @param contactsAccount
      * @param token
      * @throws Exception
@@ -47,7 +48,37 @@ public class ContactsAccountServerImpl implements ContactsAccountServer {
         contactsAccount.setId(UUIDUtil.getUUID(20));
         contactsAccount.setDel("0");
         contactsAccount.setInsertTime(new Date());
+
+        String balance = contactsAccount.getBalance();
+        //构建业务单据对象
+        BusinessOrder businessOrder = new BusinessOrder();
+        businessOrder.setDocumentDate(DateUtils.getCurrentDateTime(DateUtilEnum.SHORTBAR , DateUtilEnum.COLON));
+        businessOrder.setDocumentNumber(UUIDUtil.getUUID(30));
+        businessOrder.setHandMan("");
+
+        //普通账户
+        if("0".equals(contactsAccount.getType())){
+            businessOrder.setDocumentType("2");
+            businessOrder.setIncome(contactsAccount.getId());
+            businessOrder.setAmount(balance);
+            businessOrder.setRemark("新增加普通账户数据，增加期初账户余额" + balance + "元");
+        }else{
+            //往来账户
+            if(0 > Integer.valueOf(balance)){//如果余额为负数
+                businessOrder.setDocumentType("1");
+                businessOrder.setExpenditure(contactsAccount.getId());
+                businessOrder.setAmount(String.valueOf(Integer.valueOf(balance) * -1));
+                businessOrder.setRemark("新增加往来账户数据，增加借款金额" + Integer.valueOf(balance) * -1 + "元");
+            }else{
+                businessOrder.setDocumentType("2");
+                businessOrder.setIncome(contactsAccount.getId());
+                businessOrder.setAmount(balance);
+                businessOrder.setRemark("新增加往来账户数据，增加欠款金额" + balance + "元");
+            }
+        }
+
         try{
+            businessOrderMapper.insertData(businessOrder);
             contactsAccountMapperImpl.insertData(contactsAccount);
             resultBeanUtilObject = ResultBeanUtil.getResultBeanUtil("添加成功" , true);
         }catch (Exception e){
@@ -203,6 +234,7 @@ public class ContactsAccountServerImpl implements ContactsAccountServer {
         }
         return b;
     }
+
 
 
 }
