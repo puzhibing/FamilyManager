@@ -43,13 +43,20 @@
                         <div>
                             <span>支出类型</span>
                             <span>
-                                <input type="text" class="select" clazz="typeOfExpenditure" readonly>
+                                <!--<div>-->
+                                    <!--<div class="select">-->
+                                        <!--<span></span>-->
+                                        <!--<i class="fa fa-caret-down"></i>-->
+                                    <!--</div>-->
+                                    <!--<div class="option"></div>-->
+                                <!--</div>-->
+                                <input id="typeOfExpenditure" valueId="" type="text" class="select" clazz="typeOfExpenditure" readonly>
                             </span>
                         </div>
                         <div>
                             <span>支出账户</span>
                             <span>
-                                <input type="text" class="select" readonly>
+                                <input id="expenditureAccount" valueId="" type="text" class="select" clazz="contactsAccount" readonly>
                             </span>
                         </div>
                         <div>
@@ -80,13 +87,13 @@
                         <div>
                             <span>收入类型</span>
                             <span>
-                                <input type="text" class="select" readonly>
+                                <input id="incomeType" valueId="" type="text" class="select" clazz="typeOfIncome" readonly>
                             </span>
                         </div>
                         <div>
                             <span>收入账户</span>
                             <span>
-                                <input type="text" class="select" readonly>
+                                <input id="incomeAccount" valueId="" type="text" class="select" clazz="contactsAccount" readonly>
                             </span>
                         </div>
                         <div>
@@ -111,13 +118,13 @@
                         <div>
                             <span>转出账户</span>
                             <span>
-                                <input type="text" class="select" readonly>
+                                <input id="transferAccount" valueId="" type="text" class="select" clazz="contactsAccount" readonly>
                             </span>
                         </div>
                         <div>
                             <span>转入账户</span>
                             <span>
-                                <input type="text" class="select" readonly>
+                                <input id="transferToAccount" valueId="" type="text" class="select" clazz="contactsAccount" readonly>
                             </span>
                         </div>
                         <div>
@@ -160,7 +167,7 @@
                         <div>
                             <span>借款账户</span>
                             <span>
-                                <input type="text" class="select" readonly>
+                                <input id="borrowingAccount" valueId="" type="text" class="select" clazz="contactsAccount" readonly>
                             </span>
                         </div>
                         <div>
@@ -203,7 +210,7 @@
                         <div>
                             <span>投资账户</span>
                             <span>
-                                <input type="text" class="select" readonly>
+                                <input id="investmentAccount" valueId="" type="text" class="select" clazz="contactsAccount" readonly>
                             </span>
                         </div>
                         <div>
@@ -242,6 +249,8 @@
     <!-- 选择面板 -->
     <div class="selected">
         <div class="title">
+            <input type="hidden" class="seletedType">
+            <input type="hidden" class="inputId">
             <span>标题</span>
             <i class="fa fa-close"></i>
         </div>
