@@ -17,6 +17,7 @@ $(function () {
         $('.inputId').val(id);
         dynamicContent(clazz);
         selectPopup('show');
+        $('.selected .con .option').html('');
     });
 
 
@@ -110,7 +111,7 @@ function getTypeOfExpenditure() {
                 var list = res.result;
                 var str = '<ul>';
                 for (var i = 0 ; i < list.length ; i++){
-                    str += '<li id="' + list[i].id + '">' + list[i].name + '</li>'
+                    str += '<li id="' + list[i].id + '" onclick="selectLi(this)">' + list[i].name + '</li>'
                 }
                 str += '</ul>';
                 $('.selected .con .type').html(str);
@@ -137,7 +138,7 @@ function getTypeOfIncome() {
                 var list = res.result;
                 var str = '<ul>';
                 for (var i = 0 ; i < list.length ; i++){
-                    str += '<li id="' + list[i].id + '">' + list[i].name + '</li>'
+                    str += '<li id="' + list[i].id + '" onclick="selectLi(this)">' + list[i].name + '</li>'
                 }
                 str += '</ul>';
                 $('.selected .con .type').html(str);

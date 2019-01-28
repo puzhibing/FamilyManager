@@ -115,6 +115,15 @@ body{
     border: 1px solid #bbbbbb;
 }
 
+.home .content .operate .text div select{
+    width: 206px;
+    height: 34px;
+    padding-left: 5px;
+    margin-left: 5px;
+    border-radius: 3px;
+    border: 1px solid #bbbbbb;
+}
+
 .home .content .operate .text button{
     height: 45px;
     width: 80%;
@@ -134,12 +143,12 @@ body{
 
 
 
-/*.select{*/
-    /*display: block;*/
-    /*width: 200px;*/
-    /*height: 30px;*/
-    /*border: 1px solid #dddddd;*/
-/*}*/
+
+
+
+
+
+
 
 .select:hover{
     cursor: pointer;
@@ -197,13 +206,14 @@ body{
 
 .selected .con div{
     height: 369px;
-    float: left;
+    float: left;''
     overflow-y: auto;
 }
 
 .selected .con .type{
-    width: 100px;
+    width: 150px;
     background-color: #F3F3F3;
+    font-size: 14px;
 }
 
 ul{
@@ -224,6 +234,11 @@ ul{
     cursor: pointer;
 }
 
+.selected .con .option{
+    width: 348px;
+    font-size: 13px;
+}
+
 .selected .con .option ul li{
     float: left;
     margin: 10px 20px;
@@ -235,32 +250,3 @@ ul{
 
 
 
-/*测试样式*/
-.select{
-    width: 200px;
-    height: 26px;
-    border: 1px solid #bbbbbb;
-    border-radius: 3px;
-}
-.select span{
-    width: 180px;
-    height: 26px;
-    display: block;
-    float: left;
-    overflow-x: hidden;
-}
-.select span:hover{
-    cursor: pointer;
-}
-.select i{
-    position: relative;
-    left: 5px;
-    top: 2px;
-}
-
-.option{
-    width: 200px;
-    height: 100px;
-    border: 1px solid #bbbbbb;
-    overflow: auto;
-}
