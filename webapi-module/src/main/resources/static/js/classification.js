@@ -319,6 +319,7 @@ function addContactsAccount(){
                 $('.agency').val('');
                 $('.accountNumber').val('');
                 $('.balance').val('');
+                $('.contactsAccountSort').val('');
                 getContactsAccount(classificationId);
             }
         }

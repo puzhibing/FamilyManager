@@ -68,12 +68,12 @@ public class ContactsAccountServerImpl implements ContactsAccountServer {
                 businessOrder.setDocumentType("1");
                 businessOrder.setExpenditure(contactsAccount.getId());
                 businessOrder.setAmount(String.valueOf(Integer.valueOf(balance) * -1));
-                businessOrder.setRemark("新增加往来账户数据，增加借款金额" + Integer.valueOf(balance) * -1 + "元");
+                businessOrder.setRemark("新增加往来账户数据，增加往来金额" + Integer.valueOf(balance) * -1 + "元");
             }else{
                 businessOrder.setDocumentType("2");
                 businessOrder.setIncome(contactsAccount.getId());
                 businessOrder.setAmount(balance);
-                businessOrder.setRemark("新增加往来账户数据，增加欠款金额" + balance + "元");
+                businessOrder.setRemark("新增加往来账户数据，增加往来金额" + balance + "元");
             }
         }
 
@@ -199,12 +199,13 @@ public class ContactsAccountServerImpl implements ContactsAccountServer {
 
     /**
      * 修改余额数据的时候生成对应的业务单据
+     * (多线程安全)
      * @param contactsAccount
      * @param token
      * @return
      * @throws Exception
      */
-    public Boolean insertDocuments(ContactsAccount contactsAccount , String token) throws Exception{
+    public synchronized Boolean insertDocuments(ContactsAccount contactsAccount , String token) throws Exception{
         boolean b = false;
         try {
             this.contactsAccount = contactsAccountMapperImpl.selectDataById(contactsAccount.getId());//获取原始数据
