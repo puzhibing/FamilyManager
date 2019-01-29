@@ -1,0 +1,104 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+.home{
+    width: 100%;
+    height: 100vh;
+}
+
+.home .content{
+    width: 60%;
+    height: 100vh;
+    margin: 0 auto;
+    box-shadow: 0px 0px 2px #dddddd;
+}
+
+.home .content .menu{
+    height: 50px;
+    width: 100%;
+    border: 1px solid #dddddd;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    background-color: #F1F1F1;
+}
+
+.home .content .menu nav{
+    float: left;
+    color: #202020;
+    border: 1px solid #F1F1F1;
+    padding: 5px 20px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    position: relative;
+    top: 18px;
+    margin-left: 10px;
+    border-bottom-color: #dddddd;
+}
+
+.home .content .menu nav:first-of-type{
+    margin-left: 20px;
+    /*color: #880015;*/
+    /*background-color: #FFFFFF;*/
+    /*border-top-color: #dddddd;*/
+    /*border-right-color: #dddddd;*/
+    /*border-left-color: #dddddd;*/
+    /*border-bottom-color: #FFFFFF;*/
+}
+
+.home .content .menu nav:hover{
+    cursor: pointer;
+    color: #880015;
+    background-color: #FFFFFF;
+    border-top-color: #dddddd;
+    border-right-color: #dddddd;
+    border-left-color: #dddddd;
+    border-bottom-color: #FFFFFF;
+}
+
+.assetsAndLiabilities_panel{
+    margin-top: 10px;
+}
+
+.assetsAndLiabilities_panel .sun{
+    width: 98%;
+    height: 100px;
+    margin: 0 auto;
+    border: 1px solid #dddddd;
+}
+
+.assetsAndLiabilities_panel .item{
+    width: 98%;
+    margin: 0 auto;
+    border: 1px solid #dddddd;
+}
+
+.assetsAndLiabilities_panel .item>div>div{
+    width: 100%;
+    height: 40px;
+    border: 1px solid #dddddd;
+    line-height: 40px;
+}
+
+.assetsAndLiabilities_panel .item table{
+    border-collapse:collapse;
+    width: 100%;
+}
+
+.assetsAndLiabilities_panel .item table tr{
+    height: 40px;
+    border-bottom: 1px solid #dddddd;
+}
+
+.assetsAndLiabilities_panel .item table tr td:first-of-type{
+    width: 50px;
+    background-color: #880015;
+    color: #FFFFFF;
+    text-align: center;
+}
+
+.assetsAndLiabilities_panel .item table tr td:last-of-type{
+    width: 100px;
+    text-align: center;
+}

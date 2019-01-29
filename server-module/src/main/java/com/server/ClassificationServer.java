@@ -45,4 +45,13 @@ public interface ClassificationServer {
      * @throws Exception
      */
     ResultBeanUtil<Object> deleteData(String id , String token) throws Exception;
+
+
+    /**
+     * 根据类型id查询分类和分类值得所有数据集合
+     * @param kind
+     * @return
+     * @throws Exception
+     */
+    ResultBeanUtil<List<Object>> selectDatasByKind(String kind) throws Exception;
 }

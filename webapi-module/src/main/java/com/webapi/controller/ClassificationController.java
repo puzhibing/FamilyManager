@@ -108,4 +108,23 @@ public class ClassificationController {
         }
         return resultBeanUtilObject;
     }
+
+
+    /**
+     * 根据类型id查询分类及分类值的数据集合
+     * @param kind
+     * @return
+     */
+    @RequestMapping(value = "/selectDatasByKind")
+    public ResultBeanUtil<List<Object>> selectDatasByKind(String kind){
+        if(StringUtils.isNotEmpty(kind)){
+            try{
+                return classificationServerImpl.selectDatasByKind(kind);
+            }catch (Exception e){
+                return ResultBeanUtil.getResultBeanUtil("逻辑处理异常" , false);
+            }
+        }else {
+            return ResultBeanUtil.getResultBeanUtil("参数异常" , false);
+        }
+    }
 }

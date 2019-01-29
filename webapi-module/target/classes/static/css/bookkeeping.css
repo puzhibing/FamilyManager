@@ -69,11 +69,6 @@ body{
 }
 
 
-/*.home .content .operate .menu nav:first-of-type{*/
-    /*background-color: #FFFFFF;*/
-    /*border-bottom: 2px solid #880015;*/
-/*}*/
-
 .home .content .operate .text{
     text-align: center;
 }
@@ -140,14 +135,6 @@ body{
     background-color: #760012;
     cursor: pointer;
 }
-
-
-
-
-
-
-
-
 
 
 .select:hover{

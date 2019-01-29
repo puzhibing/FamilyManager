@@ -1,8 +1,10 @@
 package com.server.impl;
 
 import com.dao.mapper.ClassificationMapper;
+import com.dao.mapper.ClassificationValueMapper;
 import com.dao.mapper.ContactsAccountMapper;
 import com.pojo.Classification;
+import com.pojo.ClassificationValue;
 import com.pojo.ContactsAccount;
 import com.server.ClassificationServer;
 import com.tools.ResultBeanUtil;
@@ -10,6 +12,7 @@ import com.tools.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -22,6 +25,9 @@ public class ClassificationServerImpl implements ClassificationServer {
 
     @Autowired
     private ContactsAccountMapper contactsAccountMapper;
+
+    @Autowired
+    private ClassificationValueMapper classificationValueMapper;
 
     private ResultBeanUtil<Object> resultBeanUtilObject;
 
@@ -104,7 +110,8 @@ public class ClassificationServerImpl implements ClassificationServer {
     public ResultBeanUtil<Object> deleteData(String id, String token) throws Exception {
         try {
             List<ContactsAccount> contactsAccounts = contactsAccountMapper.selectDataByClassification(id);
-            if(null != contactsAccounts && contactsAccounts.size() > 0){
+            List<ClassificationValue> classificationValues = classificationValueMapper.selectDataByClassification(id);
+            if((null != contactsAccounts && contactsAccounts.size() > 0) || (null != classificationValues && classificationValues.size() > 0)){
                 resultBeanUtilObject = ResultBeanUtil.getResultBeanUtil("有数据关联，无法进行删除操作。" , true);
             }else{
                 classificationMapper.deleteData(id , "" , new Date());
@@ -114,5 +121,35 @@ public class ClassificationServerImpl implements ClassificationServer {
             throw e;
         }
         return resultBeanUtilObject;
+    }
+
+
+    /**
+     * 根据类型id查询对应的分类及分类值数据集合
+     * @param kind
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public ResultBeanUtil<List<Object>> selectDatasByKind(String kind) throws Exception {
+        List<Object> list = new ArrayList<>();
+        try {
+            this.classifications = classificationMapper.selectDataByKind(kind);
+            for (Classification classification : this.classifications) {
+                list.add(classification);
+                List<ClassificationValue> classificationValues = classificationValueMapper.
+                        selectDataByClassification(classification.getId());
+                if(0 == classificationValues.size()){
+                    List<ContactsAccount> contactsAccounts = contactsAccountMapper
+                            .selectDataByClassification(classification.getId());
+                    list.add(contactsAccounts);
+                }else{
+                    list.add(classificationValues);
+                }
+            }
+            return ResultBeanUtil.getResultBeanUtil("查询成功" , true , list);
+        }catch (Exception e){
+            throw e;
+        }
     }
 }

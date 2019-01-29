@@ -37,7 +37,7 @@
                         <div>
                             <span>支出金额</span>
                             <span>
-                            <input type="text">
+                            <input type="text" class="amount">
                         </span>
                         </div>
                         <div>
@@ -55,13 +55,13 @@
                         <div>
                             <span>支出日期</span>
                             <span>
-                                <input type="text">
+                                <input type="text" class="documentDate">
                             </span>
                         </div>
                         <div>
                             <span>备注</span>
                             <span>
-                                <textarea>
+                                <textarea class="remark">
 
                                 </textarea>
                             </span>
@@ -74,7 +74,7 @@
                         <div>
                             <span>收入金额</span>
                             <span>
-                                <input type="text">
+                                <input type="text" class="amount">
                             </span>
                         </div>
                         <div>
@@ -92,13 +92,13 @@
                         <div>
                             <span>收入日期</span>
                             <span>
-                                <input type="text">
+                                <input type="text" class="documentDate">
                             </span>
                         </div>
                         <div>
                             <span>备注</span>
                             <span>
-                                <textarea>
+                                <textarea class="remark">
 
                                 </textarea>
                             </span>
@@ -123,19 +123,19 @@
                         <div>
                             <span>转账金额</span>
                             <span>
-                                <input type="text">
+                                <input type="text" class="amount">
                             </span>
                         </div>
                         <div>
                             <span>转账日期</span>
                             <span>
-                                <input type="text">
+                                <input type="text" class="documentDate">
                             </span>
                         </div>
                         <div>
                             <span>备注</span>
                             <span>
-                                <textarea>
+                                <textarea class="remark">
 
                                 </textarea>
                             </span>
@@ -148,34 +148,40 @@
                         <div>
                             <span>借贷类型</span>
                             <span>
-                                <select>
-                                    <option>借出</option>
-                                    <option>借入</option>
-                                    <option>贷出</option>
-                                    <option>借入</option>
+                                <select class="type">
+                                    <option value="1">借出</option>
+                                    <option value="2">借入</option>
+                                    <option value="3">贷出</option>
+                                    <option value="4">贷入</option>
                                 </select>
                             </span>
                         </div>
                         <div>
-                            <span>借贷金额</span>
+                            <span class="amountName">借款金额</span>
                             <span>
-                                <input type="text">
+                                <input type="text" class="amount">
                             </span>
                         </div>
                         <div>
-                            <span>借款账户</span>
+                            <span class="ordinaryName">借出账户</span>
                             <span>
                                 <input id="borrowingAccount" valueId="" type="text" class="select" clazz="contactsAccount" readonly>
                             </span>
                         </div>
                         <div>
-                            <span>借贷日期</span>
+                            <span class="contactsName">借款对象</span>
                             <span>
-                                <input type="text">
+                                <input id="contactsAccount" valueId="" type="text" class="select" clazz="contactsAccount" readonly>
                             </span>
                         </div>
                         <div>
-                            <span>借贷人员</span>
+                            <span class="dateName">借款日期</span>
+                            <span>
+                                <input type="text" class="documentDate">
+                            </span>
+                        </div>
+                        <div>
+                            <span>经手人</span>
                             <span>
                                 <input type="text" class="select" readonly>
                             </span>
@@ -183,7 +189,7 @@
                         <div>
                             <span>备注</span>
                             <span>
-                                <textarea>
+                                <textarea class="remark">
 
                                 </textarea>
                             </span>
@@ -196,32 +202,38 @@
                         <div>
                             <span>投资类型</span>
                             <span>
-                                <select>
-                                    <option>投资支出</option>
-                                    <option>投资收入</option>
+                                <select class="type">
+                                    <option value="1">投资支出</option>
+                                    <option value="2">投资赎回</option>
                                 </select>
                             </span>
                         </div>
                         <div>
-                            <span>投资金额</span>
+                            <span class="amountName">投资金额</span>
                             <span>
-                                <input type="text">
+                                <input type="text" class="amount">
                             </span>
                         </div>
                         <div>
-                            <span>投资账户</span>
+                            <span class="accountName">支出账户</span>
                             <span>
                                 <input id="investmentAccount" valueId="" type="text" class="select" clazz="contactsAccount" readonly>
                             </span>
                         </div>
                         <div>
-                            <span>投资日期</span>
+                            <span class="investmentName">投资对象</span>
                             <span>
-                                <input type="text">
+                                <input id="investmentObject" valueId="" type="text" class="select" clazz="contactsAccount" readonly>
                             </span>
                         </div>
                         <div>
-                            <span>投资人员</span>
+                            <span class="date">投资日期</span>
+                            <span>
+                                <input type="text" class="documentDate">
+                            </span>
+                        </div>
+                        <div>
+                            <span>经手人</span>
                             <span>
                                 <input type="text" class="select" readonly>
                             </span>
@@ -229,7 +241,7 @@
                         <div>
                             <span>备注</span>
                             <span>
-                                <textarea>
+                                <textarea class="remark">
 
                                 </textarea>
                             </span>

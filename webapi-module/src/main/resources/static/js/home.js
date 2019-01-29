@@ -10,7 +10,11 @@ $(document).ready(function() {
 //构建曲线图数据表
 function getMonthlyExpenditureCurve(){
     var title = {
-        text: '城市平均气温'
+        text: '月支出曲线',
+        style:{
+            fontSize: '16px',
+            color: '#880015'
+        }
     };
     var credits = {
         enabled: false
@@ -82,7 +86,11 @@ function getMonthlyExpenditurePieChart(){
         plotShadow: false
     };
     var title = {
-        text: '2014 年各浏览器市场占有比例'
+        text: '月支出结构类型占比',
+        style:{
+            fontSize: '16px',
+            color: '#880015'
+        }
     };
     var credits = {
         enabled: false
@@ -94,6 +102,7 @@ function getMonthlyExpenditurePieChart(){
         pie: {
             allowPointSelect: true,
             cursor: 'pointer',
+            innerSize: 180,
             dataLabels: {
                 enabled: true,
                 format: '<b>{point.name}%</b>: {point.percentage:.1f} %',
@@ -141,7 +150,11 @@ function getMonthlyIncomePieChart(){
         plotShadow: false
     };
     var title = {
-        text: '2014 年各浏览器市场占有比例'
+        text: '月收入结构类型占比',
+        style:{
+            fontSize: '16px',
+            color: '#880015'
+        }
     };
     var credits = {
         enabled: false
@@ -153,6 +166,7 @@ function getMonthlyIncomePieChart(){
         pie: {
             allowPointSelect: true,
             cursor: 'pointer',
+            innerSize: 180,
             dataLabels: {
                 enabled: true,
                 format: '<b>{point.name}%</b>: {point.percentage:.1f} %',
