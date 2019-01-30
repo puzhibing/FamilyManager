@@ -47,4 +47,13 @@ public interface ClassificationValueMapper {
      */
     @UpdateProvider(type = ClassificationValueSql.class, method = "deleteData")
     void deleteData(String id , String updateUserId , Date updateTime);
+
+
+    /**
+     * 根据id查询数据
+     * @param id
+     * @return
+     */
+    @SelectProvider(type = ClassificationValueSql.class, method = "selectDataById")
+    ClassificationValue selectDataById(String id);
 }

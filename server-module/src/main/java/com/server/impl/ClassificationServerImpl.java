@@ -132,20 +132,22 @@ public class ClassificationServerImpl implements ClassificationServer {
      */
     @Override
     public ResultBeanUtil<List<Object>> selectDatasByKind(String kind) throws Exception {
-        List<Object> list = new ArrayList<>();
+        List<List<Object>> list = new ArrayList<>();
         try {
             this.classifications = classificationMapper.selectDataByKind(kind);
             for (Classification classification : this.classifications) {
-                list.add(classification);
+                List<Object> list1 = new ArrayList<>();
+                list1.add(classification);
                 List<ClassificationValue> classificationValues = classificationValueMapper.
                         selectDataByClassification(classification.getId());
                 if(0 == classificationValues.size()){
                     List<ContactsAccount> contactsAccounts = contactsAccountMapper
                             .selectDataByClassification(classification.getId());
-                    list.add(contactsAccounts);
+                    list1.add(contactsAccounts);
                 }else{
-                    list.add(classificationValues);
+                    list1.add(classificationValues);
                 }
+                list.add(list1);
             }
             return ResultBeanUtil.getResultBeanUtil("查询成功" , true , list);
         }catch (Exception e){

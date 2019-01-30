@@ -47,7 +47,8 @@ public class BusinessOrderSql {
         return new SQL(){{
             SELECT("id , documentDate , documentNumber , documentType , income , expenditure , amount , classificationValue , handMan , remark");
             FROM("db_business_order");
-            WHERE("del = '0' order by documentDate desc limit #{param1},#{param2}");
+            WHERE("del = '0'");
+            ORDER_BY("documentDate desc limit #{param1},#{param2}");
         }}.toString();
     }
 

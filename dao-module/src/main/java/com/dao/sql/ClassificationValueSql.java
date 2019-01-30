@@ -69,4 +69,18 @@ public class ClassificationValueSql {
             WHERE("id = #{param1}");
         }}.toString();
     }
+
+
+    /**
+     * 根据id查询数据
+     * @param id
+     * @return
+     */
+    public String selectDataById(String id){
+        return new SQL(){{
+            SELECT("id , classification , name , sort");
+            FROM("db_classification_value");
+            WHERE("id = #{id} and del = '0'");
+        }}.toString();
+    }
 }
