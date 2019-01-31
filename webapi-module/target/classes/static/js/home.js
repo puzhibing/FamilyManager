@@ -2,7 +2,43 @@ $(document).ready(function() {
     getMonthlyExpenditureCurve();
     getMonthlyExpenditurePieChart();
     getMonthlyIncomePieChart();
+
+    $('.head .nav nav:first').css({
+        'border-bottom': '3px solid #FFFFFF',
+        'color': '#FFFFFF'
+    });
+
+    $('.head .nav nav').click(function () {
+        chooseNav(this);
+    });
 });
+
+
+//点击菜单进行页面切换
+function chooseNav(t){
+    $(t).siblings().removeAttr('style');
+    $(t).css({
+        'border-bottom': '3px solid #FFFFFF',
+        'color': '#FFFFFF'
+    });
+    var clazz = $(t).attr('class');
+    switch (clazz) {
+        case 'homePage':
+            window.location.href="home.html";
+            break;
+        case 'bookkeeping':
+            window.location.href="bookkeeping.html";
+            break;
+        case 'accountingData':
+            window.location.href="timelyData.html";
+            break;
+        case 'basicSettings':
+            window.location.href="classification.html";
+            break;
+        default:
+            break;
+    }
+}
 
 
 
@@ -102,7 +138,7 @@ function getMonthlyExpenditurePieChart(){
         pie: {
             allowPointSelect: true,
             cursor: 'pointer',
-            innerSize: 180,
+            innerSize: 100,
             dataLabels: {
                 enabled: true,
                 format: '<b>{point.name}%</b>: {point.percentage:.1f} %',
@@ -166,7 +202,7 @@ function getMonthlyIncomePieChart(){
         pie: {
             allowPointSelect: true,
             cursor: 'pointer',
-            innerSize: 180,
+            innerSize: 100,
             dataLabels: {
                 enabled: true,
                 format: '<b>{point.name}%</b>: {point.percentage:.1f} %',
