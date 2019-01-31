@@ -83,11 +83,13 @@
 .assetsAndLiabilities_panel .item table{
     border-collapse:collapse;
     width: 100%;
+    margin-bottom: 10px;
 }
 
 .assetsAndLiabilities_panel .item table tr{
     height: 40px;
     border-bottom: 1px solid #dddddd;
+    border-right: 1px solid #dddddd;
 }
 
 .assetsAndLiabilities_panel .item table tr:first-of-type{
@@ -101,7 +103,7 @@
 
 .assetsAndLiabilities_panel .item table tr td:first-of-type{
     width: 50px;
-    background-color: #880015;
+    background-color: #DF5353;
     color: #FFFFFF;
     text-align: center;
 }
