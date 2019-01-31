@@ -2,6 +2,8 @@ package com.dao.mapper;
 
 import com.dao.sql.BusinessOrderSql;
 import com.pojo.BusinessOrder;
+import com.pojo.ClassificationValue;
+import com.pojo.ContactsAccount;
 import org.apache.ibatis.annotations.*;
 
 import java.util.Date;
@@ -34,14 +36,20 @@ public interface BusinessOrderMapper {
      */
     @SelectProvider(type = BusinessOrderSql.class , method = "selectAll")
     @Results({
-            @Result(id = true , property = "id" , column = "id"),
+            @Result(property = "id" , column = "id" , id = true),
             @Result(property = "documentDate" , column = "documentDate"),
             @Result(property = "documentNumber" , column = "documentNumber"),
             @Result(property = "documentType" , column = "documentType"),
-            @Result(property = "income" , column = "id" , one = @One(select = "com.dao.mapper.ContactsAccountMapper.selectDataById")),
-            @Result(property = "expenditure" , column = "id" , one = @One(select = "com.dao.mapper.ContactsAccountMapper.selectDataById")),
+            @Result(property = "income" , column = "income" , javaType = ContactsAccount.class , one = @One(
+                    select = "com.dao.mapper.ContactsAccountMapper.selectDataById"
+            )),
+            @Result(property = "expenditure" , column = "expenditure" , javaType = ContactsAccount.class , one = @One(
+                    select = "com.dao.mapper.ContactsAccountMapper.selectDataById"
+            )),
             @Result(property = "amount" , column = "amount"),
-            @Result(property = "classificationValue" , column = "id" , one = @One(select = "com.dao.mapper.ClassificationValueMapper.selectDataById")),
+            @Result(property = "classificationValue" , column = "classificationValue" , javaType = ClassificationValue.class , one = @One(
+                    select = "com.dao.mapper.ClassificationValueMapper.selectDataById"
+            )),
             @Result(property = "handMan" , column = "handMan"),
             @Result(property = "remark" , column = "remark")
     })

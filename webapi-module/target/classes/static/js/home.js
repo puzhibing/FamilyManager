@@ -138,7 +138,7 @@ function getMonthlyExpenditurePieChart(){
         pie: {
             allowPointSelect: true,
             cursor: 'pointer',
-            innerSize: 100,
+            innerSize: 50,
             dataLabels: {
                 enabled: true,
                 format: '<b>{point.name}%</b>: {point.percentage:.1f} %',
@@ -202,7 +202,7 @@ function getMonthlyIncomePieChart(){
         pie: {
             allowPointSelect: true,
             cursor: 'pointer',
-            innerSize: 100,
+            innerSize: 50,
             dataLabels: {
                 enabled: true,
                 format: '<b>{point.name}%</b>: {point.percentage:.1f} %',

@@ -106,10 +106,31 @@ function getBusinessOrders(page){
                 var nowPage = $('.nowPage').text();
                 $('.accountingFlow_panel div table').html('');
                 var list = res.result;
-                var str = '<tr><th>序号</th><th>单据日期</th><th>收入账户</th><th>支出账户</th><th>业务金额</th><th>业务类型</th></tr>';
+                var str = '<tr><th>序号</th><th>单据日期</th><th>收入账户</th><th>支出账户</th><th>业务金额</th><th>业务类型</th><th>备注</th></tr>';
                 for (var i = 0; i < list.length ; i++){
-                    str += '<tr><td>' + (((parseInt(nowPage) - 1) * 10) + (i + 1)) + '</td><td>' + list[i].documentDate + '</td><td>' + list[i].income.name + '</td>' +
-                        '<td>' + list[i].expenditure.name + '</td><td>' + list[i].amount + '</td><td>' + list[i].classificationValue.name + '</td></tr>'
+                    str += '<tr><td>' + (((parseInt(nowPage) - 1) * 10) + (i + 1)) + '</td><td>' + list[i].documentDate + '</td>';
+
+                    if(list[i].income == null){
+                        str += '<td></td>';
+                    }else{
+                        str += '<td>' + list[i].income.name + '</td>';
+                    }
+
+                    if(list[i].expenditure == null){
+                        str += '<td></td>';
+                    }else{
+                        str += '<td>' + list[i].expenditure.name + '</td>';
+                    }
+
+                    str += '<td>' + list[i].amount + '</td>';
+
+                    if(list[i].classificationValue == null){
+                        str += '<td></td>';
+                    }else{
+                        str += '<td>' + list[i].classificationValue.name + '</td>';
+                    }
+
+                    str += '<td>' + list[i].remark + '</td></tr>';
                 }
                 $('.accountingFlow_panel div table').html(str);
                 $('.sunPage').text(res.totalPage);

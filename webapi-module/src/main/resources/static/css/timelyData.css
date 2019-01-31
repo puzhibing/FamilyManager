@@ -128,12 +128,14 @@
 .accountingFlow_panel>div{
     width: 95%;
     margin: 0 auto;
+    overflow: auto;
 }
 
 .accountingFlow_panel>div table{
     margin-top: 20px;
     width: 100%;
     border-collapse:collapse;
+    white-space: nowrap;
 }
 
 .accountingFlow_panel>div table th{
