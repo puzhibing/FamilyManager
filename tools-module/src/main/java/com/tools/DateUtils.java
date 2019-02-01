@@ -1,6 +1,7 @@
 package com.tools;
 
 
+import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -54,6 +55,23 @@ public final class DateUtils {
         simpleDateFormat = DateUtils.getSimpleMillisecondFormat(dateSplitter , timeSplitter);
         return simpleDateFormat.format(new Date());
     }
+
+
+    /**
+     * 将字符串日期格式解析为Date类型
+     * @param dateFormat
+     * @param dateSplitter
+     * @return
+     */
+    public static Date getDate(String dateFormat , DateUtilEnum dateSplitter){
+        simpleDateFormat = DateUtils.getSimpleDateFormat(dateSplitter);
+        return simpleDateFormat.parse(dateFormat , new ParsePosition(0));
+    }
+
+
+
+
+
 
 
 
@@ -176,4 +194,5 @@ public final class DateUtils {
         }
         return DateUtils.timeFormat;
     }
+
 }

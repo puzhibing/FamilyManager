@@ -4,12 +4,16 @@ import com.dao.mapper.BusinessOrderMapper;
 import com.pojo.BusinessOrder;
 import com.server.BusinessOrderServer;
 import com.server.ContactsAccountServer;
+import com.tools.DateUtilEnum;
+import com.tools.DateUtils;
 import com.tools.ResultBeanUtil;
 import com.tools.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 
@@ -49,6 +53,7 @@ public class BusinessOrderServerImpl implements BusinessOrderServer {
          */
         String id = UUIDUtil.getUUID(20);
         businessOrder.setId(id);
+        businessOrder.setDocumentNumber(UUIDUtil.getUUID(30));
         businessOrder.setDel("0");
         businessOrder.setInsertTime(new Date());
         businessOrder.setInsertUserId("");
@@ -162,6 +167,36 @@ public class BusinessOrderServerImpl implements BusinessOrderServer {
             throw e;
         }
         return resultBeanUtilObject;
+    }
+
+
+    /**
+     * 查询给定日期范围内的支出数据
+     * @param startDate
+     * @param endDate
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public ResultBeanUtil<Object> selectExpenditure(String startDate, String endDate) throws Exception {
+        Date start = DateUtils.getDate(startDate , DateUtilEnum.SHORTBAR);
+        Date end = DateUtils.getDate(endDate , DateUtilEnum.SHORTBAR);
+        Calendar calendar1 = Calendar.getInstance();//获取日历对象的实现类
+        calendar1.setTime(start);
+        calendar1.set(Calendar.HOUR_OF_DAY , 00);
+        calendar1.set(Calendar.MINUTE, 00);
+        calendar1.set(Calendar.SECOND, 00);
+
+        Calendar calendar2 = Calendar.getInstance();
+        calendar2.setTime(end);
+        calendar2.set(Calendar.HOUR_OF_DAY , 23);
+        calendar2.set(Calendar.MINUTE, 59);
+        calendar2.set(Calendar.SECOND, 59);
+
+
+
+
+        return null;
     }
 
 

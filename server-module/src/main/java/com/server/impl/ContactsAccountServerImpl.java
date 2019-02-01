@@ -53,8 +53,9 @@ public class ContactsAccountServerImpl implements ContactsAccountServer {
         //构建业务单据对象
         BusinessOrder businessOrder = new BusinessOrder();
         businessOrder.setId(UUIDUtil.getUUID(20));
-        businessOrder.setDocumentDate(DateUtils.getCurrentDateTime(DateUtilEnum.SHORTBAR , DateUtilEnum.COLON));
+        businessOrder.setDocumentDate(new Date());
         businessOrder.setDocumentNumber(UUIDUtil.getUUID(30));
+        businessOrder.setClassificationValue("");
         businessOrder.setHandMan("");
         businessOrder.setDel("0");
         businessOrder.setInsertTime(new Date());
@@ -217,7 +218,7 @@ public class ContactsAccountServerImpl implements ContactsAccountServer {
                     - Integer.valueOf(contactsAccount.getBalance());
             //构建对象
             BusinessOrder businessOrder = new BusinessOrder();
-            businessOrder.setDocumentDate(DateUtils.getCurrentDateTime(DateUtilEnum.SHORTBAR , DateUtilEnum.COLON));
+            businessOrder.setDocumentDate(new Date());
             businessOrder.setDocumentNumber(UUIDUtil.getUUID(30));
             businessOrder.setHandMan("");
 

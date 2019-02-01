@@ -49,4 +49,14 @@ public interface BusinessOrderServer {
      * @throws Exception
      */
     ResultBeanUtil<Object> deleteData(String id , String token) throws Exception;
+
+
+    /**
+     * 查询给定日期范围内的支出数据
+     * @param startDate
+     * @param endDate
+     * @return
+     * @throws Exception
+     */
+    ResultBeanUtil<Object> selectExpenditure(String startDate , String endDate) throws Exception;
 }

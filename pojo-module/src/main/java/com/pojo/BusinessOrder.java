@@ -1,9 +1,11 @@
 package com.pojo;
 
 
+import java.util.Date;
+
 public class BusinessOrder extends CommonBean{
 
-    private String documentDate;//单据日期
+    private Date documentDate;//单据日期
 
     private String documentNumber;//单据编号
 
@@ -21,11 +23,11 @@ public class BusinessOrder extends CommonBean{
 
     private String remark;//备注
 
-    public String getDocumentDate() {
+    public Date getDocumentDate() {
         return documentDate;
     }
 
-    public void setDocumentDate(String documentDate) {
+    public void setDocumentDate(Date documentDate) {
         this.documentDate = documentDate;
     }
 

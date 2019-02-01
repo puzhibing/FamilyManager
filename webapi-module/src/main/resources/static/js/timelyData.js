@@ -83,7 +83,7 @@ function getClassification(){
                     $('.assetsAndLiabilities_panel .item').append(str.toLocaleString());
 
                     all = parseFloat(all) + parseFloat(sun);
-                    $('.assetsAndLiabilities_panel .sun span').text(all.toLocaleString());
+                    $('.assetsAndLiabilities_panel .sun span').text('资产合计：' + all.toLocaleString());
                 }
             }
         }

@@ -271,9 +271,9 @@ function selectValue(e){
 function saveExpenditureData(){
     var id = '';
     var amount = $('.consumption_text .amount').val();
-    var classificationValue = $('.consumption_text #typeOfExpenditure').val();
-    var expenditure = $('.consumption_text #expenditureAccount').val();
-    var documentDate = $('.consumption_tex .documentDate').val();
+    var classificationValue = $('.consumption_text #typeOfExpenditure').attr('valueId');
+    var expenditure = $('.consumption_text #expenditureAccount').attr('valueId');
+    var documentDate = getDateForDatetimeLocal($('.consumption_text .documentDate').val());
     var remark = $('.consumption_tex .remark').val();
 
     if(amount == ''){
@@ -331,9 +331,9 @@ function saveExpenditureData(){
 function saveIncomeData() {
     var id = '';
     var amount = $('.income_text .amount').val();
-    var classificationValue = $('.income_text #incomeType').val();
-    var income = $('.income_text #incomeAccount').val();
-    var documentDate = $('.income_text .documentDate').val();
+    var classificationValue = $('.income_text #incomeType').attr('valueId');
+    var income = $('.income_text #incomeAccount').attr('valueId');
+    var documentDate = getDateForDatetimeLocal($('.income_text .documentDate').val());
     var remark = $('.income_text .remark').val();
 
 
@@ -373,10 +373,10 @@ function saveIncomeData() {
 
 function saveTransferData(){
     var id = '';
-    var expenditure = $('.transfer_text #transferAccount').val();
-    var income = $('.transfer_text #transferToAccount').val();
+    var expenditure = $('.transfer_text #transferAccount').attr('valueId');
+    var income = $('.transfer_text #transferToAccount').attr('valueId');
     var amount = $('.transfer_text .amount').val();
-    var documentDate = $('.transfer_text .documentDate').val();
+    var documentDate = getDateForDatetimeLocal($('.transfer_text .documentDate').val());
     var remark = $('.transfer_text .remark').val();
 
     var url;
@@ -418,25 +418,25 @@ function saveBorrowingData() {
     var income = '';
     var expenditure = '';
     var amount = $('.borrowing_text .amount').val();
-    var documentDate = $('.borrowing_text .documentDate').val();
+    var documentDate = getDateForDatetimeLocal($('.borrowing_text .documentDate').val());
     var remark = $('.borrowing_text .remark').val();
     var type = $('.borrowing_text .type').val();
     switch (type) {
         case '1':
-            income = $('.borrowing_text #contactsAccount').val();
-            expenditure = $('.borrowing_text #borrowingAccount').val();
+            income = $('.borrowing_text #contactsAccount').attr('valueId');
+            expenditure = $('.borrowing_text #borrowingAccount').attr('valueId');
             break;
         case '2':
-            income = $('.borrowing_text #borrowingAccount').val();
-            expenditure = $('.borrowing_text #contactsAccount').val();
+            income = $('.borrowing_text #borrowingAccount').attr('valueId');
+            expenditure = $('.borrowing_text #contactsAccount').attr('valueId');
             break;
         case '3':
-            income = $('.borrowing_text #contactsAccount').val();
-            expenditure = $('.borrowing_text #borrowingAccount').val();
+            income = $('.borrowing_text #contactsAccount').attr('valueId');
+            expenditure = $('.borrowing_text #borrowingAccount').attr('valueId');
             break;
         case '4':
-            income = $('.borrowing_text #borrowingAccount').val();
-            expenditure = $('.borrowing_text #contactsAccount').val();
+            income = $('.borrowing_text #borrowingAccount').attr('valueId');
+            expenditure = $('.borrowing_text #contactsAccount').attr('valueId');
             break;
         default:
             break;
@@ -523,15 +523,15 @@ function saveInvestmentData(){
     var income = '';
     var expenditure = '';
     var amount = $('.investment_text .amount').val();
-    var documentDate = $('.investment_text .documentDate').val();
+    var documentDate = getDateForDatetimeLocal($('.investment_text .documentDate').val());
     var remark = $('.investment_text .remark').val();
     var type = $('.investment_text .type').val();
     if(type == '1'){
-        income = $('.investment_text #investmentObject').val();
-        expenditure = $('.investment_text #investmentAccount').val();
+        income = $('.investment_text #investmentObject').attr('valueId');
+        expenditure = $('.investment_text #investmentAccount').attr('valueId');
     }else{
-        income = $('.investment_text #investmentAccount').val();
-        expenditure = $('.investment_text #investmentObject').val();
+        income = $('.investment_text #investmentAccount').attr('valueId');
+        expenditure = $('.investment_text #investmentObject').attr('valueId');
     }
 
     var url;
