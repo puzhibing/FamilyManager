@@ -170,5 +170,6 @@ function pageTurning(a){
     }else if(clazz == 'nextPage'){
         nowPage = parseInt(nowPage) + 1;
     }
+    $('.nowPage').text(nowPage);
     getBusinessOrders(nowPage);
 }
