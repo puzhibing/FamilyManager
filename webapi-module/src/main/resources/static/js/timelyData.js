@@ -79,12 +79,13 @@ function getClassification(){
                         st += '<tr><td>' + (j + 1) + '</td><td>' + list[i][1][j].name + '</td><td>' + list[i][1][j].balance + '</td></tr>';
                         sun = parseFloat(sun) + parseFloat(list[i][1][j].balance);
                     }
-                    str += '<th>' + sun + '</th></tr>' + st + '</table>';
-                    $('.assetsAndLiabilities_panel .item').append(str.toLocaleString());
+                    str += '<th>' + parseFloat(sun).toFixed(2) + '</th></tr>' + st + '</table>';
+                    $('.assetsAndLiabilities_panel .item').append(str);
 
                     all = parseFloat(all) + parseFloat(sun);
-                    $('.assetsAndLiabilities_panel .sun span').text('资产合计：' + all.toLocaleString());
+
                 }
+                $('.assetsAndLiabilities_panel .sun span').text('资产合计：' + parseFloat(all).toFixed(2));
             }
         }
     });
@@ -108,7 +109,7 @@ function getBusinessOrders(page){
                 var list = res.result;
                 var str = '<tr><th>序号</th><th>单据日期</th><th>收入账户</th><th>支出账户</th><th>业务金额</th><th>业务类型</th><th>备注</th></tr>';
                 for (var i = 0; i < list.length ; i++){
-                    str += '<tr><td>' + (((parseInt(nowPage) - 1) * 10) + (i + 1)) + '</td><td>' + list[i].documentDate + '</td>';
+                    str += '<tr><td>' + (((parseInt(nowPage) - 1) * 10) + (i + 1)) + '</td><td>' + getDateString(list[i].documentDate) + '</td>';
 
                     if(list[i].income == null){
                         str += '<td></td>';

@@ -11,6 +11,8 @@ public class BusinessOrder extends CommonBean{
 
     private String documentType;//单据类型
 
+    private String businessType;//业务类型
+
     private Object income;//收入账户
 
     private Object expenditure;//支出账户
@@ -45,6 +47,14 @@ public class BusinessOrder extends CommonBean{
 
     public void setDocumentType(String documentType) {
         this.documentType = documentType;
+    }
+
+    public String getBusinessType() {
+        return businessType;
+    }
+
+    public void setBusinessType(String businessType) {
+        this.businessType = businessType;
     }
 
     public Object getIncome() {
@@ -98,9 +108,10 @@ public class BusinessOrder extends CommonBean{
     @Override
     public String toString() {
         return "BusinessOrder{" +
-                "documentDate='" + documentDate + '\'' +
+                "documentDate=" + documentDate +
                 ", documentNumber='" + documentNumber + '\'' +
                 ", documentType='" + documentType + '\'' +
+                ", businessType='" + businessType + '\'' +
                 ", income=" + income +
                 ", expenditure=" + expenditure +
                 ", amount='" + amount + '\'' +

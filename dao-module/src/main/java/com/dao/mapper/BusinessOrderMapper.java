@@ -98,4 +98,14 @@ public interface BusinessOrderMapper {
      */
     @SelectProvider(type = BusinessOrderSql.class , method = "selectDataByClassificationValue")
     List<BusinessOrder> selectDataByClassificationValue(String classificationValue);
+
+
+    /**
+     * 查询给定日期范围内的有效数据
+     * @param startDate
+     * @param endDate
+     * @return
+     */
+    @SelectProvider(type = BusinessOrderSql.class , method = "selectExpenditure")
+    List<BusinessOrder> selectExpenditure(Date startDate, Date endDate);
 }

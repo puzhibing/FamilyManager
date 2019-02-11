@@ -38,3 +38,14 @@ function getDateForDatetimeLocal(datetimeLocal){
     date.setMinutes(parseInt(datetimeLocal.substring(14, 16)));
     return date;
 }
+
+
+/**
+ * 解析后台传到前端的Date类型，格式化字符串类型
+ * @param date
+ * @returns {void | string | *}
+ */
+function getDateString(date){
+    var d = new Date(date);
+    return formatDate("yyyy-MM-dd hh:mm:ss" , d);
+}

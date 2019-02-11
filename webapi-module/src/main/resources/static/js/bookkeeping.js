@@ -59,6 +59,9 @@ $(function () {
     $('.investment_text button').click(function () {
         saveInvestmentData();
     });
+
+    getTheMonthData();//获取本月支出总和
+    getThisYear();//获取本年支出总和
 });
 
 
@@ -307,6 +310,7 @@ function saveExpenditureData(){
             id: id,
             documentDate: documentDate,
             documentType: '1',
+            businessType: '1',//支出
             expenditure: expenditure,
             amount: amount,
             classificationValue: classificationValue,
@@ -351,6 +355,7 @@ function saveIncomeData() {
             id: id,
             documentDate: documentDate,
             documentType: '2',
+            businessType: '2',//收入
             income: income,
             amount: amount,
             classificationValue: classificationValue,
@@ -393,6 +398,7 @@ function saveTransferData(){
             id: id,
             documentDate: documentDate,
             documentType: '3',
+            businessType: '3',//转账
             income: income,
             expenditure: expenditure,
             amount: amount,
@@ -417,6 +423,7 @@ function saveBorrowingData() {
     var id = '';
     var income = '';
     var expenditure = '';
+    var businessType = '';
     var amount = $('.borrowing_text .amount').val();
     var documentDate = getDateForDatetimeLocal($('.borrowing_text .documentDate').val());
     var remark = $('.borrowing_text .remark').val();
@@ -425,18 +432,22 @@ function saveBorrowingData() {
         case '1':
             income = $('.borrowing_text #contactsAccount').attr('valueId');
             expenditure = $('.borrowing_text #borrowingAccount').attr('valueId');
+            businessType = '4';//借出
             break;
         case '2':
             income = $('.borrowing_text #borrowingAccount').attr('valueId');
             expenditure = $('.borrowing_text #contactsAccount').attr('valueId');
+            businessType = '5';//借入
             break;
         case '3':
             income = $('.borrowing_text #contactsAccount').attr('valueId');
             expenditure = $('.borrowing_text #borrowingAccount').attr('valueId');
+            businessType = '6';//贷出
             break;
         case '4':
             income = $('.borrowing_text #borrowingAccount').attr('valueId');
             expenditure = $('.borrowing_text #contactsAccount').attr('valueId');
+            businessType = '7';//贷入
             break;
         default:
             break;
@@ -457,6 +468,7 @@ function saveBorrowingData() {
             id: id,
             documentDate: documentDate,
             documentType: '3',
+            businessType: businessType,
             income: income,
             expenditure: expenditure,
             amount: amount,
@@ -522,6 +534,7 @@ function saveInvestmentData(){
     var id = '';
     var income = '';
     var expenditure = '';
+    var businessType = '';
     var amount = $('.investment_text .amount').val();
     var documentDate = getDateForDatetimeLocal($('.investment_text .documentDate').val());
     var remark = $('.investment_text .remark').val();
@@ -529,9 +542,11 @@ function saveInvestmentData(){
     if(type == '1'){
         income = $('.investment_text #investmentObject').attr('valueId');
         expenditure = $('.investment_text #investmentAccount').attr('valueId');
+        businessType = '8';//投资支出
     }else{
         income = $('.investment_text #investmentAccount').attr('valueId');
         expenditure = $('.investment_text #investmentObject').attr('valueId');
+        businessType = '9';//投资赎回
     }
 
     var url;
@@ -548,6 +563,7 @@ function saveInvestmentData(){
             id: id,
             documentDate: documentDate,
             documentType: '3',
+            businessType: businessType,
             income: income,
             expenditure: expenditure,
             amount: amount,
@@ -585,4 +601,57 @@ function chooseInvestmentType() {
         $('.investment_text .date').text('');
         $('.investment_text .amountName').text('')
     }
+}
+
+
+
+
+//获取当月支出的数据
+function getTheMonthData(){
+    var date1 = new Date();
+    var start = date1.getFullYear() + '-' + (date1.getMonth() + 1) + '-01';
+    var end = date1.getFullYear() + '-' + (date1.getMonth() + 1) + '-' + date1.getDate();
+    $.ajax({
+        url: '/BusinessOrder/selectExpenditure',
+        type: 'POST',
+        data: {
+            startDate: start,
+            endDate: end
+        },
+        success: function (res) {
+            if(res.b){
+                var list = res.result;
+                var sun = 0;
+                for(var i = 0 ; i < list.length ; i++){
+                    sun = parseFloat(sun) + parseFloat(list[i].amount);
+                }
+                $('.monthsum span:first').text(parseFloat(sun).toFixed(2) + ' 元');
+            }
+        }
+    });
+}
+
+//获取本年支出数据
+function getThisYear() {
+    var date1 = new Date();
+    var start = date1.getFullYear() + '-' + '01-01';
+    var end = date1.getFullYear() + '-' + (date1.getMonth() + 1) + '-' + date1.getDate();
+    $.ajax({
+        url: '/BusinessOrder/selectExpenditure',
+        type: 'POST',
+        data: {
+            startDate: start,
+            endDate: end
+        },
+        success: function (res) {
+            if(res.b){
+                var list = res.result;
+                var sun = 0;
+                for(var i = 0 ; i < list.length ; i++){
+                    sun = parseFloat(sun) + parseFloat(list[i].amount);
+                }
+                $('.yearsum span:first').text(parseFloat(sun).toFixed(2) + ' 元');
+            }
+        }
+    });
 }

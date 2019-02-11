@@ -193,10 +193,16 @@ public class BusinessOrderServerImpl implements BusinessOrderServer {
         calendar2.set(Calendar.MINUTE, 59);
         calendar2.set(Calendar.SECOND, 59);
 
+        start = calendar1.getTime();
+        end = calendar2.getTime();
 
-
-
-        return null;
+        try {
+            businessOrders = businessOrderMapper.selectExpenditure(start , end);
+            resultBeanUtilObject = ResultBeanUtil.getResultBeanUtil("查询成功" , true , businessOrders);
+        }catch (Exception e){
+            throw e;
+        }
+        return resultBeanUtilObject;
     }
 
 
