@@ -1,0 +1,240 @@
+body{
+    padding: 0px;
+    margin: 0px;
+}
+
+.home{
+    width: 100%;
+    height: 100vh;
+}
+
+.home .content{
+    width: 60%;
+    height: 100vh;
+    box-shadow: 0px 0px 2px #bbbbbb;
+    margin: 0 auto;
+}
+
+.home .content .sun{
+    width: 100%;
+    height: 100px;
+    background-color: #F1F3F4;
+    margin-bottom: 10px;
+}
+
+
+.home .content .sun div{
+    float: left;
+    width: 50%;
+    text-align: center;
+    margin-top: 18px;
+}
+
+.home .content .sun div span{
+    display: block;
+}
+
+.home .content .sun div span:first-of-type{
+    font-size: 24px;
+    font-weight: 900;
+    margin-bottom: 10px;
+    color: #880015;
+}
+
+.home .content .operate{
+    width: 100%;
+}
+
+
+.home .content .operate .menu{
+    height: 50px;
+    width: 100%;
+    background-color: #E9E9E9;
+}
+
+
+.home .content .operate .menu nav{
+    border-bottom: 2px solid #E9E9E9;
+    float: left;
+    margin-top: 6px;
+    margin-left: 20px;
+    padding: 10px 30px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+.home .content .operate .menu nav:hover{
+    background-color: #FFFFFF;
+    border-bottom: 2px solid #880015;
+    cursor: pointer;
+}
+
+
+.home .content .operate .text{
+    text-align: center;
+}
+
+.home .content .operate .text div{
+    width: 43.5%;
+    float: left;
+    text-align: right;
+    margin-top: 40px;
+}
+
+.home .content .operate .text div:first-of-type{
+    margin-top: 80px;
+}
+.home .content .operate .text div:first-of-type+div{
+    margin-top: 80px;
+}
+
+.home .content .operate .text div:last-of-type{
+    margin-right: 13%;
+    width: 87%;
+}
+
+.home .content .operate .text div textarea{
+    width: 75.2%;
+    height: 150px;
+    margin-left: 5px;
+    border-radius: 3px;
+    padding-left: 3px;
+    vertical-align: top;
+}
+
+.home .content .operate .text div input{
+    width: 200px;
+    height: 30px;
+    padding-left: 5px;
+    margin-left: 5px;
+    border-radius: 3px;
+    border: 1px solid #bbbbbb;
+}
+
+.home .content .operate .text div select{
+    width: 206px;
+    height: 34px;
+    padding-left: 5px;
+    margin-left: 5px;
+    border-radius: 3px;
+    border: 1px solid #bbbbbb;
+}
+
+.home .content .operate .text button{
+    height: 45px;
+    width: 80%;
+    margin-top: 60px;
+    font-size: 20px;
+    background-color: #880015;
+    border: 1px solid #880015;
+    border-radius: 3px;
+    color: #FFFFFF;
+    letter-spacing: 10px;
+}
+
+.home .content .operate .text button:hover{
+    background-color: #760012;
+    cursor: pointer;
+}
+
+
+.select:hover{
+    cursor: pointer;
+}
+
+.mask{
+    z-index: 100;
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    background-color: rgba(54 , 54 , 54 , 0.3);
+    display: none;
+}
+
+.selected{
+    width: 500px;
+    height: 400px;
+    background-color: #FFFFFF;
+    z-index: 200;
+    position: absolute;
+    top: 10%;
+    border-radius: 3px;
+    border: 1px solid #C7C7C7;
+    display: none;
+}
+
+.selected .title{
+    height: 30px;
+    width: 100%;
+    text-align: right;
+    border-bottom: 1px solid #dddddd;
+
+}
+
+.selected .title span{
+    color: #880015;
+    margin-left: 10px;
+    display: block;
+    float: left;
+    margin-top: 3px;
+}
+
+.selected .title i{
+    color: #880015;
+    font-size: 20px;
+    margin-right: 10px;
+    margin-top: 3px;
+}
+
+.selected .title i:hover{
+    cursor: pointer;
+}
+
+.selected .con div{
+    height: 369px;
+    float: left;''
+    overflow-y: auto;
+}
+
+.selected .con .type{
+    width: 150px;
+    background-color: #F3F3F3;
+    font-size: 14px;
+}
+
+ul{
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+.selected .con .type ul li{
+    padding: 10px 10px;
+    border-left: 3px solid #F3F3F3;
+
+}
+.selected .con .type ul li:hover{
+    border-left: 3px solid #880015;
+    color: #880015;
+    background-color: #FFFFFF;
+    cursor: pointer;
+}
+
+.selected .con .option{
+    width: 348px;
+    font-size: 13px;
+}
+
+.selected .con .option ul li{
+    float: left;
+    margin: 10px 20px;
+}
+.selected .con .option ul li:hover{
+    cursor: pointer;
+    color: #880015;
+}
+
+
+

@@ -1,0 +1,220 @@
+*{
+    padding: 0px;
+    margin: 0px;
+}
+
+.home{
+    width: 100%;
+    height: 100vh;
+}
+
+.home .content{
+    width: 60%;
+    height: 100vh;
+    box-shadow: 0px 0px 2px #bbbbbb;
+    margin: 0 auto;
+}
+
+.home .content .box{
+    width: 706px;
+    margin: 0 auto;
+}
+
+.home .content .box>div{
+    float: left;
+    width: 200px;
+    margin-top: 20vh;
+}
+
+.home .content .box>div:first-of-type{
+    margin-right: 50px;
+}
+
+.home .content .box>div:last-of-type{
+    margin-left: 50px;
+}
+
+.home .content .box>div>span{
+    height: 8px;
+    width: 100%;
+    display: block;
+    background-color: #880015;
+}
+
+.home .content .box>div>div{
+    height: 40vh;
+    border: 1px solid #bbbbbb;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    overflow: auto;
+}
+
+.home .content .box>div div .title{
+    height: 30px;
+    width: 100%;
+    border-bottom: 1px solid #880015;
+    opacity: 0.8;
+    text-align: center;
+    color: #880015;
+}
+
+.home .content .box>div div .title span{
+    line-height: 30px;
+    font-size: 14px;
+}
+
+.home .content .box>div div .tools{
+    height: 20px;
+    width: 100%;
+    border-bottom: 1px solid #bbbbbb;
+    color: #880015;
+    font-size: 14px;
+    text-align: right;
+}
+
+.home .content .box>div div .tools i{
+    margin-right: 10px;
+}
+
+.home .content .box .kind{
+    /*margin-right: 50px;*/
+}
+
+.home .content .box table{
+    border-collapse: collapse;
+    font-size: 13px;
+    width: 100%;
+    color: #2C2C2C;
+}
+
+.home .content .box table th{
+    border: 1px solid #bbbbbb;
+    font-size: 14px;
+    height: 28px;
+    font-weight: 500;
+}
+
+.home .content .box table th:first-of-type{
+    width: 35px;
+}
+
+.home .content .box table td{
+    border: 1px solid #bbbbbb;
+    font-size: 14px;
+    white-space: nowrap;
+    height: 28px;
+    text-indent: 3px;
+}
+
+.home .content .box table tr:hover{
+    background-color: #C23137;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
+.home .content .box table tr:first-of-type:hover{
+    background-color: #E9E9E9;
+    color: #2C2C2C;
+    cursor: default;
+}
+
+.home .content .box table tr:first-of-type{
+    background-color: #E9E9E9;
+}
+
+.home .content .box table td:first-of-type{
+    text-align: center;
+}
+
+
+.mask{
+    z-index: 100;
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    background-color: rgba(54 , 54 , 54 , 0.3);
+    display: none;
+}
+
+.selected{
+    width: 420px;
+    height: 250px;
+    background-color: #FFFFFF;
+    z-index: 200;
+    position: absolute;
+    top: 20%;
+    border-radius: 3px;
+    border: 1px solid #C7C7C7;
+    display: none;
+}
+
+.selected .title{
+    height: 30px;
+    width: 100%;
+    border-bottom: 1px solid #dddddd;
+}
+
+.selected .title{
+    height: 30px;
+    width: 100%;
+    text-align: right;
+    border-bottom: 1px solid #dddddd;
+
+}
+
+.selected .title span{
+    color: #880015;
+    margin-left: 10px;
+    display: block;
+    float: left;
+    margin-top: 3px;
+}
+
+.selected .title i{
+    color: #880015;
+    font-size: 20px;
+    margin-right: 10px;
+    margin-top: 3px;
+}
+
+.selected .title i:hover{
+    cursor: pointer;
+}
+
+.selected .con>div{
+    width: 80%;
+    margin: 0 auto;
+    text-align: right;
+}
+
+.selected .con>div>div{
+    margin-top: 30px;
+}
+
+.selected .con>div>div input{
+    width: 265px;
+    height: 30px;
+    border-radius: 3px;
+    border: 1px solid #bbbbbb;
+}
+
+.selected .con>div>div button{
+    width: 100%;
+    height: 30px;
+    background-color: #880015;
+    color: #FFFFFF;
+    border: 1px solid #880015;
+    border-radius: 3px;
+}
+
+.selected .con>div>div button:hover{
+    background-color: #760012;
+    border: 1px solid #760012;
+}
+
+
+.classificationValuePopup2{
+    height: 430px;
+}
