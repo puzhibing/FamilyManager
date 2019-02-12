@@ -131,4 +131,26 @@ public class BusinessOrderController {
         }
         return resultBeanUtilObject;
     }
+
+
+    /**
+     * 查询给定日期范围内的有效数据
+     * @param startDate
+     * @param endDate
+     * @return
+     */
+    @RequestMapping(value = "/selectIncome")
+    public ResultBeanUtil<Object> selectIncome(String startDate , String endDate){
+        if(StringUtils.isNotEmpty(startDate) && StringUtils.isNotEmpty(endDate)){
+            try{
+                resultBeanUtilObject = businessOrderServerImpl.selectIncome(startDate , endDate);
+            }catch (Exception e){
+                e.printStackTrace();
+                resultBeanUtilObject = ResultBeanUtil.getResultBeanUtil("逻辑处理异常" , false);
+            }
+        }else{
+            resultBeanUtilObject = ResultBeanUtil.getResultBeanUtil("参数异常" , false);
+        }
+        return resultBeanUtilObject;
+    }
 }

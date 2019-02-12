@@ -1,7 +1,7 @@
 $(document).ready(function() {
-    getMonthlyExpenditureCurve();
-    getMonthlyExpenditurePieChart();
-    getMonthlyIncomePieChart();
+    monthlyExpenditureCurve();
+    monthlyExpenditurePieChart();
+    monthlyIncomePieChart();
 
     $('.head .nav nav:first').css({
         'border-bottom': '3px solid #FFFFFF',
@@ -11,6 +11,17 @@ $(document).ready(function() {
     $('.head .nav nav').click(function () {
         chooseNav(this);
     });
+
+    $('.monthlyExpenditureCurve button').click(function () {
+        monthlyExpenditureCurve();
+    });
+    $('.monthlyExpenditurePieChart button').click(function () {
+        monthlyExpenditurePieChart();
+    });
+    $('.monthlyIncomePieChart button').click(function () {
+        monthlyIncomePieChart();
+    });
+
 });
 
 
@@ -43,8 +54,81 @@ function chooseNav(t){
 
 
 
+//解析曲线图需要的数据
+function monthlyExpenditureCurve(){
+    var start = $('.monthlyExpenditureCurve .start').val();
+    var end = $('.monthlyExpenditureCurve .end').val();
+    var nowDate = new Date();
+    if(start == '' || end == ''){
+        start = '2018-01-01';
+        end = nowDate.getFullYear() + '-' + (nowDate.getMonth() + 1) + '-' + getMonthDays(nowDate.getFullYear() , nowDate.getMonth() + 1);
+    }else {
+        start = start + '-01';
+        var date = new Date(end);
+        end = end + '-' + getMonthDays(date.getFullYear() , date.getMonth() + 1);
+    }
+
+    $.ajax({
+        url: '/BusinessOrder/selectExpenditure',
+        type: 'POST',
+        data: {
+            startDate: start,
+            endDate: end
+        },
+        success: function (res) {
+            if(res.b){
+                var list = res.result;
+                var dates = [];
+                for(var i = 0 ; i < list.length ; i++){
+                    var d = new Date(list[i].documentDate);
+                    var data = d.getFullYear() + '-' + (d.getMonth() + 1);
+                    if(!dates.includes(data)){
+                        dates.push(data);
+                    }
+                }
+
+                var da = [];
+                var old = '';
+                var sun = 0;
+                var expenditure = {
+                    name: '支出',
+                    data: []
+                };
+                for (var j = 0 ; j < list.length ; j++){
+
+                    var d = new Date(list[j].documentDate);
+                    var date = d.getFullYear() + '-' + (d.getMonth() + 1);
+                    if(j == 0){
+                        old = date;
+                    }
+
+                    if(old == date){
+                        sun = parseFloat(sun) + parseFloat(list[j].amount);
+                    }else{
+                        expenditure.data.push(parseFloat(parseFloat(sun).toFixed(2)));
+                        old = date;
+                        sun = parseFloat(list[j].amount);
+                    }
+
+                    if(j == list.length - 1){
+                        expenditure.data.push(parseFloat(parseFloat(sun).toFixed(2)));
+                    }
+
+                }
+                da.push(expenditure);
+                getMonthlyExpenditureCurve(dates , da);
+            }
+        }
+    });
+
+
+
+}
+
+
+
 //构建曲线图数据表
-function getMonthlyExpenditureCurve(){
+function getMonthlyExpenditureCurve(dates , d){
     var title = {
         text: '月支出曲线',
         style:{
@@ -56,12 +140,11 @@ function getMonthlyExpenditureCurve(){
         enabled: false
     };
     var xAxis = {
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-            'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        categories: dates
     };
     var yAxis = {
         title: {
-            text: 'Temperature (\xB0C)'
+            text: '金额 (元)'
         },
         plotLines: [{
             value: 0,
@@ -71,7 +154,7 @@ function getMonthlyExpenditureCurve(){
     };
 
     var tooltip = {
-        valueSuffix: '\xB0C'
+        valueSuffix: ' 元'
     }
 
     var legend = {
@@ -81,23 +164,7 @@ function getMonthlyExpenditureCurve(){
         borderWidth: 0
     };
 
-    var series =  [
-        {
-            name: 'Tokyo',
-            data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2,
-                26.5, 23.3, 18.3, 13.9, 9.6]
-        },
-        {
-            name: 'New York',
-            data: [-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8,
-                24.1, 20.1, 14.1, 8.6, 2.5]
-        },
-        {
-            name: 'London',
-            data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0,
-                16.6, 14.2, 10.3, 6.6, 4.8]
-        }
-    ];
+    var series = d;
 
     var json = {};
 
@@ -113,9 +180,71 @@ function getMonthlyExpenditureCurve(){
 }
 
 
+//解析饼状图需要的数据
+function monthlyExpenditurePieChart(){
+    var start = $('.monthlyExpenditurePieChart .date').val();
+    var nowDate = new Date();
+    var end = nowDate.getFullYear() + '-' + (nowDate.getMonth() + 1) + '-' + getMonthDays(nowDate.getFullYear() , nowDate.getMonth() + 1);
+    if(start == ''){
+        start = nowDate.getFullYear() + '-' + (nowDate.getMonth() + 1) + '-01';
+    }else {
+        start = start + '-01';
+    }
+
+    $.ajax({
+        url: '/BusinessOrder/selectExpenditure',
+        type: 'POST',
+        data: {
+            startDate: start,
+            endDate: end
+        },
+        success: function (res) {
+            if(res.b){
+                var list = res.result;
+                var sun = 0;
+                for(var i = 0 ; i < list.length ; i++){
+                    sun = parseFloat(sun) + parseFloat(list[i].amount);
+                }
+
+                var arr = [];
+                for (var j = 0 ; j < list.length ; j++){
+                    var classificationValue = list[j].classificationValue;
+                    if(arr.length == 0){
+                        var a = [classificationValue.name , parseFloat(list[j].amount)];
+                        arr.push(a);
+                    }else{
+                        var b = false;
+                        for (var l = 0 ; l < arr.length ; l++){
+                            if(!arr[l].includes(classificationValue.name)){
+                                b = true;
+                            }else{
+                                arr[l][1] = parseFloat(arr[l][1]) + parseFloat(list[j].amount);
+                            }
+                        }
+
+                        if(b){
+                            var a = [classificationValue.name , parseFloat(list[j].amount)];
+                            arr.push(a);
+                        }
+                    }
+                }
+
+                //解析最终数据
+                for (var i = 0 ; i < arr.length ; i++){
+                    arr[i][1] = (parseFloat(arr[i][1]) / parseFloat(sun)) * 100;
+                }
+
+
+                getMonthlyExpenditurePieChart(arr);
+            }
+        }
+    });
+}
+
+
 
 //构建饼状图
-function getMonthlyExpenditurePieChart(){
+function getMonthlyExpenditurePieChart(arr){
     var chart = {
         plotBackgroundColor: null,
         plotBorderWidth: null,
@@ -132,7 +261,7 @@ function getMonthlyExpenditurePieChart(){
         enabled: false
     };
     var tooltip = {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        pointFormat: '{series.name}: <b>{point.percentage:.2f}%</b>'
     };
     var plotOptions = {
         pie: {
@@ -141,7 +270,7 @@ function getMonthlyExpenditurePieChart(){
             innerSize: 50,
             dataLabels: {
                 enabled: true,
-                format: '<b>{point.name}%</b>: {point.percentage:.1f} %',
+                format: '<b>{point.name}%</b>: {point.percentage:.2f} %',
                 style: {
                     color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
                 }
@@ -150,20 +279,8 @@ function getMonthlyExpenditurePieChart(){
     };
     var series= [{
         type: 'pie',
-        name: 'Browser share',
-        data: [
-            ['Firefox',   45.0],
-            ['IE',       26.8],
-            {
-                name: 'Chrome',
-                y: 12.8,
-                sliced: true,
-                selected: true
-            },
-            ['Safari',    8.5],
-            ['Opera',     6.2],
-            ['Others',   0.7]
-        ]
+        name: '支出类型占比',
+        data: arr
     }];
 
     var json = {};
@@ -178,8 +295,71 @@ function getMonthlyExpenditurePieChart(){
 
 
 
+//解析饼状图需要的数据
+function monthlyIncomePieChart(){
+    var start = $('.monthlyIncomePieChart .date').val();
+    var nowDate = new Date();
+    var end = nowDate.getFullYear() + '-' + (nowDate.getMonth() + 1) + '-' + getMonthDays(nowDate.getFullYear() , nowDate.getMonth() + 1);
+    if(start == ''){
+        start = nowDate.getFullYear() + '-' + (nowDate.getMonth() + 1) + '-01';
+    }else {
+        start = start + '-01';
+    }
+
+    $.ajax({
+        url: '/BusinessOrder/selectIncome',
+        type: 'POST',
+        data: {
+            startDate: start,
+            endDate: end
+        },
+        success: function (res) {
+            if(res.b){
+                var list = res.result;
+                var sun = 0;
+                for(var i = 0 ; i < list.length ; i++){
+                    sun = parseFloat(sun) + parseFloat(list[i].amount);
+                }
+
+                var arr = [];
+                for (var j = 0 ; j < list.length ; j++){
+                    var classificationValue = list[j].classificationValue;
+                    if(arr.length == 0){
+                        var a = [classificationValue.name , parseFloat(list[j].amount)];
+                        arr.push(a);
+                    }else{
+                        var b = false;
+                        for (var l = 0 ; l < arr.length ; l++){
+                            if(!arr[l].includes(classificationValue.name)){
+                                b = true;
+                            }else{
+                                arr[l][1] = parseFloat(arr[l][1]) + parseFloat(list[j].amount);
+                            }
+                        }
+
+                        if(b){
+                            var a = [classificationValue.name , parseFloat(list[j].amount)];
+                            arr.push(a);
+                        }
+                    }
+                }
+
+                //解析最终数据
+                for (var i = 0 ; i < arr.length ; i++){
+                    arr[i][1] = (parseFloat(arr[i][1]) / parseFloat(sun)) * 100;
+                }
+
+
+                getMonthlyIncomePieChart(arr);
+            }
+        }
+    });
+}
+
+
+
 //构建饼状图
-function getMonthlyIncomePieChart(){
+function getMonthlyIncomePieChart(arr){
     var chart = {
         plotBackgroundColor: null,
         plotBorderWidth: null,
@@ -196,7 +376,7 @@ function getMonthlyIncomePieChart(){
         enabled: false
     };
     var tooltip = {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        pointFormat: '{series.name}: <b>{point.percentage:.2f}%</b>'
     };
     var plotOptions = {
         pie: {
@@ -205,7 +385,7 @@ function getMonthlyIncomePieChart(){
             innerSize: 50,
             dataLabels: {
                 enabled: true,
-                format: '<b>{point.name}%</b>: {point.percentage:.1f} %',
+                format: '<b>{point.name}%</b>: {point.percentage:.2f} %',
                 style: {
                     color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
                 }
@@ -214,20 +394,8 @@ function getMonthlyIncomePieChart(){
     };
     var series= [{
         type: 'pie',
-        name: 'Browser share',
-        data: [
-            ['Firefox',   45.0],
-            ['IE',       26.8],
-            {
-                name: 'Chrome',
-                y: 12.8,
-                sliced: true,
-                selected: true
-            },
-            ['Safari',    8.5],
-            ['Opera',     6.2],
-            ['Others',   0.7]
-        ]
+        name: '收入类型占比',
+        data: arr
     }];
 
     var json = {};

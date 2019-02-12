@@ -6,6 +6,7 @@
     <link type="text/css" rel="stylesheet" href="../css/home.css">
     <script type="text/javascript" src="../js/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="../Highcharts-7.0.1/highcharts.js"></script>
+    <script type="text/javascript" src="../js/dateUtils.js"></script>
     <script type="text/javascript" src="../js/home.js"></script>
 </head>
 <body>
@@ -23,22 +24,22 @@
             <div class="content">
                 <div class="monthlyExpenditureCurve">
                     <div class="title">
-                        <input type="month"> ~
-                        <input type="month">
+                        <input type="month" class="start"> ~
+                        <input type="month" class="end">
                         <button>确定</button>
                     </div>
                     <div class="container"></div>
                 </div>
                 <div class="monthlyExpenditurePieChart">
                     <div class="title">
-                        <input type="month">
+                        <input type="month" class="date">
                         <button>确定</button>
                     </div>
                     <div class="container"></div>
                 </div>
                 <div class="monthlyIncomePieChart">
                     <div class="title">
-                        <input type="month">
+                        <input type="month" class="date">
                         <button>确定</button>
                     </div>
                     <div class="container"></div>

@@ -106,7 +106,7 @@ function getBusinessOrders(page){
             if(res.b){
                 var nowPage = $('.nowPage').text();
                 $('.accountingFlow_panel div table').html('');
-                var list = res.result;
+                var list = eval(res.result);
                 var str = '<tr><th>序号</th><th>单据日期</th><th>收入账户</th><th>支出账户</th><th>业务金额</th><th>业务类型</th><th>备注</th></tr>';
                 for (var i = 0; i < list.length ; i++){
                     str += '<tr><td>' + (((parseInt(nowPage) - 1) * 10) + (i + 1)) + '</td><td>' + getDateString(list[i].documentDate) + '</td>';

@@ -1,5 +1,7 @@
 package com.server.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.dao.mapper.BusinessOrderMapper;
 import com.pojo.BusinessOrder;
 import com.server.BusinessOrderServer;
@@ -135,8 +137,8 @@ public class BusinessOrderServerImpl implements BusinessOrderServer {
             businessOrders = businessOrderMapper.selectAll(start , size);
             sun = businessOrderMapper.selectAllCount();
             sunPage = (sun % size > 0) ? (sun / size) + 1 : sun / size;
-
-            resultBeanUtilList = ResultBeanUtil.getResultBeanUtil("查询成功" , true , businessOrders , page
+            String json = JSON.toJSONString(businessOrders , SerializerFeature.DisableCircularReferenceDetect);
+            resultBeanUtilList = ResultBeanUtil.getResultBeanUtil("查询成功" , true , json , page
                     , sunPage , sun);
         }catch (Exception e){
             throw e;
@@ -198,6 +200,42 @@ public class BusinessOrderServerImpl implements BusinessOrderServer {
 
         try {
             businessOrders = businessOrderMapper.selectExpenditure(start , end);
+            resultBeanUtilObject = ResultBeanUtil.getResultBeanUtil("查询成功" , true , businessOrders);
+        }catch (Exception e){
+            throw e;
+        }
+        return resultBeanUtilObject;
+    }
+
+
+    /**
+     * 查询给定日期范围内的有效数据
+     * @param startDate
+     * @param endDate
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public ResultBeanUtil<Object> selectIncome(String startDate, String endDate) throws Exception {
+        Date start = DateUtils.getDate(startDate , DateUtilEnum.SHORTBAR);
+        Date end = DateUtils.getDate(endDate , DateUtilEnum.SHORTBAR);
+        Calendar calendar1 = Calendar.getInstance();//获取日历对象的实现类
+        calendar1.setTime(start);
+        calendar1.set(Calendar.HOUR_OF_DAY , 00);
+        calendar1.set(Calendar.MINUTE, 00);
+        calendar1.set(Calendar.SECOND, 00);
+
+        Calendar calendar2 = Calendar.getInstance();
+        calendar2.setTime(end);
+        calendar2.set(Calendar.HOUR_OF_DAY , 23);
+        calendar2.set(Calendar.MINUTE, 59);
+        calendar2.set(Calendar.SECOND, 59);
+
+        start = calendar1.getTime();
+        end = calendar2.getTime();
+
+        try {
+            businessOrders = businessOrderMapper.selectIncome(start , end);
             resultBeanUtilObject = ResultBeanUtil.getResultBeanUtil("查询成功" , true , businessOrders);
         }catch (Exception e){
             throw e;

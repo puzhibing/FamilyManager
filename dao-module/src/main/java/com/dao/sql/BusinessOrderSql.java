@@ -136,7 +136,24 @@ public class BusinessOrderSql {
             SELECT("id , documentDate , documentNumber , documentType, businessType , income , expenditure , amount , classificationValue , handMan , remark");
             FROM("db_business_order");
             WHERE("del = '0' and businessType in ('1' , '4' , '6' , '8') and documentDate BETWEEN #{param1} AND #{param2}");
-            ORDER_BY("documentDate desc");
+            ORDER_BY("documentDate");
+        }}.toString();
+    }
+
+
+    /**
+     * 查询给定日期范围内的收入数据
+     * （收入、借入、贷入、投资赎回）
+     * @param startDate
+     * @param endDate
+     * @return
+     */
+    public String selectIncome(Date startDate, Date endDate){
+        return new SQL(){{
+            SELECT("id , documentDate , documentNumber , documentType, businessType , income , expenditure , amount , classificationValue , handMan , remark");
+            FROM("db_business_order");
+            WHERE("del = '0' and businessType in ('2' , '5' , '7' , '9') and documentDate BETWEEN #{param1} AND #{param2}");
+            ORDER_BY("documentDate");
         }}.toString();
     }
 

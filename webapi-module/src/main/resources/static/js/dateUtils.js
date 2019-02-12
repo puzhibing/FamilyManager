@@ -49,3 +49,15 @@ function getDateString(date){
     var d = new Date(date);
     return formatDate("yyyy-MM-dd hh:mm:ss" , d);
 }
+
+
+/**
+ * 获取给定月的天数
+ * @param year
+ * @param month
+ * @returns {number}
+ */
+function getMonthDays(year, month) {
+    var d = new Date(year, month, 0);
+    return d.getDate();
+}

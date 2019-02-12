@@ -59,4 +59,14 @@ public interface BusinessOrderServer {
      * @throws Exception
      */
     ResultBeanUtil<Object> selectExpenditure(String startDate , String endDate) throws Exception;
+
+
+    /**
+     * 查询给定日期范围内的收入数据
+     * @param startDate
+     * @param endDate
+     * @return
+     * @throws Exception
+     */
+    ResultBeanUtil<Object> selectIncome(String startDate , String endDate) throws Exception;
 }

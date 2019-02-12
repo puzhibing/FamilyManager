@@ -107,5 +107,51 @@ public interface BusinessOrderMapper {
      * @return
      */
     @SelectProvider(type = BusinessOrderSql.class , method = "selectExpenditure")
+    @Results({
+            @Result(property = "id" , column = "id" , id = true),
+            @Result(property = "documentDate" , column = "documentDate"),
+            @Result(property = "documentNumber" , column = "documentNumber"),
+            @Result(property = "documentType" , column = "documentType"),
+            @Result(property = "income" , column = "income" , javaType = ContactsAccount.class , one = @One(
+                    select = "com.dao.mapper.ContactsAccountMapper.selectDataById"
+            )),
+            @Result(property = "expenditure" , column = "expenditure" , javaType = ContactsAccount.class , one = @One(
+                    select = "com.dao.mapper.ContactsAccountMapper.selectDataById"
+            )),
+            @Result(property = "amount" , column = "amount"),
+            @Result(property = "classificationValue" , column = "classificationValue" , javaType = ClassificationValue.class , one = @One(
+                    select = "com.dao.mapper.ClassificationValueMapper.selectDataById"
+            )),
+            @Result(property = "handMan" , column = "handMan"),
+            @Result(property = "remark" , column = "remark")
+    })
     List<BusinessOrder> selectExpenditure(Date startDate, Date endDate);
+
+
+    /**
+     * 查询给定日期范围内的有效数据
+     * @param startDate
+     * @param endDate
+     * @return
+     */
+    @SelectProvider(type = BusinessOrderSql.class , method = "selectIncome")
+    @Results({
+            @Result(property = "id" , column = "id" , id = true),
+            @Result(property = "documentDate" , column = "documentDate"),
+            @Result(property = "documentNumber" , column = "documentNumber"),
+            @Result(property = "documentType" , column = "documentType"),
+            @Result(property = "income" , column = "income" , javaType = ContactsAccount.class , one = @One(
+                    select = "com.dao.mapper.ContactsAccountMapper.selectDataById"
+            )),
+            @Result(property = "expenditure" , column = "expenditure" , javaType = ContactsAccount.class , one = @One(
+                    select = "com.dao.mapper.ContactsAccountMapper.selectDataById"
+            )),
+            @Result(property = "amount" , column = "amount"),
+            @Result(property = "classificationValue" , column = "classificationValue" , javaType = ClassificationValue.class , one = @One(
+                    select = "com.dao.mapper.ClassificationValueMapper.selectDataById"
+            )),
+            @Result(property = "handMan" , column = "handMan"),
+            @Result(property = "remark" , column = "remark")
+    })
+    List<BusinessOrder> selectIncome(Date startDate, Date endDate);
 }
