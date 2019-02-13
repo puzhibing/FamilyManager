@@ -27,13 +27,14 @@ public class BusinessOrderController {
      * 添加数据
      * @param businessOrder
      * @param token
+     * @param amortizationMonths
      * @return
      */
     @RequestMapping(value = "/insertData")
-    public ResultBeanUtil<Object> insertData(BusinessOrder businessOrder , String token){
+    public ResultBeanUtil<Object> insertData(BusinessOrder businessOrder , String token , String amortizationMonths){
         if(StringUtils.isNotEmpty(token) && null != businessOrder){
             try {
-                resultBeanUtilObject = businessOrderServerImpl.insertData(businessOrder , token);
+                resultBeanUtilObject = businessOrderServerImpl.insertData(businessOrder , token , amortizationMonths);
             } catch (Exception e) {
                 e.printStackTrace();
                 resultBeanUtilObject = ResultBeanUtil.getResultBeanUtil("逻辑处理异常" , false);

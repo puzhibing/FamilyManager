@@ -60,6 +60,10 @@ $(function () {
         saveInvestmentData();
     });
 
+    $('.consumption_text .whetherToAmortize').change(function () {
+        chooseAmortizationType();
+    })
+
     getTheMonthData();//获取本月支出总和
     getThisYear();//获取本年支出总和
 });
@@ -277,7 +281,8 @@ function saveExpenditureData(){
     var classificationValue = $('.consumption_text #typeOfExpenditure').attr('valueId');
     var expenditure = $('.consumption_text #expenditureAccount').attr('valueId');
     var documentDate = getDateForDatetimeLocal($('.consumption_text .documentDate').val());
-    var remark = $('.consumption_tex .remark').val();
+    var remark = $('.consumption_text .remark').val();
+    var amortizationMonths = $('.consumption_text .amortizationMonths').val();
 
     if(amount == ''){
         alert('金额不能为空');
@@ -315,6 +320,7 @@ function saveExpenditureData(){
             amount: amount,
             classificationValue: classificationValue,
             remark: remark,
+            amortizationMonths: amortizationMonths,
             token: '1'
         },
         success: function (res) {
@@ -654,4 +660,16 @@ function getThisYear() {
             }
         }
     });
+}
+
+
+
+//选择处理函数
+function chooseAmortizationType(){
+    var type = $('.consumption_text .whetherToAmortize').val();
+    if(type == '0'){
+        $('.consumption_text .amortizationMonths').removeAttr('disabled');
+    }else {
+        $('.consumption_text .amortizationMonths').attr('disabled','disabled');
+    }
 }

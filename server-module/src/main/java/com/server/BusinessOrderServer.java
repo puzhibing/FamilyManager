@@ -13,10 +13,11 @@ public interface BusinessOrderServer {
      * 添加数据的同时需要修改对应账户的值
      * @param businessOrder
      * @param token
+     * @param amortizationMonths
      * @return
      * @throws Exception
      */
-    ResultBeanUtil<Object> insertData(BusinessOrder businessOrder , String token) throws Exception;
+    ResultBeanUtil<Object> insertData(BusinessOrder businessOrder , String token , String amortizationMonths) throws Exception;
 
 
     /**

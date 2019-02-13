@@ -215,14 +215,13 @@ function monthlyExpenditurePieChart(){
                     }else{
                         var b = false;
                         for (var l = 0 ; l < arr.length ; l++){
-                            if(!arr[l].includes(classificationValue.name)){
+                            if(arr[l].includes(classificationValue.name)){//当有一个包含，则修改状态
                                 b = true;
-                            }else{
                                 arr[l][1] = parseFloat(arr[l][1]) + parseFloat(list[j].amount);
                             }
                         }
 
-                        if(b){
+                        if(!b){
                             var a = [classificationValue.name , parseFloat(list[j].amount)];
                             arr.push(a);
                         }
@@ -330,14 +329,13 @@ function monthlyIncomePieChart(){
                     }else{
                         var b = false;
                         for (var l = 0 ; l < arr.length ; l++){
-                            if(!arr[l].includes(classificationValue.name)){
+                            if(arr[l].includes(classificationValue.name)){//当有一个包含，则修改状态
                                 b = true;
-                            }else{
                                 arr[l][1] = parseFloat(arr[l][1]) + parseFloat(list[j].amount);
                             }
                         }
 
-                        if(b){
+                        if(!b){
                             var a = [classificationValue.name , parseFloat(list[j].amount)];
                             arr.push(a);
                         }

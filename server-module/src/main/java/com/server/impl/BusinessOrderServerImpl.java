@@ -6,13 +6,13 @@ import com.dao.mapper.BusinessOrderMapper;
 import com.pojo.BusinessOrder;
 import com.server.BusinessOrderServer;
 import com.server.ContactsAccountServer;
-import com.tools.DateUtilEnum;
-import com.tools.DateUtils;
-import com.tools.ResultBeanUtil;
-import com.tools.UUIDUtil;
+import com.tools.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -42,37 +42,61 @@ public class BusinessOrderServerImpl implements BusinessOrderServer {
      * 添加数据的同时需要修改对应账户的数据
      * @param businessOrder
      * @param token
+     * @param amortizationMonths
      * @return
      * @throws Exception
      */
     @Override
-    public ResultBeanUtil<Object> insertData(BusinessOrder businessOrder, String token) throws Exception {
-        /**
-         * 通过单据类型的不同来处理对应的数据
-         * 1:扣减账户余额
-         * 2:添加账户余额
-         * 3:往来账户之间转换金额
-         */
-        String id = UUIDUtil.getUUID(20);
-        businessOrder.setId(id);
-        businessOrder.setDocumentNumber(UUIDUtil.getUUID(30));
-        businessOrder.setDel("0");
-        businessOrder.setInsertTime(new Date());
-        businessOrder.setInsertUserId("");
-        try {
-            businessOrderMapper.insertData(businessOrder);
-        }catch (Exception e){
-            throw e;
+    @Transactional//使用事务
+    public ResultBeanUtil<Object> insertData(BusinessOrder businessOrder, String token , String amortizationMonths) throws Exception {
+        Integer integer = new Integer(1);
+        BigDecimal bigDecimal = new BigDecimal(businessOrder.getAmount());
+        if(StringUtils.isNotEmpty(amortizationMonths)){//判断不为空
+            BigDecimal b1 = new BigDecimal(businessOrder.getAmount());
+            BigDecimal b2 = new BigDecimal(amortizationMonths);
+            bigDecimal = b1.divide(b2 , 2 , RoundingMode.HALF_EVEN);//计算并设置舍入模式
+            integer = Integer.valueOf(amortizationMonths);
         }
 
-        boolean b = this.modifyData(businessOrder , token);
-        if(b){
-            resultBeanUtilObject = ResultBeanUtil.getResultBeanUtil("添加成功" , true);
-        }else{
-            //还原数据，删除添加成功的业务数据
-            this.deleteData(id , token);
-            resultBeanUtilObject = ResultBeanUtil.getResultBeanUtil("添加失败" , false);
+        //开始操作数据
+        Date documentDate = businessOrder.getDocumentDate();
+        for (int i = 0 ; i < integer ; i++){
+            businessOrder.setAmount(bigDecimal.toString());//修改值
+            //设置日期数据
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(documentDate);
+            calendar.set(Calendar.MONTH , calendar.get(Calendar.MONTH) + i);
+            businessOrder.setDocumentDate(calendar.getTime());
+
+
+            /**
+             * 通过单据类型的不同来处理对应的数据
+             * 1:扣减账户余额
+             * 2:添加账户余额
+             * 3:往来账户之间转换金额
+             */
+            String id = UUIDUtil.getUUID(20);
+            businessOrder.setId(id);
+            businessOrder.setDocumentNumber(UUIDUtil.getUUID(30));
+            businessOrder.setDel("0");
+            businessOrder.setInsertTime(new Date());
+            businessOrder.setInsertUserId("");
+            try {
+                businessOrderMapper.insertData(businessOrder);
+            }catch (Exception e){
+                throw e;
+            }
+
+            boolean b = this.modifyData(businessOrder , token);
+            if(b){
+                resultBeanUtilObject = ResultBeanUtil.getResultBeanUtil("添加成功" , true);
+            }else{
+                //还原数据，删除添加成功的业务数据
+                this.deleteData(id , token);
+                resultBeanUtilObject = ResultBeanUtil.getResultBeanUtil("添加失败" , false);
+            }
         }
+
         return resultBeanUtilObject;
     }
 
@@ -324,21 +348,19 @@ public class BusinessOrderServerImpl implements BusinessOrderServer {
             throw e;
         }
         try {
-            b = contactsaccountServerImpl.updateDataBalance((String) this.businessOrder.getIncome()
-                    , "minus" , this.businessOrder.getAmount() , token).getB();//将之前加的部分减下来
+            if(StringUtils.isNotEmpty((String)this.businessOrder.getIncome())){
+                b = contactsaccountServerImpl.updateDataBalance((String) this.businessOrder.getIncome()
+                        , "minus" , this.businessOrder.getAmount() , token).getB();//将之前加的部分减下来
+            }
+            if(StringUtils.isNotEmpty((String)this.businessOrder.getExpenditure())){
+                b = contactsaccountServerImpl.updateDataBalance((String) this.businessOrder.getExpenditure()
+                        , "plus" , this.businessOrder.getAmount() , token).getB();//将之前减的部分加上来
+            }
+
         }catch (Exception e){
             throw e;
         }
-        if(b){
-            try {
-                b = contactsaccountServerImpl.updateDataBalance((String) this.businessOrder.getExpenditure()
-                        , "plus" , this.businessOrder.getAmount() , token).getB();//将之前减的部分加上来
-            }catch (Exception e){
-                contactsaccountServerImpl.updateDataBalance((String) this.businessOrder.getIncome()
-                        , "plus" , this.businessOrder.getAmount() , token).getB();//将之前加的部分还原
-                throw e;
-            }
-        }
+
         return b;
     }
 }
