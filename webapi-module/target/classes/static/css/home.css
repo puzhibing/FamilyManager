@@ -20,7 +20,8 @@
     border-radius: 3px;
     box-shadow: 0px 0px 2px #bbbbbb;
     margin-bottom: 20px;
-    background-image: url("../image/3fb9c797d64f3f105bd18e3855803b05.jpg");
+    background: url("../image/3fb9c797d64f3f105bd18e3855803b05.jpg") no-repeat;
+    background-size: 100% auto;
 }
 
 .home>div .head .nav{
