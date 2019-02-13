@@ -597,15 +597,15 @@ function saveInvestmentData(){
 function chooseInvestmentType() {
     var type = $('.investment_text .type').val();
     if(type == '1'){
-        $('.investment_text .accountName').text('');
-        $('.investment_text .investmentName').text('');
-        $('.investment_text .date').text('');
-        $('.investment_text .amountName').text('')
+        $('.investment_text .amountName').text('投资金额');
+        $('.investment_text .accountName').text('支出账户');
+        $('.investment_text .investmentName').text('投资对象');
+        $('.investment_text .date').text('投资日期');
     }else{
-        $('.investment_text .accountName').text('');
-        $('.investment_text .investmentName').text('');
-        $('.investment_text .date').text('');
-        $('.investment_text .amountName').text('')
+        $('.investment_text .amountName').text('赎回金额');
+        $('.investment_text .accountName').text('收入账户');
+        $('.investment_text .investmentName').text('赎回对象');
+        $('.investment_text .date').text('赎回日期');
     }
 }
 

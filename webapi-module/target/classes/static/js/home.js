@@ -183,12 +183,16 @@ function getMonthlyExpenditureCurve(dates , d){
 //解析饼状图需要的数据
 function monthlyExpenditurePieChart(){
     var start = $('.monthlyExpenditurePieChart .date').val();
-    var nowDate = new Date();
-    var end = nowDate.getFullYear() + '-' + (nowDate.getMonth() + 1) + '-' + getMonthDays(nowDate.getFullYear() , nowDate.getMonth() + 1);
+    var nowDate = '';
+    var end = '';
     if(start == ''){
+        nowDate = new Date();
         start = nowDate.getFullYear() + '-' + (nowDate.getMonth() + 1) + '-01';
+        end = nowDate.getFullYear() + '-' + (nowDate.getMonth() + 1) + '-' + getMonthDays(nowDate.getFullYear() , nowDate.getMonth() + 1);
     }else {
+        nowDate = new Date(start);
         start = start + '-01';
+        end = nowDate.getFullYear() + '-' + (nowDate.getMonth() + 1) + '-' + getMonthDays(nowDate.getFullYear() , nowDate.getMonth() + 1);
     }
 
     $.ajax({
@@ -297,12 +301,16 @@ function getMonthlyExpenditurePieChart(arr){
 //解析饼状图需要的数据
 function monthlyIncomePieChart(){
     var start = $('.monthlyIncomePieChart .date').val();
-    var nowDate = new Date();
-    var end = nowDate.getFullYear() + '-' + (nowDate.getMonth() + 1) + '-' + getMonthDays(nowDate.getFullYear() , nowDate.getMonth() + 1);
+    var nowDate = '';
+    var end = '';
     if(start == ''){
+        nowDate = new Date();
         start = nowDate.getFullYear() + '-' + (nowDate.getMonth() + 1) + '-01';
+        end = nowDate.getFullYear() + '-' + (nowDate.getMonth() + 1) + '-' + getMonthDays(nowDate.getFullYear() , nowDate.getMonth() + 1);
     }else {
+        nowDate = new Date(start);
         start = start + '-01';
+        end = nowDate.getFullYear() + '-' + (nowDate.getMonth() + 1) + '-' + getMonthDays(nowDate.getFullYear() , nowDate.getMonth() + 1);
     }
 
     $.ajax({
