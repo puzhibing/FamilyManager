@@ -118,11 +118,14 @@ function dynamicContent(clazz){
         case 'typeOfExpenditure'://支出类型
             getTypeOfExpenditure();
             break;
-        case 'typeOfIncome':
+        case 'typeOfIncome'://收入类型
             getTypeOfIncome();
             break;
-        case 'contactsAccount':
+        case 'contactsAccount'://账户及往来
             getContactsAccount();
+            break;
+        case 'contacts':
+            getContacts();//往来对象
             break;
         default:
             break;
@@ -188,6 +191,32 @@ function getTypeOfIncome() {
 
 //获取账户及往来数据
 function getContactsAccount() {
+    $.ajax({
+        url: '/Classification/selectDataByKind',
+        type: 'POST',
+        data: {
+            kind: '4wvbwptevrnwq9m2qd7e'
+        },
+        success: function (res) {
+            if(res.b){
+                $('.selected .con .type').html('');
+                $('.selected .title span').text('账户及往来');
+                var list = res.result;
+                var str = '<ul>';
+                for (var i = 0 ; i < list.length ; i++){
+                    str += '<li id="' + list[i].id + '" onclick="selectLi(this)">' + list[i].name + '</li>'
+                }
+                str += '</ul>';
+                $('.selected .con .type').html(str);
+                $('.seletedType').val('2');
+            }
+        }
+    });
+}
+
+
+//获取往来对象数据
+function getContacts() {
     $.ajax({
         url: '/Classification/selectDataByKind',
         type: 'POST',
