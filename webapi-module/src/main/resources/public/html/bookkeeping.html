@@ -36,15 +36,27 @@
                     <!-- 支出 -->
                     <div class="consumption_text text">
                         <div>
-                            <span>支出金额</span>
+                            <span>支出日期</span>
                             <span>
-                            <input type="text" class="amount">
-                        </span>
+                                <input type="datetime-local" class="documentDate">
+                            </span>
                         </div>
                         <div>
                             <span>支出类型</span>
                             <span>
                                 <input id="typeOfExpenditure" valueId="" type="text" class="select" clazz="typeOfExpenditure" readonly>
+                            </span>
+                        </div>
+                        <div>
+                            <span>支出账户</span>
+                            <span>
+                                <input id="expenditureAccount" valueId="" type="text" class="select" clazz="contactsAccount" readonly>
+                            </span>
+                        </div>
+                        <div>
+                            <span>支出金额</span>
+                            <span>
+                                <input type="text" class="amount">
                             </span>
                         </div>
                         <div>
@@ -63,18 +75,6 @@
                             </span>
                         </div>
                         <div>
-                            <span>支出账户</span>
-                            <span>
-                                <input id="expenditureAccount" valueId="" type="text" class="select" clazz="contactsAccount" readonly>
-                            </span>
-                        </div>
-                        <div>
-                            <span>支出日期</span>
-                            <span>
-                                <input type="datetime-local" class="documentDate">
-                            </span>
-                        </div>
-                        <div>
                             <span>备注</span>
                             <span>
                                 <textarea class="remark">
@@ -88,9 +88,9 @@
                     <!-- 收入 -->
                     <div class="income_text text">
                         <div>
-                            <span>收入金额</span>
+                            <span>收入日期</span>
                             <span>
-                                <input type="text" class="amount">
+                                <input type="datetime-local" class="documentDate">
                             </span>
                         </div>
                         <div>
@@ -106,15 +106,15 @@
                             </span>
                         </div>
                         <div>
-                            <span>往来对象</span>
+                            <span>收入金额</span>
                             <span>
-                                <input id="contacts" valueId="" type="text" class="select" clazz="contacts" readonly>
+                                <input type="text" class="amount">
                             </span>
                         </div>
                         <div>
-                            <span>收入日期</span>
+                            <span>往来对象</span>
                             <span>
-                                <input type="datetime-local" class="documentDate">
+                                <input id="contacts" valueId="" type="text" class="select" clazz="contacts" readonly>
                             </span>
                         </div>
                         <div>
@@ -140,6 +140,12 @@
                             </span>
                         </div>
                         <div>
+                            <span class="date">转账日期</span>
+                            <span>
+                                <input type="datetime-local" class="documentDate">
+                            </span>
+                        </div>
+                        <div>
                             <span class="outAccount">转出账户</span>
                             <span>
                                 <input id="transferAccount" valueId="" type="text" class="select" clazz="contactsAccount" readonly>
@@ -155,12 +161,6 @@
                             <span class="amountName">转账金额</span>
                             <span>
                                 <input type="text" class="amount">
-                            </span>
-                        </div>
-                        <div>
-                            <span class="date">转账日期</span>
-                            <span>
-                                <input type="datetime-local" class="documentDate">
                             </span>
                         </div>
                         <div>
@@ -188,9 +188,9 @@
                             </span>
                         </div>
                         <div>
-                            <span class="amountName">借款金额</span>
+                            <span class="dateName">借款日期</span>
                             <span>
-                                <input type="text" class="amount">
+                                <input type="datetime-local" class="documentDate">
                             </span>
                         </div>
                         <div>
@@ -206,9 +206,9 @@
                             </span>
                         </div>
                         <div>
-                            <span class="dateName">借款日期</span>
+                            <span class="amountName">借款金额</span>
                             <span>
-                                <input type="datetime-local" class="documentDate">
+                                <input type="text" class="amount">
                             </span>
                         </div>
                         <div>
@@ -240,9 +240,9 @@
                             </span>
                         </div>
                         <div>
-                            <span class="amountName">投资金额</span>
+                            <span class="date">投资日期</span>
                             <span>
-                                <input type="text" class="amount">
+                                <input type="datetime-local" class="documentDate">
                             </span>
                         </div>
                         <div>
@@ -258,9 +258,9 @@
                             </span>
                         </div>
                         <div>
-                            <span class="date">投资日期</span>
+                            <span class="amountName">投资金额</span>
                             <span>
-                                <input type="datetime-local" class="documentDate">
+                                <input type="text" class="amount">
                             </span>
                         </div>
                         <div>
