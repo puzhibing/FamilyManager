@@ -36,15 +36,21 @@
                     <!-- 支出 -->
                     <div class="consumption_text text">
                         <div>
-                            <span>支出金额</span>
-                            <span>
-                            <input type="text" class="amount">
-                        </span>
-                        </div>
-                        <div>
                             <span>支出类型</span>
                             <span>
                                 <input id="typeOfExpenditure" valueId="" type="text" class="select" clazz="typeOfExpenditure" readonly>
+                            </span>
+                        </div>
+                        <div>
+                            <span>支出金额</span>
+                            <span>
+                                <input type="text" class="amount">
+                            </span>
+                        </div>
+                        <div>
+                            <span>支出账户</span>
+                            <span>
+                                <input id="expenditureAccount" valueId="" type="text" class="select" clazz="contactsAccount" readonly>
                             </span>
                         </div>
                         <div>
@@ -60,12 +66,6 @@
                             <span>摊销月数</span>
                             <span>
                                 <input type="text" class="amortizationMonths" disabled="disabled">
-                            </span>
-                        </div>
-                        <div>
-                            <span>支出账户</span>
-                            <span>
-                                <input id="expenditureAccount" valueId="" type="text" class="select" clazz="contactsAccount" readonly>
                             </span>
                         </div>
                         <div>
@@ -88,15 +88,15 @@
                     <!-- 收入 -->
                     <div class="income_text text">
                         <div>
-                            <span>收入金额</span>
-                            <span>
-                                <input type="text" class="amount">
-                            </span>
-                        </div>
-                        <div>
                             <span>收入类型</span>
                             <span>
                                 <input id="incomeType" valueId="" type="text" class="select" clazz="typeOfIncome" readonly>
+                            </span>
+                        </div>
+                        <div>
+                            <span>收入金额</span>
+                            <span>
+                                <input type="text" class="amount">
                             </span>
                         </div>
                         <div>
@@ -140,6 +140,12 @@
                             </span>
                         </div>
                         <div>
+                            <span class="amountName">转账金额</span>
+                            <span>
+                                <input type="text" class="amount">
+                            </span>
+                        </div>
+                        <div>
                             <span class="outAccount">转出账户</span>
                             <span>
                                 <input id="transferAccount" valueId="" type="text" class="select" clazz="contactsAccount" readonly>
@@ -149,12 +155,6 @@
                             <span class="enterAccount">转入账户</span>
                             <span>
                                 <input id="transferToAccount" valueId="" type="text" class="select" clazz="contactsAccount" readonly>
-                            </span>
-                        </div>
-                        <div>
-                            <span class="amountName">转账金额</span>
-                            <span>
-                                <input type="text" class="amount">
                             </span>
                         </div>
                         <div>

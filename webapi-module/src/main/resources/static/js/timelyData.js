@@ -100,7 +100,7 @@ function getBusinessOrders(page){
         type: 'POST',
         data: {
             page: page,
-            size: 10
+            size: 20
         },
         success: function (res) {
             if(res.b){
@@ -109,7 +109,7 @@ function getBusinessOrders(page){
                 var list = eval(res.result);
                 var str = '<tr><th>序号</th><th>单据日期</th><th>收入账户</th><th>支出账户</th><th>业务金额</th><th>业务类型</th><th>往来对象</th><th>备注</th></tr>';
                 for (var i = 0; i < list.length ; i++){
-                    str += '<tr><td>' + (((parseInt(nowPage) - 1) * 10) + (i + 1)) + '</td><td>' + getDateString(list[i].documentDate) + '</td>';
+                    str += '<tr><td>' + (((parseInt(nowPage) - 1) * 20) + (i + 1)) + '</td><td>' + getDateString(list[i].documentDate) + '</td>';
 
                     if(list[i].income == null){
                         str += '<td></td>';
@@ -146,19 +146,23 @@ function getBusinessOrders(page){
                 if(page == 1){
                     $('.previousPage').css({
                         'opacity': '0.6',
-                        'cursor': 'not-allowed'
+                        'cursor': 'not-allowed',
+                        'disabled':'disabled'
                     });
-
+                    $('.previousPage').attr('disabled','disabled');
                 }else {
                     $('.previousPage').removeAttr('style');
+                    $('.previousPage').removeAttr('disabled');
                 }
                 if(res.totalPage < 1 || page == res.totalPage){
                     $('.nextPage').css({
                         'opacity': '0.6',
                         'cursor': 'not-allowed'
                     });
+                    $('.nextPage').attr('disabled','disabled');
                 }else{
                     $('.nextPage').removeAttr('style');
+                    $('.nextPage').removeAttr('disabled');
                 }
 
             }

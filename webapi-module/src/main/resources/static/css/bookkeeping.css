@@ -228,13 +228,30 @@ ul{
     font-size: 13px;
 }
 
-.selected .con .option ul li{
-    float: left;
-    margin: 10px 20px;
+/*.selected .con .option ul li{*/
+/*}*/
+
+.selected .con .option table{
+    width: 100%;
+    border-collapse: collapse;
 }
-.selected .con .option ul li:hover{
+
+.selected .con .option table tr{
+    height: 30px;
+}
+
+.selected .con .option table tr:hover{
     cursor: pointer;
-    color: #880015;
+    background-color: #880015;
+    color: #FFFFFF;
+}
+
+.selected .con .option table tr td{
+    padding-left: 20px;
+}
+
+.selected .con .option table tr td:first-of-type{
+    width: 200px;
 }
 
 

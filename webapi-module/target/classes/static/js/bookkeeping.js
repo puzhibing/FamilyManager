@@ -304,21 +304,22 @@ function getValues(type , id){
         success: function (res) {
             if(res.b){
                 var list = res.result;
-                var str = '<ul>';
+                var str = '<table>';
                 for (var i = 0 ; i < list.length ; i++){
                     if(type == '1'){
-                        str += '<li id="' + list[i].id + '" onclick="selectValue(this)">' + list[i].name + '</li>';
+                        // str += '<li id="' + list[i].id + '" onclick="selectValue(this)">' + list[i].name + '</li>';
+                        str += '<tr id="' + list[i].id + '" onclick="selectValue(this)"><td>' + list[i].name + '</td></tr>';
                     }else {
                         if(pageType == '1'){
                             if(list[i].type == '0'){
-                                str += '<li id="' + list[i].id + '" onclick="selectValue(this)">' + list[i].name + '</li>';
+                                str += '<tr id="' + list[i].id + '" onclick="selectValue(this)"><td>' + list[i].name + '</td><td>' + list[i].balance + '</td></tr>';
                             }
                         }else {
-                            str += '<li id="' + list[i].id + '" onclick="selectValue(this)">' + list[i].name + '</li>';
+                            str += '<tr id="' + list[i].id + '" onclick="selectValue(this)"><td>' + list[i].name + '</td><td>' + list[i].balance + '</td></tr>';
                         }
                     }
                 }
-                str += '</ul>';
+                str += '</table>';
                 $('.selected .con .option').html(str);
             }
         }
@@ -331,7 +332,7 @@ function getValues(type , id){
 //点击选择值处理的函数
 function selectValue(e){
     var inputId = $('.inputId').val();
-    var value = $(e).text();
+    var value = $(e).children('td:first').text();
     var valueId = $(e).attr('id');
     $('#' + inputId).val(value);
     $('#' + inputId).attr('valueId',valueId);
