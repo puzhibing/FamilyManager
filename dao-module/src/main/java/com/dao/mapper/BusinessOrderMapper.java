@@ -47,6 +47,9 @@ public interface BusinessOrderMapper {
                     select = "com.dao.mapper.ContactsAccountMapper.selectDataById"
             )),
             @Result(property = "amount" , column = "amount"),
+            @Result(property = "contacts" , column = "contacts" , javaType = ContactsAccount.class , one = @One(
+                    select = "com.dao.mapper.ContactsAccountMapper.selectDataById"
+            )),
             @Result(property = "classificationValue" , column = "classificationValue" , javaType = ClassificationValue.class , one = @One(
                     select = "com.dao.mapper.ClassificationValueMapper.selectDataById"
             )),
@@ -119,6 +122,9 @@ public interface BusinessOrderMapper {
                     select = "com.dao.mapper.ContactsAccountMapper.selectDataById"
             )),
             @Result(property = "amount" , column = "amount"),
+            @Result(property = "contacts" , column = "contacts" , javaType = ContactsAccount.class , one = @One(
+                    select = "com.dao.mapper.ContactsAccountMapper.selectDataById"
+            )),
             @Result(property = "classificationValue" , column = "classificationValue" , javaType = ClassificationValue.class , one = @One(
                     select = "com.dao.mapper.ClassificationValueMapper.selectDataById"
             )),
@@ -147,6 +153,9 @@ public interface BusinessOrderMapper {
                     select = "com.dao.mapper.ContactsAccountMapper.selectDataById"
             )),
             @Result(property = "amount" , column = "amount"),
+            @Result(property = "contacts" , column = "contacts" , javaType = ContactsAccount.class , one = @One(
+                    select = "com.dao.mapper.ContactsAccountMapper.selectDataById"
+            )),
             @Result(property = "classificationValue" , column = "classificationValue" , javaType = ClassificationValue.class , one = @One(
                     select = "com.dao.mapper.ClassificationValueMapper.selectDataById"
             )),

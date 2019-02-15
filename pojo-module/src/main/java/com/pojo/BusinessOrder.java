@@ -19,6 +19,8 @@ public class BusinessOrder extends CommonBean{
 
     private String amount;//金额
 
+    private Object contacts;//往来对象
+
     private Object classificationValue;
 
     private String handMan;//经手人
@@ -81,6 +83,14 @@ public class BusinessOrder extends CommonBean{
         this.amount = amount;
     }
 
+    public Object getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(Object contacts) {
+        this.contacts = contacts;
+    }
+
     public Object getClassificationValue() {
         return classificationValue;
     }
@@ -115,6 +125,7 @@ public class BusinessOrder extends CommonBean{
                 ", income=" + income +
                 ", expenditure=" + expenditure +
                 ", amount='" + amount + '\'' +
+                ", contacts='" + contacts + '\'' +
                 ", classificationValue=" + classificationValue +
                 ", handMan='" + handMan + '\'' +
                 ", remark='" + remark + '\'' +

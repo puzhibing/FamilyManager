@@ -107,7 +107,7 @@ function getBusinessOrders(page){
                 var nowPage = $('.nowPage').text();
                 $('.accountingFlow_panel div table').html('');
                 var list = eval(res.result);
-                var str = '<tr><th>序号</th><th>单据日期</th><th>收入账户</th><th>支出账户</th><th>业务金额</th><th>业务类型</th><th>备注</th></tr>';
+                var str = '<tr><th>序号</th><th>单据日期</th><th>收入账户</th><th>支出账户</th><th>业务金额</th><th>业务类型</th><th>往来对象</th><th>备注</th></tr>';
                 for (var i = 0; i < list.length ; i++){
                     str += '<tr><td>' + (((parseInt(nowPage) - 1) * 10) + (i + 1)) + '</td><td>' + getDateString(list[i].documentDate) + '</td>';
 
@@ -131,7 +131,13 @@ function getBusinessOrders(page){
                         str += '<td>' + list[i].classificationValue.name + '</td>';
                     }
 
-                    str += '<td>' + list[i].remark + '</td></tr>';
+                    if(list[i].contacts == null){
+                        str += '<td></td>';
+                    }else{
+                        str += '<td>' + list[i].contacts.name + '</td>';
+                    }
+
+                    str += '<td title="' + list[i].remark + '">' + list[i].remark + '</td></tr>';
                 }
                 $('.accountingFlow_panel div table').html(str);
                 $('.sunPage').text(res.totalPage);

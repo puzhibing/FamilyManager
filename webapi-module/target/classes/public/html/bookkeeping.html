@@ -106,6 +106,12 @@
                             </span>
                         </div>
                         <div>
+                            <span>往来对象</span>
+                            <span>
+                                <input id="contacts" valueId="" type="text" class="select" clazz="contacts" readonly>
+                            </span>
+                        </div>
+                        <div>
                             <span>收入日期</span>
                             <span>
                                 <input type="datetime-local" class="documentDate">
@@ -122,28 +128,37 @@
                         <button>记账</button>
                     </div>
 
-                    <!-- 转账 -->
+                    <!-- 转账和还款 -->
                     <div class="transfer_text text">
                         <div>
-                            <span>转出账户</span>
+                            <span>业务类型</span>
+                            <span>
+                                <select class="type">
+                                    <option value="1">转账</option>
+                                    <option value="2">还款</option>
+                                </select>
+                            </span>
+                        </div>
+                        <div>
+                            <span class="outAccount">转出账户</span>
                             <span>
                                 <input id="transferAccount" valueId="" type="text" class="select" clazz="contactsAccount" readonly>
                             </span>
                         </div>
                         <div>
-                            <span>转入账户</span>
+                            <span class="enterAccount">转入账户</span>
                             <span>
                                 <input id="transferToAccount" valueId="" type="text" class="select" clazz="contactsAccount" readonly>
                             </span>
                         </div>
                         <div>
-                            <span>转账金额</span>
+                            <span class="amountName">转账金额</span>
                             <span>
                                 <input type="text" class="amount">
                             </span>
                         </div>
                         <div>
-                            <span>转账日期</span>
+                            <span class="date">转账日期</span>
                             <span>
                                 <input type="datetime-local" class="documentDate">
                             </span>
@@ -162,7 +177,7 @@
                     <!-- 借贷 -->
                     <div class="borrowing_text text">
                         <div>
-                            <span>借贷类型</span>
+                            <span>业务类型</span>
                             <span>
                                 <select class="type">
                                     <option value="1">借出</option>
@@ -216,7 +231,7 @@
                     <!-- 投资 -->
                     <div class="investment_text text">
                         <div>
-                            <span>投资类型</span>
+                            <span>业务类型</span>
                             <span>
                                 <select class="type">
                                     <option value="1">投资支出</option>

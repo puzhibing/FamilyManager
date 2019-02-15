@@ -1,5 +1,6 @@
 
 
+var pageType = '1';//保存页面类型
 
 $(function () {
     init();
@@ -43,6 +44,10 @@ $(function () {
     $('.transfer_text button').click(function () {
         saveTransferData();
     });
+
+    $('.transfer_text .type').change(function () {
+        chooseTransferType();
+    })
 
     $('.borrowing_text .type').change(function () {
         chooseBorrowingType();
@@ -94,6 +99,29 @@ function q(e) {
     var c = $(e).attr('class') + '_text';
     $('.' + c).show();
     $('.' + c).siblings().hide();
+    var cla= $(e).attr('class');
+    switch (cla) {
+        case 'consumption':
+            pageType = '1';
+        break;
+        case 'income':
+            pageType = '1';
+            break;
+        case 'transfer':
+            pageType = '1';
+            break;
+        case 'borrowing':
+            pageType = '2';
+            break;
+        case 'investment':
+            pageType = '2';
+            break;
+        default :
+            break;
+    }
+
+
+
 }
 
 
@@ -226,7 +254,7 @@ function getContacts() {
         success: function (res) {
             if(res.b){
                 $('.selected .con .type').html('');
-                $('.selected .title span').text('账户及往来');
+                $('.selected .title span').text('往来对象');
                 var list = res.result;
                 var str = '<ul>';
                 for (var i = 0 ; i < list.length ; i++){
@@ -278,7 +306,17 @@ function getValues(type , id){
                 var list = res.result;
                 var str = '<ul>';
                 for (var i = 0 ; i < list.length ; i++){
-                    str += '<li id="' + list[i].id + '" onclick="selectValue(this)">' + list[i].name + '</li>'
+                    if(type == '1'){
+                        str += '<li id="' + list[i].id + '" onclick="selectValue(this)">' + list[i].name + '</li>';
+                    }else {
+                        if(pageType == '1'){
+                            if(list[i].type == '0'){
+                                str += '<li id="' + list[i].id + '" onclick="selectValue(this)">' + list[i].name + '</li>';
+                            }
+                        }else {
+                            str += '<li id="' + list[i].id + '" onclick="selectValue(this)">' + list[i].name + '</li>';
+                        }
+                    }
                 }
                 str += '</ul>';
                 $('.selected .con .option').html(str);
@@ -359,6 +397,7 @@ function saveExpenditureData(){
                 $('.consumption_text #expenditureAccount').val('');
                 $('.consumption_tex .documentDate').val('');
                 $('.consumption_tex .remark').val('');
+                $('.consumption_text .amortizationMonths').val('');
                 alert('保存成功');
             }
         }
@@ -370,6 +409,7 @@ function saveExpenditureData(){
 function saveIncomeData() {
     var id = '';
     var amount = $('.income_text .amount').val();
+    var contacts = $('.income_text #contacts').attr('valueId');
     var classificationValue = $('.income_text #incomeType').attr('valueId');
     var income = $('.income_text #incomeAccount').attr('valueId');
     var documentDate = getDateForDatetimeLocal($('.income_text .documentDate').val());
@@ -393,6 +433,7 @@ function saveIncomeData() {
             businessType: '2',//收入
             income: income,
             amount: amount,
+            contacts: contacts,
             classificationValue: classificationValue,
             remark: remark,
             token: '1'
@@ -400,6 +441,7 @@ function saveIncomeData() {
         success: function (res) {
             if(res.b){
                 $('.income_text .amount').val('');
+                $('.income_text #contacts').val('');
                 $('.income_text #incomeType').val('');
                 $('.income_text #incomeAccount').val('');
                 $('.income_text .documentDate').val('');
@@ -413,11 +455,18 @@ function saveIncomeData() {
 
 function saveTransferData(){
     var id = '';
-    var expenditure = $('.transfer_text #transferAccount').attr('valueId');
-    var income = $('.transfer_text #transferToAccount').attr('valueId');
+    var type = $('.transfer_text .type').val();
+    var expenditure = $('.transfer_text #transferAccount').attr('valueId');//支出
+    var income = $('.transfer_text #transferToAccount').attr('valueId');//收入
     var amount = $('.transfer_text .amount').val();
     var documentDate = getDateForDatetimeLocal($('.transfer_text .documentDate').val());
     var remark = $('.transfer_text .remark').val();
+
+    var businessType = '3';//转账
+    if(type == '2'){
+        businessType = '10';//还款
+    }
+
 
     var url;
     if(id == ''){
@@ -433,7 +482,7 @@ function saveTransferData(){
             id: id,
             documentDate: documentDate,
             documentType: '3',
-            businessType: '3',//转账
+            businessType: businessType,
             income: income,
             expenditure: expenditure,
             amount: amount,
@@ -452,6 +501,27 @@ function saveTransferData(){
         }
     });
 }
+
+//选择不同的类型处理函数
+function chooseTransferType() {
+    var type = $('.transfer_text .type').val();
+    if(type == '1'){
+        $('.transfer_text .outAccount').text('转出账户');
+        $('.transfer_text .enterAccount').text('转入账户');
+        $('.transfer_text .amountName').text('转账金额');
+        $('.transfer_text .date').text('转账日期');
+        pageType = '1';
+    }else{
+        $('.transfer_text .outAccount').text('支出账户');
+        $('.transfer_text .enterAccount').text('还款对象');
+        $('.transfer_text .amountName').text('还款金额');
+        $('.transfer_text .date').text('还款日期');
+        pageType = '2';
+    }
+}
+
+
+
 
 
 function saveBorrowingData() {
@@ -521,11 +591,6 @@ function saveBorrowingData() {
             }
         }
     });
-
-
-
-
-
 
 }
 
