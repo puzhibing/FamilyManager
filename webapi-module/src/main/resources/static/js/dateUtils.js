@@ -61,3 +61,17 @@ function getMonthDays(year, month) {
     var d = new Date(year, month, 0);
     return d.getDate();
 }
+
+
+/**
+ * 获取两个日期之间相差的月份数据
+ * @param startDate
+ * @param endDate
+ * @returns {number}
+ */
+function getIntervalMonth(startDate , endDate) {
+    var startMonth = startDate.getMonth();
+    var endMonth = endDate.getMonth();
+    var intervalMonth =  (endDate.getFullYear() * 12 + endMonth) - (startDate.getFullYear() * 12 + startMonth);
+    return intervalMonth;
+}
