@@ -140,7 +140,7 @@
 
 .selected{
     width: 420px;
-    height: 250px;
+    /*height: 250px;*/
     background-color: #FFFFFF;
     z-index: 200;
     position: absolute;
@@ -148,6 +148,7 @@
     border-radius: 3px;
     border: 1px solid #C7C7C7;
     display: none;
+    padding-bottom: 30px;
 }
 
 .selected .title{
@@ -198,6 +199,15 @@
     height: 30px;
     border-radius: 3px;
     border: 1px solid #bbbbbb;
+}
+
+.selected .con>div>div input[type="radio"]{
+    width: auto;
+    height: auto;
+}
+
+.selected .con>div>div input[type="radio"]:first-of-type{
+    margin-right: 160px;
 }
 
 .selected .con>div>div button{

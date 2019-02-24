@@ -16,8 +16,8 @@ public class KindSql {
     public String insertData(Kind kind){
         return new SQL(){{
             INSERT_INTO("db_kind");
-            INTO_COLUMNS("id , name , sort , del , insertUserId , insertTime , updateUserId , updateTime");
-            INTO_VALUES("#{id} , #{name} , #{sort} , #{del} , #{insertUserId} , #{insertTime} , #{updateUserId} , #{updateTime}");
+            INTO_COLUMNS("id , name , type , sort , del , insertUserId , insertTime , updateUserId , updateTime");
+            INTO_VALUES("#{id} , #{name} , #{type} , #{sort} , #{del} , #{insertUserId} , #{insertTime} , #{updateUserId} , #{updateTime}");
         }}.toString();
     }
 
@@ -30,7 +30,7 @@ public class KindSql {
     public String updateData(Kind kind){
         return new SQL(){{
             UPDATE("db_kind");
-            SET("name = #{name} , sort = #{sort} , updateUserId = #{updateUserId} , updateTime = #{updateTime}");
+            SET("name = #{name} , type = #{type} , sort = #{sort} , updateUserId = #{updateUserId} , updateTime = #{updateTime}");
             WHERE("id = #{id}");
         }}.toString();
     }
@@ -42,7 +42,7 @@ public class KindSql {
      */
     public String selectAll(){
         return new SQL(){{
-            SELECT("id , name , sort");
+            SELECT("id , name , type , sort");
             FROM("db_kind");
             WHERE("del = '0'");
             ORDER_BY("sort");

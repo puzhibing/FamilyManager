@@ -1,6 +1,7 @@
 
 
 var pageType = '1';//保存页面类型
+var seletedType = '';//选择类型
 
 $(function () {
     init();
@@ -14,8 +15,6 @@ $(function () {
 
     $('.select').click(function () {
         var clazz = $(this).attr('clazz');
-        var id = $(this).attr('id');
-        $('.inputId').val(id);
         dynamicContent(clazz);
         selectPopup('show');
         $('.selected .con .option').html('');
@@ -99,29 +98,6 @@ function q(e) {
     var c = $(e).attr('class') + '_text';
     $('.' + c).show();
     $('.' + c).siblings().hide();
-    var cla= $(e).attr('class');
-    switch (cla) {
-        case 'consumption':
-            pageType = '1';
-        break;
-        case 'income':
-            pageType = '1';
-            break;
-        case 'transfer':
-            pageType = '1';
-            break;
-        case 'borrowing':
-            pageType = '2';
-            break;
-        case 'investment':
-            pageType = '2';
-            break;
-        default :
-            break;
-    }
-
-
-
 }
 
 
@@ -149,11 +125,26 @@ function dynamicContent(clazz){
         case 'typeOfIncome'://收入类型
             getTypeOfIncome();
             break;
-        case 'contactsAccount'://账户及往来
-            getContactsAccount();
+        case 'expenditureAccount'://支出账户
+            getExpenditureAccount();
             break;
-        case 'contacts':
-            getContacts();//往来对象
+        case 'incomeAccount'://收入账户、转入账户、转出账户、借贷入账户
+            getIncomeAccount();
+            break
+        case 'contacts'://往来对象
+            getContacts();
+            break
+        case 'borrower'://借款对象
+            getBorrower();
+            break;
+        case 'loanObject'://贷款对象
+            getLoanObject();
+            break;
+        case 'investmentObject'://投资对象
+            getInvestmentObject();
+            break;
+        case 'repaymentObject'://成员
+            getRepaymentObject();
             break;
         default:
             break;
@@ -178,11 +169,10 @@ function getTypeOfExpenditure() {
                 var list = res.result;
                 var str = '<ul>';
                 for (var i = 0 ; i < list.length ; i++){
-                    str += '<li id="' + list[i].id + '" onclick="selectLi(this)">' + list[i].name + '</li>'
+                    str += '<li id="' + list[i].id + '" onclick="getClassificationValue(this)">' + list[i].name + '</li>'
                 }
                 str += '</ul>';
                 $('.selected .con .type').html(str);
-                $('.seletedType').val('1');
             }
         }
     });
@@ -205,20 +195,18 @@ function getTypeOfIncome() {
                 var list = res.result;
                 var str = '<ul>';
                 for (var i = 0 ; i < list.length ; i++){
-                    str += '<li id="' + list[i].id + '" onclick="selectLi(this)">' + list[i].name + '</li>'
+                    str += '<li id="' + list[i].id + '" onclick="getClassificationValue(this)">' + list[i].name + '</li>'
                 }
                 str += '</ul>';
                 $('.selected .con .type').html(str);
-                $('.seletedType').val('1');
             }
         }
     });
 }
 
 
-
-//获取账户及往来数据
-function getContactsAccount() {
+//获取支出账户
+function getExpenditureAccount() {
     $.ajax({
         url: '/Classification/selectDataByKind',
         type: 'POST',
@@ -228,19 +216,94 @@ function getContactsAccount() {
         success: function (res) {
             if(res.b){
                 $('.selected .con .type').html('');
-                $('.selected .title span').text('账户及往来');
+                $('.selected .title span').text('账户相关');
                 var list = res.result;
                 var str = '<ul>';
                 for (var i = 0 ; i < list.length ; i++){
-                    str += '<li id="' + list[i].id + '" onclick="selectLi(this)">' + list[i].name + '</li>'
+                    str += '<li id="' + list[i].id + '" onclick="getAccountValue(this)">' + list[i].name + '</li>';
                 }
                 str += '</ul>';
                 $('.selected .con .type').html(str);
-                $('.seletedType').val('2');
             }
         }
     });
 }
+
+
+//获取收入账户、转入账户、转出账户、借贷入账户
+function getIncomeAccount() {
+    $.ajax({
+        url: '/Classification/selectDataByKind',
+        type: 'POST',
+        data: {
+            kind: '4wvbwptevrnwq9m2qd7e'
+        },
+        success: function (res) {
+            if(res.b){
+                $('.selected .con .type').html('');
+                $('.selected .title span').text('账户相关');
+                var list = res.result;
+                var str = '<ul>';
+                for (var i = 0 ; i < list.length ; i++){
+                    if(list[i].id == '2c18b356a06645479aec'){
+                        str += '<li id="' + list[i].id + '" onclick="getAccountValue(this)">' + list[i].name + '</li>';
+                    }
+                }
+                str += '</ul>';
+                $('.selected .con .type').html(str);
+            }
+        }
+    });
+}
+
+
+
+
+//获取还款对象（包含借贷对象和所有的成员对象）
+function getRepaymentObject() {
+    $.ajax({
+        url: '/Classification/selectDataByKind',
+        type: 'POST',
+        data: {
+            kind: '4wvbwptevrnwq9m2qd7e'
+        },
+        success: function (res) {
+            if(res.b){
+                $('.selected .con .type').html('');
+                $('.selected .title span').text('还款相关');
+                var list = res.result;
+                var str = '<ul>';
+                for (var i = 0 ; i < list.length ; i++){
+                    if(list[i].id != '2c18b356a06645479aec'){
+                        str += '<li id="' + list[i].id + '" onclick="getAccountValue(this)">' + list[i].name + '</li>';
+                    }
+                }
+
+                //获取成员相关分类数据
+                $.ajax({
+                    url: '/Classification/selectDataByKind',
+                    type: 'POST',
+                    data: {
+                        kind: 'wvrr4ax8uimvmtlo0p50'
+                    },
+                    success: function (res) {
+                        if(res.b){
+                            var list = res.result;
+                            for (var i = 0 ; i < list.length ; i++){
+                                str += '<li id="' + list[i].id + '" onclick="getContactsValue(this)">' + list[i].name + '</li>'
+                            }
+                            str += '</ul>';
+                            $('.selected .con .type').html(str);
+                        }
+                    }
+                });
+
+            }
+        }
+    });
+}
+
+
 
 
 //获取往来对象数据
@@ -249,54 +312,138 @@ function getContacts() {
         url: '/Classification/selectDataByKind',
         type: 'POST',
         data: {
-            kind: '4wvbwptevrnwq9m2qd7e'
+            kind: 'wvrr4ax8uimvmtlo0p50'
         },
         success: function (res) {
             if(res.b){
                 $('.selected .con .type').html('');
-                $('.selected .title span').text('往来对象');
+                $('.selected .title span').text('成员');
                 var list = res.result;
                 var str = '<ul>';
                 for (var i = 0 ; i < list.length ; i++){
-                    str += '<li id="' + list[i].id + '" onclick="selectLi(this)">' + list[i].name + '</li>'
+                    str += '<li id="' + list[i].id + '" onclick="getContactsValue(this)">' + list[i].name + '</li>'
                 }
                 str += '</ul>';
                 $('.selected .con .type').html(str);
-                $('.seletedType').val('2');
             }
         }
     });
 }
 
 
+//获取借款相关（信用借款和所有成员）
+function getBorrower() {
+    $.ajax({
+        url: '/Classification/selectDataByKind',
+        type: 'POST',
+        data: {
+            kind: '4wvbwptevrnwq9m2qd7e'
+        },
+        success: function (res) {
+            if(res.b){
+                $('.selected .con .type').html('');
+                $('.selected .title span').text('借款相关');
+                var list = res.result;
+                var str = '<ul>';
+                for (var i = 0 ; i < list.length ; i++){
+                    if(list[i].id == '6c9ccc681599478c9d45'){
+                        str += '<li id="' + list[i].id + '" onclick="getAccountValue(this)">' + list[i].name + '</li>';
+                    }
+                }
+
+                //获取成员相关分类数据
+                $.ajax({
+                    url: '/Classification/selectDataByKind',
+                    type: 'POST',
+                    data: {
+                        kind: 'wvrr4ax8uimvmtlo0p50'
+                    },
+                    success: function (res) {
+                        if(res.b){
+                            var list = res.result;
+                            for (var i = 0 ; i < list.length ; i++){
+                                str += '<li id="' + list[i].id + '" onclick="getContactsValue(this)">' + list[i].name + '</li>'
+                            }
+                            str += '</ul>';
+                            $('.selected .con .type').html(str);
+                        }
+                    }
+                });
+
+            }
+        }
+    });
+}
 
 
-//点击分类选项处理的相关逻辑
-function selectLi(e){
+//获取贷款相关分类数据
+function getLoanObject() {
+    $.ajax({
+        url: '/Classification/selectDataByKind',
+        type: 'POST',
+        data: {
+            kind: '4wvbwptevrnwq9m2qd7e'
+        },
+        success: function (res) {
+            if(res.b){
+                $('.selected .con .type').html('');
+                $('.selected .title span').text('借款相关');
+                var list = res.result;
+                var str = '<ul>';
+                for (var i = 0 ; i < list.length ; i++){
+                    if(list[i].id == '3ccf613441a546c9a355'){
+                        str += '<li id="' + list[i].id + '" onclick="getAccountValue(this)">' + list[i].name + '</li>';
+                    }
+                }
+
+                str += '</ul>';
+                $('.selected .con .type').html(str);
+            }
+        }
+    });
+}
+
+
+//获取投资相关分类
+function getInvestmentObject() {
+    $.ajax({
+        url: '/Classification/selectDataByKind',
+        type: 'POST',
+        data: {
+            kind: '4wvbwptevrnwq9m2qd7e'
+        },
+        success: function (res) {
+            if(res.b){
+                $('.selected .con .type').html('');
+                $('.selected .title span').text('借款相关');
+                var list = res.result;
+                var str = '<ul>';
+                for (var i = 0 ; i < list.length ; i++){
+                    if(list[i].id == '96d34403a8f24910997e'){
+                        str += '<li id="' + list[i].id + '" onclick="getAccountValue(this)">' + list[i].name + '</li>';
+                    }
+                }
+
+                str += '</ul>';
+                $('.selected .con .type').html(str);
+            }
+        }
+    });
+}
+
+
+//点击分类，获取分类对象的值
+function getClassificationValue(e){
     $(e).siblings().removeAttr('style');
     $(e).css({
         'border-left':'3px solid #880015',
         'color':'#880015',
         'background-color':'#FFFFFF'
     });
-    var type = $('.seletedType').val();
     var id = $(e).attr('id');
-    getValues(type , id);
-}
-
-
-
-//点击分类获取数据
-function getValues(type , id){
-    var url = '';
-    if('1' == type){
-        url = '/ClassificationValue/selectDataByClassification';
-    }else if('2' == type){
-        url = '/ContactsAccount/selectDataByClassification';
-    }
 
     $.ajax({
-        url: url,
+        url: '/ClassificationValue/selectDataByClassification',
         type: 'POST',
         data: {
             classification: id
@@ -306,18 +453,70 @@ function getValues(type , id){
                 var list = res.result;
                 var str = '<table>';
                 for (var i = 0 ; i < list.length ; i++){
-                    if(type == '1'){
-                        // str += '<li id="' + list[i].id + '" onclick="selectValue(this)">' + list[i].name + '</li>';
-                        str += '<tr id="' + list[i].id + '" onclick="selectValue(this)"><td>' + list[i].name + '</td></tr>';
-                    }else {
-                        if(pageType == '1'){
-                            if(list[i].type == '0'){
-                                str += '<tr id="' + list[i].id + '" onclick="selectValue(this)"><td>' + list[i].name + '</td><td>' + list[i].balance + '</td></tr>';
-                            }
-                        }else {
-                            str += '<tr id="' + list[i].id + '" onclick="selectValue(this)"><td>' + list[i].name + '</td><td>' + list[i].balance + '</td></tr>';
-                        }
-                    }
+                    str += '<tr id="' + list[i].id + '" onclick="selectValue(this)"><td>' + list[i].name + '</td></tr>';
+                }
+                str += '</table>';
+                $('.selected .con .option').html(str);
+            }
+        }
+    });
+
+}
+
+
+//点击账户分类获取账户数据
+function getAccountValue(e){
+    $(e).siblings().removeAttr('style');
+    $(e).css({
+        'border-left':'3px solid #880015',
+        'color':'#880015',
+        'background-color':'#FFFFFF'
+    });
+    var id = $(e).attr('id');
+
+    $.ajax({
+        url: '/ContactsAccount/selectDataByClassification',
+        type: 'POST',
+        data: {
+            classification: id
+        },
+        success: function (res) {
+            if(res.b){
+                var list = res.result;
+                var str = '<table>';
+                for (var i = 0 ; i < list.length ; i++){
+                    str += '<tr id="' + list[i].id + '" onclick="selectValue(this)"><td>' + list[i].name + '</td><td>' + list[i].balance + '</td></tr>';
+                }
+                str += '</table>';
+                $('.selected .con .option').html(str);
+            }
+        }
+    });
+}
+
+
+//点击成员相关的分类获取对应的值
+function getContactsValue(e) {
+    $(e).siblings().removeAttr('style');
+    $(e).css({
+        'border-left':'3px solid #880015',
+        'color':'#880015',
+        'background-color':'#FFFFFF'
+    });
+    var id = $(e).attr('id');
+
+    $.ajax({
+        url: '/Member/selectDataByClassification',
+        type: 'POST',
+        data: {
+            classification: id
+        },
+        success: function (res) {
+            if(res.b){
+                var list = res.result;
+                var str = '<table>';
+                for (var i = 0 ; i < list.length ; i++){
+                    str += '<tr id="' + list[i].id + '" onclick="selectValue(this)"><td>' + list[i].name + '</td><td>' + list[i].balance + '</td></tr>';
                 }
                 str += '</table>';
                 $('.selected .con .option').html(str);
@@ -511,13 +710,15 @@ function chooseTransferType() {
         $('.transfer_text .enterAccount').text('转入账户');
         $('.transfer_text .amountName').text('转账金额');
         $('.transfer_text .date').text('转账日期');
-        pageType = '1';
+
+        $('#transferToAccount').attr('clazz','incomeAccount');
     }else{
         $('.transfer_text .outAccount').text('支出账户');
         $('.transfer_text .enterAccount').text('还款对象');
         $('.transfer_text .amountName').text('还款金额');
         $('.transfer_text .date').text('还款日期');
-        pageType = '2';
+
+        $('#transferToAccount').attr('clazz','repaymentObject');
     }
 }
 
@@ -606,24 +807,32 @@ function chooseBorrowingType(){
             $('.borrowing_text .contactsName').text('借款对象');
             $('.borrowing_text .amountName').text('借款金额');
             $('.borrowing_text .dateName').text('借款日期');
+
+            $('#contactsAccount').attr('clazz','borrower');
             break;
         case '2':
             $('.borrowing_text .ordinaryName').text('借入账户');
             $('.borrowing_text .contactsName').text('借款对象');
             $('.borrowing_text .amountName').text('借款金额');
             $('.borrowing_text .dateName').text('借款日期');
+
+            $('#contactsAccount').attr('clazz','borrower');
             break;
         case '3':
             $('.borrowing_text .ordinaryName').text('贷出账户');
             $('.borrowing_text .contactsName').text('贷款对象');
             $('.borrowing_text .amountName').text('贷款金额');
             $('.borrowing_text .dateName').text('贷款日期');
+
+            $('#contactsAccount').attr('clazz','loanObject');
             break;
         case '4':
             $('.borrowing_text .ordinaryName').text('贷入账户');
             $('.borrowing_text .contactsName').text('贷款对象');
             $('.borrowing_text .amountName').text('贷款金额');
             $('.borrowing_text .dateName').text('贷款日期');
+
+            $('#contactsAccount').attr('clazz','loanObject');
             break;
         default:
             break;

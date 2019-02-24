@@ -16,8 +16,8 @@ public class ClassificationSql {
     public String insertData(Classification classification){
         return new SQL(){{
             INSERT_INTO("db_classification");
-            INTO_COLUMNS("id , name , kind , sort , del , insertUserId , insertTime , updateUserId , updateTime");
-            INTO_VALUES("#{id} , #{name} , #{kind} , #{sort} , #{del} , #{insertUserId} , #{insertTime} , #{updateUserId} , #{updateTime}");
+            INTO_COLUMNS("id , name , kind , type , accountType , sort , del , insertUserId , insertTime , updateUserId , updateTime");
+            INTO_VALUES("#{id} , #{name} , #{kind} , #{type} , #{accountType} , #{sort} , #{del} , #{insertUserId} , #{insertTime} , #{updateUserId} , #{updateTime}");
         }}.toString();
     }
 
@@ -28,7 +28,7 @@ public class ClassificationSql {
      */
     public String selectAll(){
         return new SQL(){{
-            SELECT("id , name , kind , sort , del , insertUserId , insertTime , updateUserId , updateTime");
+            SELECT("id , name , kind , type , accountType , sort , del , insertUserId , insertTime , updateUserId , updateTime");
             FROM("db_classification");
             WHERE("del = '0'");
             ORDER_BY("sort");
@@ -44,7 +44,7 @@ public class ClassificationSql {
     public String updateData(Classification classification){
         return new SQL(){{
             UPDATE("db_classification");
-            SET("name = #{name} , sort = #{sort} , updateUserId = #{updateUserId} , updateTime = #{updateTime}");
+            SET("name = #{name} , accountType = #{accountType} , sort = #{sort} , updateUserId = #{updateUserId} , updateTime = #{updateTime}");
             WHERE("id = #{id} , del = '0'");
         }}.toString();
     }
@@ -73,7 +73,7 @@ public class ClassificationSql {
      */
     public String selectDataByKind(String kind){
         return new SQL(){{
-            SELECT("id , name , kind , sort");
+            SELECT("id , name , kind , type , accountType , sort");
             FROM("db_classification");
             WHERE("del = '0' and kind = #{kind}");
             ORDER_BY("sort");
