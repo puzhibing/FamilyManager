@@ -14,7 +14,7 @@ html,body{
 }
 
 .home .content{
-    width: 80%;
+    width: 70%;
     height: 100vh;
     margin: 0 auto;
 }
@@ -96,6 +96,7 @@ html,body{
 .home .content .pages .classification .ul ul li:hover{
     background-color: #880015;
     color: #FFFFFF;
+    cursor: pointer;
 }
 
 .home .content .pages .classification .ul ul li span{
@@ -104,8 +105,6 @@ html,body{
 
 
 .home .content .pages .classificationValue{
-    width: 100%;
-    height: 100vh;
 }
 
 .home .content .pages .classificationValue .tools{
@@ -155,7 +154,98 @@ html,body{
     text-indent: 5px;
 }
 
-.home .content .pages .classificationValue .value table tr td:first-of-type{
+.home .content .pages .classificationValue .value table tr th:first-of-type{
     width: 50px;
+}
+
+
+.Pop-ups{
+    display: none;
+    background-color: rgba(69 , 69 , 69 ,0.5);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    z-index: 100;
+}
+
+.Pop-ups .panel{
+    width: 400px;
+    /*height: 400px;*/
+    background-color: #FFFFFF;
+    margin: 0 auto;
+    position: relative;
+    top: 100px;
+    border-radius: 3px;
+}
+
+.Pop-ups .panel .head{
+    font-size: 8px;
+    height: 30px;
+    line-height: 30px;
+    background-color: #DF5353;
+    border-radius: 3px 3px 0px 0px;
+}
+
+.Pop-ups .panel .head div{
+    float: left;
+}
+
+.Pop-ups .panel .head div:first-of-type{
+    width: 373px;
+}
+
+.Pop-ups .panel .head div:first-of-type span{
+    font-size: 14px;
+    margin-left: 15px;
+}
+
+.Pop-ups .panel .head div span[class = 'fa-stack fa-lg']{
+    color: #880015;
+}
+
+.Pop-ups .panel .head div span[class = 'fa-stack fa-lg']:hover{
+    cursor: pointer;
+    color: #C3C3C3;
+}
+
+.Pop-ups .panel .inputs{
+    width: 100%;
+    margin-top: 30px;
+}
+
+.Pop-ups .panel .inputs div{
+    width: 100%;
+    height: 60px;
     text-align: center;
+    line-height: 60px;
+}
+
+.Pop-ups .panel .inputs div input{
+    height: 30px;
+    width: 250px;
+    border-radius: 3px;
+    border: 1px solid #880015;
+    margin-left: 10px;
+    text-indent: 10px;
+}
+
+.Pop-ups .panel .inputs div:last-of-type{
+    height: 80px;
+    line-height: 80px;
+}
+
+.Pop-ups .panel .inputs div button{
+    width: 333px;
+    height: 35px;
+    background-color: #880015;
+    border: 1px solid #880015;
+    border-radius: 3px;
+    color: #FFFFFF;
+}
+
+.Pop-ups .panel .inputs div button:hover{
+    cursor: pointer;
+    background-color: #760012;
+    border: 1px solid #760012;
 }
