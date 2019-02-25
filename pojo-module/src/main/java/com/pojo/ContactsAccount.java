@@ -7,7 +7,7 @@ public class ContactsAccount extends CommonBean {
 
     private Object classification;//分类
 
-    private String type;//类型（0：普通账户，1：其他往来对象）
+    private String type;//类型（0：账户数据，1：成员数据）
 
     private String name;
 

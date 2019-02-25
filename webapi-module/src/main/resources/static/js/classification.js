@@ -1,257 +1,114 @@
 
-var kindId = '';
-var kindType = '';
-var type = '';
-var accountType = '';
+var kindId = 'ils5hnlfbysciwppvvpk';
+var type = '1';//数据类型
 
 $(function () {
 
+    //初始化页面样式
     var width = document.body.clientWidth;
     var height = document.body.clientHeight;
 
-    $('.selected').css({
-        'left' : (width - 420) / 2
+    $('.content nav:first').css({
+        'background-color':'#FFFFFF',
+        'border-bottom':'2px solid #880015'
+    });
+    var c = $('.content nav:first').attr('class') + '_text';
+    $('.' + c).show();
+    $('.' + c).siblings().hide();
+
+    $('.content .pages').css({
+        'height': height - 50
     });
 
-    $('#classification').click(function () {
-        if('' == kindId){
-            alert('请先选择类型');
-            return;
-        }
-        selectPopup1('show' , kindType);
+    $('.content .pages .classificationValue').css({
+        'width': (width * 0.8) - 251
     });
 
-    $('#classificationValue').click(function () {
-        var classificationId = $('.classificationId').val();
-        if('' == classificationId){
-            alert('请先选择分类');
-            return;
-        }
-        if(type == '2'){
-            selectPopup3('show');
-        }else{
-            selectPopup2('show');
-        }
 
-    });
+    //初始化加载数据
+    getClassification();
 
-    $('.fa-close').click(function () {
-        selectPopup1('hide');
-        selectPopup2('hide');
-        selectPopup3('hide');
-    })
+    //绑定菜单点击事件
+    $('.content nav').click(function () {
+        $(this).css({//设置基础样式
+            'background-color':'#FFFFFF',
+            'border-bottom':'2px solid #880015'
+        });
+        $(this).siblings().removeAttr('style');
 
-    $('.classificationPopup .con button').click(function () {
-        addClassification();
-    });
+        //实现页面显示隐藏功能
+        var c = $(this).attr('class') + '_text';
+        $('.' + c).show();
+        $('.' + c).siblings().hide();
 
-    $('.classificationValuePopup1 .con button').click(function () {
-        if(type == '1'){
-            addClassificationValue();
-        }else if(type == '3'){
-            addMember();
-        }
-
-    });
-
-    $('.classificationValuePopup2 .con button').click(function () {
-        addContactsAccount();
-    });
-
-    getKinds();
-});
-
-
-//处理分类编辑弹窗效果
-function selectPopup1(show , type){
-    if('show' == show){
-        $('.mask').show();
-        $('.classificationPopup').show();
-        switch (type) {
-            case '1':
-                $('.classificationPopup .type').hide();
+        //切换页面初始化获取分类数据
+        var clazz = $(this).attr('class');
+        switch (clazz) {
+            case 'expenditureClassification':
+                kindId = 'ils5hnlfbysciwppvvpk';
+                type = '1';
+                formatClassificationValue();
                 break;
-            case '2':
-                $('.classificationPopup .type').show();
+            case 'incomeClassification':
+                kindId = 'wvrr4ax8uimvmtlo0p5p';
+                type = '1';
+                formatClassificationValue();
                 break;
-            case '3':
-                $('.classificationPopup .type').hide();
+            case 'accountManagement':
+                kindId = '4wvbwptevrnwq9m2qd7e';
+                type = '2';
                 break;
+                formatClassificationValue();
+            case 'memberManagement':
+                kindId = 'wvrr4ax8uimvmtlo0p50';
+                type = '2';
+                break;
+                formatClassificationValue();
             default:
                 break;
         }
-    }else{
-        $('.mask').hide();
-        $('.classificationPopup').hide();
-    }
-}
-
-//处理分类编辑弹窗效果
-function selectPopup2(show){
-    if('show' == show){
-        $('.mask').show();
-        $('.classificationValuePopup1').show();
-    }else{
-        $('.mask').hide();
-        $('.classificationValuePopup1').hide();
-    }
-}
-
-//处理分类编辑弹窗效果
-function selectPopup3(show){
-    if('show' == show){
-        $('.mask').show();
-        $('.classificationValuePopup2').show();
-    }else{
-        $('.mask').hide();
-        $('.classificationValuePopup2').hide();
-    }
-}
-
-
-
-//获取所有类型数据
-function getKinds() {
-    $.ajax({
-        url: '/Kind/selectAll',
-        type: 'POST',
-        success: function (res) {
-            if(res.b){
-                var list = res.result;
-                var str = '<tr><th>编号</th><th>名称</th></tr>';
-                for(var i = 0 ; i < list.length ; i++){
-                    str += '<tr id="' + list[i].id + '" atr="' + list[i].name + '" type= "' + list[i].type + '" onclick="kindSelected(this)"><td>' + (i + 1) + '</td><td>' + list[i].name + '</td></tr>'
-                }
-                $('.kind>div table').html(str);
-            }
-        }
-
+        getClassification();
     });
-}
 
 
-//点击类型处理函数
-function kindSelected(e){
-    $(e).siblings().removeAttr('style');
-    $(e).css({
-        'background-color':'#C23137',
-        'color':'#FFFFFF'
-    });
-    var id = $(e).attr('id');
-    var type = $(e).attr('type');
-    getClassification(id);
-    $('.classificationValue>div table').html('<tr><th>编号</th><th>名称</th></tr>');
-
-    kindId = id;
-    kindType = type;
-}
+});
 
 
 //根据类型id获取分类数据
-function getClassification(id) {
+function getClassification(){
     $.ajax({
         url: '/Classification/selectDataByKind',
         type: 'POST',
         data: {
-            kind: id
+            kind: kindId
         },
-        success: function (res) {
+        success: function(res){
             if(res.b){
+                var str = '<ul>';
                 var list = res.result;
-                var str = '<tr><th>编号</th><th>名称</th></tr>';
                 for(var i = 0 ; i < list.length ; i++){
-                    str += '<tr id="' + list[i].id + '" atr="' + list[i].name + '" type="' + list[i].type + '" accountType="' + list[i].accountType + '" onclick="classificationSelected(this)"><td>' + (i + 1) + '</td><td>' + list[i].name + '</td></tr>'
+                    str += '<li value="' + list[i].id + '" onclick="getClassificationVal(this)"><span>' + list[i].name + '</span></li>'
                 }
-                $('.classification>div table').html(str);
+                str += '</ul>';
+                $('.pages .classification .ul').html(str);
             }
         }
     });
 }
 
 
-//添加分类数据
-function addClassification(){
-    var name = $('.classificationName').val();
-    var sort = $('.classificationSort').val();
-    var accountType;
-    var type;
-    switch (kindType) {
-        case '1'://普通分类
-            type = '1';
-            accountType = '';
-            break;
-        case '2'://账户相关
-            type = '2';
-            accountType = $('.classificationPopup input[name="accountType"]:checked').val();
-            break;
-        case '3'://成员相关
-            type = '3';
-            accountType = '';
-            break;
-        default:
-            break;
+//点击分类获取分类对相应的值
+function getClassificationVal(e){
+    var id = $(e).attr('value');
+    var url = '';
+    if(type == '1'){
+        url = '/ClassificationValue/selectDataByClassification';
+    }else if(type == '2'){
+        url = '/ContactsAccount/selectDataByClassification';
     }
 
-    if('' == name){
-        alert('名称不能为空');
-        return;
-    }
     $.ajax({
-        url: '/Classification/insertData',
-        type: 'POST',
-        data: {
-            kind: kindId,
-            name: name,
-            sort: sort,
-            type: type,
-            accountType: accountType,
-            token: '1'
-        },
-        success: function (res) {
-            if(res.b){
-                selectPopup1('hide');
-                $('.classificationName').val('');
-                $('.classificationSort').val('');
-                getClassification(kindId);
-            }
-        }
-    });
-}
-
-
-//点击分类处理函数
-function classificationSelected(e){
-    $(e).siblings().removeAttr('style');
-    $(e).css({
-        'background-color':'#C23137',
-        'color':'#FFFFFF'
-    });
-    var id = $(e).attr('id');
-    type = $(e).attr('type');
-    accountType = $(e).attr('accountType');
-
-    switch (type) {
-        case '1'://普通分类
-            getClassificationValue(id);
-            break;
-        case '2'://账户相关
-            getContactsAccount(id);
-            break;
-        case '3'://成员相关
-            getMember(id);
-            break;
-        default:
-            break;
-    }
-
-    $('.classificationId').val(id);
-}
-
-
-//获取分类值数据
-function getClassificationValue(id){
-    $.ajax({
-        url: '/ClassificationValue/selectDataByClassification',
+        url: url,
         type: 'POST',
         data: {
             classification: id
@@ -259,176 +116,26 @@ function getClassificationValue(id){
         success: function (res) {
             if(res.b){
                 var list = res.result;
-                var str = '<tr><th>编号</th><th>名称</th></tr>';
-                for(var i = 0 ; i < list.length ; i++){
-                    str += '<tr id="' + list[i].id + '"><td>' + (i + 1) + '</td><td>' + list[i].name + '</td></tr>'
+                var str = '<table>';
+                if(type == '1'){
+                    str += '<tr><th>序号</th><th>名称</th></tr>';
+                    for(var i = 0 ; i < list.length ; i++){
+                        str += '<tr><td>' + (i + 1) + '</td><td>' + list[i].name + '</td></tr>';
+                    }
+                }else if(type == '2'){
+                    str += '<tr><th>序号</th><th>名称</th><th>余额</th></tr>';
+                    for(var i = 0 ; i < list.length ; i++){
+                        str += '<tr><td>' + (i + 1) + '</td><td>' + list[i].name + '</td><td>' + list[i].balance + '</td></tr>';
+                    }
                 }
-                $('.classificationValue>div table').html(str);
+                str += '</table>';
+                $('.pages .classificationValue .value').html(str);
             }
         }
     });
 }
 
-
-
-//获取账户数据
-function getContactsAccount(id){
-    $.ajax({
-        url: '/ContactsAccount/selectDataByClassification',
-        type: 'POST',
-        data: {
-            classification: id
-        },
-        success: function (res) {
-            if(res.b){
-                var list = res.result;
-                var str = '<tr><th>编号</th><th>名称</th><td>余额</td></tr>';
-                for(var i = 0 ; i < list.length ; i++){
-                    str += '<tr id="' + list[i].id + '"><td>' + (i + 1) + '</td><td>' + list[i].name + '</td><td>' + list[i].balance + '</td></tr>'
-                }
-                $('.classificationValue>div table').html(str);
-            }
-        }
-    });
-}
-
-
-//获取成员数据
-function getMember(id){
-    $.ajax({
-        url: '/Member/selectDataByClassification',
-        type: 'POST',
-        data: {
-            classification: id
-        },
-        success: function (res) {
-            if(res.b){
-                var list = res.result;
-                var str = '<tr><th>编号</th><th>名称</th><td>余额</td></tr>';
-                for(var i = 0 ; i < list.length ; i++){
-                    str += '<tr id="' + list[i].id + '"><td>' + (i + 1) + '</td><td>' + list[i].name + '</td><td>' + list[i].balance + '</td></tr>'
-                }
-                $('.classificationValue>div table').html(str);
-            }
-        }
-    });
-}
-
-
-
-//添加分类数据处理函数
-function addClassificationValue(){
-    var classificationId = $('.classificationId').val();
-    var name = $('.classificationValueName').val();
-    var sort = $('.classificationValueSort').val();
-    if('' == name){
-        alert('数据名称不能为空');
-        return;
-    }
-
-    $.ajax({
-        url: '/ClassificationValue/insertData',
-        type: 'POST',
-        data: {
-            classification: classificationId,
-            name: name,
-            sort: sort,
-            token: '1'
-        },
-        success: function (res) {
-            if(res.b){
-                selectPopup2('hide');
-                $('.classificationValueName').val('');
-                $('.classificationValueSort').val('');
-                getClassificationValue(classificationId);
-            }
-        }
-    });
-}
-
-
-
-
-//添加账户相关数据
-function addContactsAccount(){
-    var classificationId = $('.classificationId').val();
-    var name = $('.contactsAccountName').val();
-    var agency = $('.agency').val();
-    var accountNumber = $('.accountNumber').val();
-    var balance = $('.balance').val();
-    var sort = $('.contactsAccountSort').val();
-    if('' == name){
-        alert('名称不能为空');
-        return
-    }
-    if('' == balance){
-        alert('账户余额不能为空');
-        return
-    }
-    var cname = $('#' + classificationId).attr('atr');
-    var type = '0';
-    if('普通账户' == cname){
-        type = '0';
-    }else{
-        type = '1';
-    }
-
-    $.ajax({
-        url: '/ContactsAccount/insertData',
-        type: 'POST',
-        data: {
-            classification: classificationId,
-            type: type,
-            name: name,
-            agency: agency,
-            accountNumber: accountNumber,
-            balance: balance,
-            sort: sort,
-            token: '1'
-        },
-        success: function (res) {
-            if(res.b){
-                selectPopup3('hide');
-                $('.contactsAccountName').val('');
-                $('.agency').val('');
-                $('.accountNumber').val('');
-                $('.balance').val('');
-                $('.contactsAccountSort').val('');
-                getContactsAccount(classificationId);
-            }
-        }
-    });
-}
-
-
-
-//添加成员相关数据
-function addMember() {
-    var classificationId = $('.classificationId').val();
-    var name = $('.classificationValueName').val();
-    var sort = $('.classificationValueSort').val();
-    if('' == name){
-        alert('数据名称不能为空');
-        return;
-    }
-
-    $.ajax({
-        url: '/Member/insertData',
-        type: 'POST',
-        data: {
-            classification: classificationId,
-            name: name,
-            balance: '0',
-            sort: sort,
-            token: '1'
-        },
-        success: function (res) {
-            if(res.b){
-                selectPopup2('hide');
-                $('.classificationValueName').val('');
-                $('.classificationValueSort').val('');
-                getMember(classificationId);
-            }
-        }
-    });
+//格式化分类值面板
+function formatClassificationValue(){
+    $('.pages .classificationValue .value').html('');
 }

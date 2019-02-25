@@ -1,7 +1,5 @@
 
-
-var pageType = '1';//保存页面类型
-var seletedType = '';//选择类型
+var inputId = '';//存储点击选择表单input记录当前点击的id值
 
 $(function () {
     init();
@@ -14,6 +12,7 @@ $(function () {
     });
 
     $('.select').click(function () {
+        inputId = $(this).attr('id');
         var clazz = $(this).attr('clazz');
         dynamicContent(clazz);
         selectPopup('show');
@@ -131,7 +130,7 @@ function dynamicContent(clazz){
         case 'incomeAccount'://收入账户、转入账户、转出账户、借贷入账户
             getIncomeAccount();
             break
-        case 'contacts'://往来对象
+        case 'contacts'://成员
             getContacts();
             break
         case 'borrower'://借款对象
@@ -143,7 +142,7 @@ function dynamicContent(clazz){
         case 'investmentObject'://投资对象
             getInvestmentObject();
             break;
-        case 'repaymentObject'://成员
+        case 'repaymentObject'://还款
             getRepaymentObject();
             break;
         default:
@@ -274,7 +273,7 @@ function getRepaymentObject() {
                 var list = res.result;
                 var str = '<ul>';
                 for (var i = 0 ; i < list.length ; i++){
-                    if(list[i].id != '2c18b356a06645479aec'){
+                    if(list[i].id == '08d7420d4ef949f4b929' || list[i].id == '3ccf613441a546c9a355'){
                         str += '<li id="' + list[i].id + '" onclick="getAccountValue(this)">' + list[i].name + '</li>';
                     }
                 }
@@ -530,11 +529,10 @@ function getContactsValue(e) {
 
 //点击选择值处理的函数
 function selectValue(e){
-    var inputId = $('.inputId').val();
-    var value = $(e).children('td:first').text();
-    var valueId = $(e).attr('id');
-    $('#' + inputId).val(value);
-    $('#' + inputId).attr('valueId',valueId);
+    var text = $(e).children('td:first').text();
+    var id = $(e).attr('id');
+    $('#' + inputId).val(text);
+    $('#' + inputId).attr('valueId',id);
     selectPopup('hide');
 }
 
