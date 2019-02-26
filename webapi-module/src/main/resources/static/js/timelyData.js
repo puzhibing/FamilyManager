@@ -56,6 +56,27 @@ function switchPage(e) {
 }
 
 
+//获取所有
+function getAllMember() {
+    $.ajax({
+        url: '/ContactsAccount/selectAllData',
+        type: 'POST',
+        success: function (res) {
+            if(res.b){
+                var list = res.result;
+                var obj = {};
+                var arr = [];
+                for (var i = 0 ; i < list.length ; i++){
+                    if(list[i].type == '1'){
+                        arr.push(list);
+                    }
+                }
+                obj.name = '';
+                obj.arr = arr;
+            }
+        }
+    });
+}
 
 //获取分类及分类值的数据集合
 function getClassification(){
@@ -107,7 +128,7 @@ function getBusinessOrders(page){
                 var nowPage = $('.nowPage').text();
                 $('.accountingFlow_panel div table').html('');
                 var list = eval(res.result);
-                var str = '<tr><th>序号</th><th>单据日期</th><th>收入账户</th><th>支出账户</th><th>业务金额</th><th>业务类型</th><th>往来对象</th><th>备注</th></tr>';
+                var str = '<tr><th>序号</th><th>单据日期</th><th>收入方</th><th>支出方</th><th>发生金额</th><th>业务类型</th><th>相关人员</th><th>备注</th></tr>';
                 for (var i = 0; i < list.length ; i++){
                     str += '<tr><td>' + (((parseInt(nowPage) - 1) * 20) + (i + 1)) + '</td><td>' + getDateString(list[i].documentDate) + '</td>';
 

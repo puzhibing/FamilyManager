@@ -83,4 +83,18 @@ public class ContactsAccountSql {
             WHERE("id = #{id} and del = '0'");
         }}.toString();
     }
+
+
+    /**
+     * 查询所有数据
+     * @return
+     */
+    public String selectAllData(){
+        return new SQL(){{
+            SELECT("id , classification , name , agency , accountNumber , balance , sort");
+            SELECT("del , insertUserId , insertTime , updateUserId , updateTime");
+            FROM("db_contacts_account");
+            WHERE("del = '0'");
+        }}.toString();
+    }
 }

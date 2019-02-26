@@ -8,6 +8,7 @@ import com.pojo.ClassificationValue;
 import com.pojo.ContactsAccount;
 import com.server.ClassificationServer;
 import com.tools.ResultBeanUtil;
+import com.tools.StringUtils;
 import com.tools.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,6 +50,11 @@ public class ClassificationServerImpl implements ClassificationServer {
         classification.setDel("0");
         classification.setInsertTime(new Date());
         classification.setInsertUserId("");
+        if(null == classification.getSort() || 0 == classification.getSort()){
+            Integer index = classificationMapper.selectDataByKind(classification.getKind()).size();
+            classification.setSort(index + 1);
+        }
+
         try{
             classificationMapper.insertData(classification);
             resultBeanUtilObject = ResultBeanUtil.getResultBeanUtil("添加成功" , true);

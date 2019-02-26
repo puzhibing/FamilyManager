@@ -505,7 +505,7 @@ function getContactsValue(e) {
     var id = $(e).attr('id');
 
     $.ajax({
-        url: '/Member/selectDataByClassification',
+        url: '/ContactsAccount/selectDataByClassification',
         type: 'POST',
         data: {
             classification: id
@@ -515,7 +515,9 @@ function getContactsValue(e) {
                 var list = res.result;
                 var str = '<table>';
                 for (var i = 0 ; i < list.length ; i++){
-                    str += '<tr id="' + list[i].id + '" onclick="selectValue(this)"><td>' + list[i].name + '</td><td>' + list[i].balance + '</td></tr>';
+                    if(list[i].type == '1') {
+                        str += '<tr id="' + list[i].id + '" onclick="selectValue(this)"><td>' + list[i].name + '</td><td>' + list[i].balance + '</td></tr>';
+                    }
                 }
                 str += '</table>';
                 $('.selected .con .option').html(str);

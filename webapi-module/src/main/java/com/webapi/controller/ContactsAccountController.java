@@ -107,4 +107,20 @@ public class ContactsAccountController {
         }
         return resultBeanUtilObject;
     }
+
+
+    /**
+     * 查询所有数据
+     * @return
+     */
+    @RequestMapping(value = "/selectAllData")
+    public ResultBeanUtil<List<ContactsAccount>> selectAllData(){
+        try {
+            resultBeanUtilList = contactsAccountServerImpl.selectAllData();
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultBeanUtilList = ResultBeanUtil.getResultBeanUtil("逻辑处理异常" ,false);
+        }
+        return resultBeanUtilList;
+    }
 }

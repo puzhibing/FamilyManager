@@ -58,4 +58,12 @@ public interface ContactsAccountServer {
      * @throws Exception
      */
     ResultBeanUtil<Object> updateDataBalance(String id , String plusOrMinus , String amount , String token) throws Exception;
+
+
+    /**
+     * 查询所有数据
+     * @return
+     * @throws Exception
+     */
+    ResultBeanUtil<List<ContactsAccount>> selectAllData() throws Exception;
 }

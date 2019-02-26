@@ -71,6 +71,7 @@ html,body{
     border: 1px solid #880015;
     border-radius: 0px;
     margin-left: 10px;
+    text-indent: 10px;
 }
 
 .home .content .pages .classification .add button{
@@ -99,8 +100,21 @@ html,body{
     cursor: pointer;
 }
 
-.home .content .pages .classification .ul ul li span{
+.home .content .pages .classification .ul ul li:hover i{
+    display: inline;
+}
+
+.home .content .pages .classification .ul ul li div{
+    width: 230px;
+    float: left;
+}
+
+.home .content .pages .classification .ul ul li div span{
     margin-left: 10px;
+}
+
+.home .content .pages .classification .ul ul li i{
+    display: none;
 }
 
 
@@ -142,7 +156,12 @@ html,body{
 }
 
 .home .content .pages .classificationValue .value table tr{
-    height: 30px;
+     height: 30px;
+ }
+
+.home .content .pages .classificationValue .value table tr:hover{
+    background-color: #880015;
+    color: #FFFFFF;
 }
 
 .home .content .pages .classificationValue .value table tr th{

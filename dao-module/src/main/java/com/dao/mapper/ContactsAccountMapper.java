@@ -57,4 +57,12 @@ public interface ContactsAccountMapper {
      */
     @SelectProvider(type = ContactsAccountSql.class, method = "selectDataById")
     ContactsAccount selectDataById(String id);
+
+
+    /**
+     * 查询所有数据
+     * @return
+     */
+    @SelectProvider(type = ContactsAccountSql.class, method = "selectAllData")
+    List<ContactsAccount> selectAllData();
 }

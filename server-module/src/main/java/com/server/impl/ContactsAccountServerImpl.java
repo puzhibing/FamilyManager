@@ -203,6 +203,23 @@ public class ContactsAccountServerImpl implements ContactsAccountServer {
 
 
     /**
+     * 查询所有数据
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public ResultBeanUtil<List<ContactsAccount>> selectAllData() throws Exception {
+        try {
+            contactsAccounts = contactsAccountMapperImpl.selectAllData();
+            resultBeanUtilList = ResultBeanUtil.getResultBeanUtil("查询成功" , true , contactsAccounts);
+        }catch (Exception e){
+            throw e;
+        }
+        return resultBeanUtilList;
+    }
+
+
+    /**
      * 修改余额数据的时候生成对应的业务单据
      * (多线程安全)
      * @param contactsAccount
@@ -214,8 +231,8 @@ public class ContactsAccountServerImpl implements ContactsAccountServer {
         boolean b = false;
         try {
             this.contactsAccount = contactsAccountMapperImpl.selectDataById(contactsAccount.getId());//获取原始数据
-            Integer difference = Integer.valueOf(this.contactsAccount.getBalance())
-                    - Integer.valueOf(contactsAccount.getBalance());
+            Float difference = Float.valueOf(this.contactsAccount.getBalance())
+                    - Float.valueOf(contactsAccount.getBalance());
             //构建对象
             BusinessOrder businessOrder = new BusinessOrder();
             businessOrder.setDocumentDate(new Date());
@@ -232,6 +249,8 @@ public class ContactsAccountServerImpl implements ContactsAccountServer {
                 businessOrder.setIncome(contactsAccount.getId());
                 businessOrder.setAmount(String.valueOf(difference));
                 businessOrder.setRemark("账户余额变动，增加" + difference + "金额");
+            }else{//金额没发生变化，不修改业务单据数据
+                return true;
             }
 
             businessOrderServerImpl.insertData(businessOrder , token , "");

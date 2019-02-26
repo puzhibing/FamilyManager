@@ -3,6 +3,9 @@ var kindId = 'ils5hnlfbysciwppvvpk';
 var type = '1';//数据类型
 var nature = '1';//用于判断动态定义弹窗表单
 var title = '支出分类管理';//标题
+var classificationId = '';
+var valueId = '';
+var v = '';
 
 $(function () {
 
@@ -14,9 +17,6 @@ $(function () {
         'background-color':'#FFFFFF',
         'border-bottom':'2px solid #880015'
     });
-    var c = $('.content nav:first').attr('class') + '_text';
-    $('.' + c).show();
-    $('.' + c).siblings().hide();
 
     $('.content .pages').css({
         'height': height - 70
@@ -27,21 +27,28 @@ $(function () {
     });
 
 
+
+
+
     //初始化加载数据
     getClassification();
 
+
+
+
+
     //绑定菜单点击事件
     $('.content nav').click(function () {
+        //初始化变量值
+        classificationId = '';
+        valueId = '';
+        v = '';
+
         $(this).css({//设置基础样式
             'background-color':'#FFFFFF',
             'border-bottom':'2px solid #880015'
         });
         $(this).siblings().removeAttr('style');
-
-        //实现页面显示隐藏功能
-        var c = $(this).attr('class') + '_text';
-        $('.' + c).show();
-        $('.' + c).siblings().hide();
 
         //切换页面初始化获取分类数据
         var clazz = $(this).attr('class');
@@ -84,12 +91,37 @@ $(function () {
 
     //添加按钮
     $('.addButton').click(function () {
+        valueId = '';//初始化值
+
+        if(classificationId == ''){
+            alert('请选择对应的分类');
+            return;
+        }
         addData();
     });
 
     //修改按钮
     $('.updateButton').click(function () {
-        updateData();
+
+        if(valueId == '' || v == ''){
+            alert('请选择需要修改的项');
+            return;
+        }
+        updateValues();
+    });
+
+    //删除值
+    $('.deleteButton').click(function () {
+        if(valueId == ''){
+            alert('请选择需要删除的项');
+            return;
+        }
+        deleteValue();
+    });
+
+    //添加分类按钮
+    $('.addClassification').click(function () {
+        addClassification();
     });
 
 
@@ -109,7 +141,7 @@ function getClassification(){
                 var str = '<ul>';
                 var list = res.result;
                 for(var i = 0 ; i < list.length ; i++){
-                    str += '<li value="' + list[i].id + '" onclick="getClassificationVal(this)"><span>' + list[i].name + '</span></li>'
+                    str += '<li value="' + list[i].id + '" onclick="getClassificationVal(this)"><div><span>' + list[i].name + '</span></div><i class="fa fa-trash-o" onclick="deleteClassification(this)"></i></li>'
                 }
                 str += '</ul>';
                 $('.pages .classification .ul').html(str);
@@ -121,7 +153,12 @@ function getClassification(){
 
 //点击分类获取分类对相应的值
 function getClassificationVal(e){
+    //初始化变量值
+    valueId = '';
+    v = '';
+
     //点击实现样式效果
+    classificationId = $(e).attr('value');
     $(e).css({
         'background-color':'#880015',
         'color':'#FFFFFF'
@@ -150,12 +187,18 @@ function getClassificationVal(e){
                 if(type == '1'){
                     str += '<tr><th>序号</th><th>名称</th></tr>';
                     for(var i = 0 ; i < list.length ; i++){
-                        str += '<tr><td>' + (i + 1) + '</td><td>' + list[i].name + '</td></tr>';
+                        str +=
+                            '<tr value="' + list[i].id + '" onclick="chooseVaue(this)" v="' + list[i].name + ';' + list[i].sort + '">' +
+                                '<td>' + (i + 1) + '</td><td>' + list[i].name + '</td>' +
+                            '</tr>';
                     }
                 }else if(type == '2'){
                     str += '<tr><th>序号</th><th>名称</th><th style="width: 200px;">余额</th></tr>';
                     for(var i = 0 ; i < list.length ; i++){
-                        str += '<tr><td>' + (i + 1) + '</td><td>' + list[i].name + '</td><td>' + list[i].balance + '</td></tr>';
+                        str +=
+                            '<tr value="' + list[i].id + '"  onclick="chooseVaue(this)"  v="' + list[i].name + ';' + list[i].agency + ';' + list[i].accountNumber + ';' + list[i].balance + ';' + list[i].sort + '">' +
+                                '<td>' + (i + 1) + '</td><td>' + list[i].name + '</td><td>' + list[i].balance + '</td>' +
+                            '</tr>';
                     }
                 }
                 str += '</table>';
@@ -184,7 +227,7 @@ function addData(){
             '   <input id="sort" type="text" class="sort">' +
             '</div>' +
             '<div>' +
-            '   <button class="saveData">保存</button>' +
+            '   <button class="saveData" onclick="saveClassificationValue()">保存</button>' +
             '</div>';
     }else if(nature == '2'){
         str +=
@@ -209,7 +252,7 @@ function addData(){
             '   <input id="sort" type="text" class="sort">' +
             '</div>' +
             '<div>' +
-            '   <button class="saveData">保存</button>' +
+            '   <button class="saveData" onclick="saveContactsAccountValue()">保存</button>' +
             '</div>';
 
     }else if(nature == '3') {
@@ -227,7 +270,7 @@ function addData(){
             '   <input id="sort" type="text" class="sort">' +
             '</div>' +
             '<div>' +
-            '   <button class="saveData">保存</button>' +
+            '   <button class="saveData" onclick="saveContactsAccountValue()">保存</button>' +
             '</div>';
     }
     $('.Pop-ups .panel .inputs').html(str);
@@ -239,4 +282,205 @@ function addData(){
 //点击修改按钮弹出修改页面
 function updateData(){
     $('.Pop-ups').show();
+}
+
+
+//点击添加分类按钮实现添加分类数据
+function addClassification(){
+    var value = $('.classificationInput').val();
+    if(value == ''){
+        alert('请填写有效数据');
+        return;
+    }
+    
+    $.ajax({
+        url: '/Classification/insertData',
+        type: 'POST',
+        data: {
+            name: value,
+            kind: kindId,
+            token: 1
+        },
+        success: function (res) {
+            if(res.b){
+                getClassification();
+                $('.classificationInput').val('');
+                alert('添加成功');
+            }
+        }
+    });
+}
+
+
+//点击分类上的删除按钮实现分类数据的删除
+function deleteClassification(e){
+    var id = $(e).parent('li').attr('value');
+    $.ajax({
+        url: '/Classification/deleteData',
+        type: 'POST',
+        data: {
+            id: id,
+            token: 1
+        },
+        success: function (res) {
+            if(res.b){
+                getClassification();
+                alert('删除成功');
+            }
+        }
+    });
+}
+
+
+//保存分类值的处理
+function saveClassificationValue(){
+    var name = $('#name').val();
+    var sort = $('#sort').val();
+    if(name == '' || sort == ''){
+        alert('请填写有效数据');
+        return;
+    }
+
+    var url = '';
+    var formData = new FormData();
+    if(valueId == ''){
+        url = '/ClassificationValue/insertData';
+    }else{
+        url = '/ClassificationValue/updateData';
+        formData.append('id',valueId);
+    }
+    formData.append('classification',classificationId);
+    formData.append('name',name);
+    formData.append('sort',sort);
+    formData.append('token','1');
+    $.ajax({
+        url: url,
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (res) {
+            if(res.b){
+                $('.Pop-ups').hide();
+                var e = $('.classification .ul li[value = "' + classificationId + '"]');//获取value值为classificationId的对象
+                e.click();//触发对象上的点击事件
+                alert('保存成功');
+            }
+        }
+    });
+}
+
+//保存账户及成员的处理
+function saveContactsAccountValue(){
+    var name = $('#name').val();
+    var agency = $('#agency').val();
+    var accountNumber = $('#accountNumber').val();
+    var balance = $('#balance').val();
+    var sort = $('#sort').val();
+    var t = '';
+    if(name == '' || balance == '' || sort == ''){
+        alert('请填写有效数据');
+        return;
+    }
+
+    if(nature == '2'){
+        t = '0';
+    }else if(nature == '3'){
+        agency = '';
+        accountNumber = '';
+        t = '1';
+    }
+
+    var url = '';
+    var formData = new FormData();
+    if(valueId == ''){
+        url = '/ContactsAccount/insertData';
+    }else{
+        url = '/ContactsAccount/updateData';
+        formData.append('id',valueId);
+    }
+    formData.append('classification',classificationId);
+    formData.append('type',t);
+    formData.append('name',name);
+    formData.append('agency',agency);
+    formData.append('accountNumber',accountNumber);
+    formData.append('balance',balance);
+    formData.append('sort',sort);
+    formData.append('token','1');
+
+    $.ajax({
+        url: url,
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (res) {
+            if(res.b){
+                $('.Pop-ups').hide();
+                var e = $('.classification .ul li[value = "' + classificationId + '"]');//获取value值为classificationId的对象
+                e.click();//触发对象上的点击事件
+                alert('保存成功');
+            }
+        }
+    });
+}
+
+
+//选中分类值表格中的数据的处理
+function chooseVaue(e) {
+    $(e).css({
+        'background-color':'#880015',
+        'color':'#FFFFFF'
+    });
+    $(e).siblings('tr').removeAttr('style');
+    valueId = $(e).attr('value');
+    v = $(e).attr('v');
+}
+
+
+//点击修改按钮执行修改的处理
+function updateValues(){
+    var arr = v.split(';');
+    addData();
+    if(nature == '1'){
+        $('.inputs #name').val(arr[0]);
+        $('.inputs #sort').val(arr[1]);
+    }else if(nature == '2'){
+        $('.inputs #name').val(arr[0]);
+        $('.inputs #agency').val(arr[1]);
+        $('.inputs #accountNumber').val(arr[2]);
+        $('.inputs #balance').val(arr[3]);
+        $('.inputs #sort').val(arr[4]);
+    }else if(nature == '3'){
+        $('.inputs #name').val(arr[0]);
+        $('.inputs #balance').val(arr[3]);
+        $('.inputs #sort').val(arr[4]);
+    }
+}
+
+
+//点击删除按钮删除分类值
+function deleteValue(){
+    var url = '';
+    if(type == '1'){
+        url = '/ClassificationValue/deleteData';
+    }else if(type == '2'){
+        url = '/ContactsAccount/deleteData';
+    }
+    $.ajax({
+        url: url,
+        type: 'POST',
+        data: {
+            id: valueId,
+            token: 1
+        },
+        success: function (res) {
+            if(res.b){
+                var e = $('.classification .ul li[value = "' + classificationId + '"]');//获取value值为classificationId的对象
+                e.click();//触发对象上的点击事件
+                alert(res.msg);
+                return;
+            }
+        }
+    })
 }
