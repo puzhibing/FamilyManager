@@ -49,18 +49,18 @@ public class BusinessOrderServerImpl implements BusinessOrderServer {
     @Override
     @Transactional//使用事务
     public ResultBeanUtil<Object> insertData(BusinessOrder businessOrder, String token , String amortizationMonths) throws Exception {
-        Integer integer = new Integer(1);
+        int index = 1;
         BigDecimal bigDecimal = new BigDecimal(businessOrder.getAmount());
         if(StringUtils.isNotEmpty(amortizationMonths)){//判断不为空
             BigDecimal b1 = new BigDecimal(businessOrder.getAmount());
             BigDecimal b2 = new BigDecimal(amortizationMonths);
             bigDecimal = b1.divide(b2 , 2 , RoundingMode.HALF_EVEN);//计算并设置舍入模式
-            integer = Integer.valueOf(amortizationMonths);
+            index = Integer.valueOf(amortizationMonths);
         }
 
         //开始操作数据
         Date documentDate = businessOrder.getDocumentDate();
-        for (int i = 0 ; i < integer ; i++){
+        for (int i = 0 ; i < index ; i++){
             businessOrder.setAmount(bigDecimal.toString());//修改值
             //设置日期数据
             Calendar calendar = Calendar.getInstance();

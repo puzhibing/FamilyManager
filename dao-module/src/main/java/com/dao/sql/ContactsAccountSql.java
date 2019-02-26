@@ -77,7 +77,7 @@ public class ContactsAccountSql {
      */
     public String selectDataById(String id){
         return new SQL(){{
-            SELECT("id , classification , name , agency , accountNumber , balance , sort");
+            SELECT("id , classification , type , name , agency , accountNumber , balance , sort");
             SELECT("del , insertUserId , insertTime , updateUserId , updateTime");
             FROM("db_contacts_account");
             WHERE("id = #{id} and del = '0'");
@@ -91,7 +91,7 @@ public class ContactsAccountSql {
      */
     public String selectAllData(){
         return new SQL(){{
-            SELECT("id , classification , name , agency , accountNumber , balance , sort");
+            SELECT("id , classification , type , name , agency , accountNumber , balance , sort");
             SELECT("del , insertUserId , insertTime , updateUserId , updateTime");
             FROM("db_contacts_account");
             WHERE("del = '0'");

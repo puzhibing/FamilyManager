@@ -9,7 +9,7 @@ public class BusinessOrder extends CommonBean{
 
     private String documentNumber;//单据编号
 
-    private String documentType;//单据类型
+    private String documentType;//单据类型(1:支出，2：收入)
 
     private String businessType;//业务类型
 

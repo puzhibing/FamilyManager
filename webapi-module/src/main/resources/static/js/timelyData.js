@@ -57,40 +57,29 @@ function switchPage(e) {
 
 
 //获取所有
-function getAllMember() {
+function getAllMember(list) {
     $.ajax({
         url: '/ContactsAccount/selectAllData',
         type: 'POST',
         success: function (res) {
             if(res.b){
-                var list = res.result;
-                var obj = {};
                 var arr = [];
-                for (var i = 0 ; i < list.length ; i++){
-                    if(list[i].type == '1'){
-                        arr.push(list);
+                var ls = [];
+                var l = res.result;
+                for (var i = 0 ; i < l.length ; i++){
+                    if('1' == l[i].type){
+                        ls.push(l[i]);
                     }
                 }
-                obj.name = '';
-                obj.arr = arr;
-            }
-        }
-    });
-}
+                var obj = {};
+                obj.name = '普通借款';
+                arr.push(obj);
+                arr.push(ls);
 
-//获取分类及分类值的数据集合
-function getClassification(){
-    $.ajax({
-        url: '/Classification/selectDatasByKind',
-        type: 'POST',
-        data: {
-            kind: '4wvbwptevrnwq9m2qd7e'
-        },
-        success: function (res) {
-            if(res.b){
+                list.splice(2 , 0 , arr);//将成员相关数据添加到数据集合中
+
                 $('.assetsAndLiabilities_panel .item').html('');
                 $('.assetsAndLiabilities_panel .sun span').text('');
-                var list = res.result;
                 var all = 0;
                 for (var i = 0 ; i < list.length ; i++){
                     var str = '<table><tr><th colspan="2">' + list[i][0].name + '</th>';
@@ -107,6 +96,23 @@ function getClassification(){
 
                 }
                 $('.assetsAndLiabilities_panel .sun span').text('资产合计：' + parseFloat(all).toFixed(2));
+            }
+        }
+    });
+}
+
+//获取分类及分类值的数据集合
+function getClassification(){
+    $.ajax({
+        url: '/Classification/selectDatasByKind',
+        type: 'POST',
+        data: {
+            kind: '4wvbwptevrnwq9m2qd7e'
+        },
+        success: function (res) {
+            if(res.b){
+                var list = res.result;
+                getAllMember(list);
             }
         }
     });
@@ -158,7 +164,7 @@ function getBusinessOrders(page){
                         str += '<td>' + list[i].contacts.name + '</td>';
                     }
 
-                    str += '<td title="' + list[i].remark + '">' + list[i].remark + '</td></tr>';
+                    str += '<td title="' + list[i].remark + '"><div>' + list[i].remark + '</div></td></tr>';
                 }
                 $('.accountingFlow_panel div table').html(str);
                 $('.sunPage').text(res.totalPage);

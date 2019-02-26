@@ -66,19 +66,19 @@ public class ContactsAccountServerImpl implements ContactsAccountServer {
             businessOrder.setDocumentType("2");
             businessOrder.setIncome(contactsAccount.getId());
             businessOrder.setAmount(balance);
-            businessOrder.setRemark("新增加普通账户数据，增加期初账户余额" + balance + "元");
+            businessOrder.setRemark("新增加" + contactsAccount.getName() + "账户数据，增加期初余额" + balance + "元");
         }else{
             //往来账户
             if(0 > Float.valueOf(balance)){//如果余额为负数
                 businessOrder.setDocumentType("1");
                 businessOrder.setExpenditure(contactsAccount.getId());
                 businessOrder.setAmount(String.valueOf(Float.valueOf(balance) * -1));
-                businessOrder.setRemark("新增加往来账户数据，增加往来金额" + Float.valueOf(balance) * -1 + "元");
+                businessOrder.setRemark("新增加" + contactsAccount.getName() + "成员数据，增加往来金额" + Float.valueOf(balance) * -1 + "元");
             }else{
                 businessOrder.setDocumentType("2");
                 businessOrder.setIncome(contactsAccount.getId());
                 businessOrder.setAmount(balance);
-                businessOrder.setRemark("新增加往来账户数据，增加往来金额" + balance + "元");
+                businessOrder.setRemark("新增加" + contactsAccount.getName() + "成员数据，增加往来金额" + balance + "元");
             }
         }
 

@@ -92,6 +92,8 @@ $(function () {
     //添加按钮
     $('.addButton').click(function () {
         valueId = '';//初始化值
+        v = '';
+        $('.classificationValue .value table tr').removeAttr('style');
 
         if(classificationId == ''){
             alert('请选择对应的分类');
@@ -160,7 +162,7 @@ function getClassificationVal(e){
     //点击实现样式效果
     classificationId = $(e).attr('value');
     $(e).css({
-        'background-color':'#880015',
+        'background-color':'#DF5353',
         'color':'#FFFFFF'
     });
     $(e).siblings('li').removeAttr('style');
@@ -429,7 +431,7 @@ function saveContactsAccountValue(){
 //选中分类值表格中的数据的处理
 function chooseVaue(e) {
     $(e).css({
-        'background-color':'#880015',
+        'background-color':'#DF5353',
         'color':'#FFFFFF'
     });
     $(e).siblings('tr').removeAttr('style');

@@ -5,12 +5,12 @@
     <parent>
         <artifactId>familymanager</artifactId>
         <groupId>com.puzhibing</groupId>
-        <version>1.0.0</version>
+        <version>1.0.1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>webapi-module</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 
 
     <dependencies>
@@ -22,12 +22,12 @@
         <dependency>
             <groupId>com.puzhibing</groupId>
             <artifactId>server-module</artifactId>
-            <version>1.0.0</version>
+            <version>1.0.1</version>
         </dependency>
         <dependency>
             <groupId>com.puzhibing</groupId>
             <artifactId>tools-module</artifactId>
-            <version>1.0.0</version>
+            <version>1.0.1</version>
         </dependency>
     </dependencies>
 </project>

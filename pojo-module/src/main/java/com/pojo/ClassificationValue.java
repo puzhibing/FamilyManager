@@ -6,7 +6,7 @@ public class ClassificationValue extends CommonBean {
 
     private String name;
 
-    private String sort;//排序
+    private Integer sort;//排序
 
     public Object getClassification() {
         return classification;
@@ -24,11 +24,11 @@ public class ClassificationValue extends CommonBean {
         this.name = name;
     }
 
-    public String getSort() {
+    public Integer getSort() {
         return sort;
     }
 
-    public void setSort(String sort) {
+    public void setSort(Integer sort) {
         this.sort = sort;
     }
 

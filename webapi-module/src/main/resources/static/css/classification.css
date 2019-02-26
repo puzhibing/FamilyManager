@@ -66,7 +66,7 @@ html,body{
 }
 
 .home .content .pages .classification .add input{
-    width: 160px;
+    width: 165px;
     height: 26px;
     border: 1px solid #880015;
     border-radius: 0px;
@@ -95,7 +95,7 @@ html,body{
 }
 
 .home .content .pages .classification .ul ul li:hover{
-    background-color: #880015;
+    background-color: #DF5353;
     color: #FFFFFF;
     cursor: pointer;
 }
@@ -153,6 +153,7 @@ html,body{
 .home .content .pages .classificationValue .value table{
     width: 100%;
     border-collapse: collapse;
+    margin-top: 10px;
 }
 
 .home .content .pages .classificationValue .value table tr{
@@ -160,17 +161,21 @@ html,body{
  }
 
 .home .content .pages .classificationValue .value table tr:hover{
-    background-color: #880015;
+    background-color: #DF5353;
     color: #FFFFFF;
 }
 
 .home .content .pages .classificationValue .value table tr th{
     border: 1px solid #C3C3C3;
+    background-color: #880015;
+    color: #FFFFFF;
+    font-weight: 500;
 }
 
 .home .content .pages .classificationValue .value table tr td{
     border: 1px solid #C3C3C3;
     text-indent: 5px;
+    font-size: 14px;
 }
 
 .home .content .pages .classificationValue .value table tr th:first-of-type{
@@ -199,15 +204,15 @@ html,body{
 }
 
 .Pop-ups .panel .head{
-    font-size: 8px;
     height: 30px;
     line-height: 30px;
-    background-color: #DF5353;
+    background-color: #880015;
     border-radius: 3px 3px 0px 0px;
 }
 
 .Pop-ups .panel .head div{
     float: left;
+    color: #FFFFFF;
 }
 
 .Pop-ups .panel .head div:first-of-type{
@@ -220,7 +225,7 @@ html,body{
 }
 
 .Pop-ups .panel .head div span[class = 'fa-stack fa-lg']{
-    color: #880015;
+    font-size: 10px;
 }
 
 .Pop-ups .panel .head div span[class = 'fa-stack fa-lg']:hover{

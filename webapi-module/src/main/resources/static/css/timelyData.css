@@ -9,7 +9,7 @@
 }
 
 .home .content{
-    width: 60%;
+    width: 70%;
     height: 100vh;
     margin: 0 auto;
     box-shadow: 0px 0px 2px #dddddd;
@@ -56,7 +56,7 @@
 }
 
 .assetsAndLiabilities_panel .sun{
-    width: 98%;
+    width: 100%;
     height: 100px;
     margin: 0 auto;
     text-align: center;
@@ -74,7 +74,7 @@
 }
 
 .assetsAndLiabilities_panel .item{
-    width: 98%;
+    width: 100%;
     margin: 0 auto;
     border: 1px solid #FFFFFF;
 }
@@ -97,7 +97,7 @@
 }
 
 .assetsAndLiabilities_panel .item table tr td{
-    font-size: 14px;
+    font-size: 13px;
     color: #2B2B2B;
 }
 
@@ -126,9 +126,13 @@
     text-indent: 10px;
 }
 
+.assetsAndLiabilities_panel .item table tr th:last-of-type{
+    width: 80px;
+}
+
 
 .accountingFlow_panel>div{
-    width: 95%;
+    width: 100%;
     margin: 0 auto;
     overflow: auto;
 }
@@ -161,12 +165,29 @@
     font-size: 14px;
     border: 1px solid #dddddd;
     text-indent: 5px;
+    font-size: 13px;
 }
 
 .accountingFlow_panel>div table td:first-of-type{
     text-indent: 0px;
     text-align: center;
 }
+
+.accountingFlow_panel>div table td:last-of-type{
+    width: 235px;
+}
+
+.accountingFlow_panel>div table td:last-of-type div{
+    width: 230px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+
+    height: auto;
+    text-align: left;
+    margin-top: auto;
+}
+
 
 .accountingFlow_panel>div div{
     height: 50px;
