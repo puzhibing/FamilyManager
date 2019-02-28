@@ -273,7 +273,7 @@ function getRepaymentObject() {
                 var list = res.result;
                 var str = '<ul>';
                 for (var i = 0 ; i < list.length ; i++){
-                    if(list[i].id == '08d7420d4ef949f4b929' || list[i].id == '3ccf613441a546c9a355'){
+                    if(list[i].id == '6c9ccc681599478c9d45' || list[i].id == '3ccf613441a546c9a355'){
                         str += '<li id="' + list[i].id + '" onclick="getAccountValue(this)">' + list[i].name + '</li>';
                     }
                 }
