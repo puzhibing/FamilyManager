@@ -26,13 +26,14 @@ public class ContactsAccountController {
      * 添加数据
      * @param contactsAccount
      * @param token
+     * @param accountType
      * @return
      */
     @RequestMapping(value = "/insertData")
-    public ResultBeanUtil<Object> insertData(ContactsAccount contactsAccount , String token){
+    public ResultBeanUtil<Object> insertData(ContactsAccount contactsAccount , String token , String accountType){
         if(StringUtils.isNotEmpty(token) && null != contactsAccount){
             try {
-                resultBeanUtilObject = contactsAccountServerImpl.insertData(contactsAccount , token);
+                resultBeanUtilObject = contactsAccountServerImpl.insertData(contactsAccount , token , accountType);
             } catch (Exception e) {
                 e.printStackTrace();
                 resultBeanUtilObject = ResultBeanUtil.getResultBeanUtil("逻辑处理异常" ,false);
@@ -51,10 +52,10 @@ public class ContactsAccountController {
      * @return
      */
     @RequestMapping(value = "/updateData")
-    public ResultBeanUtil<Object> updateData(ContactsAccount contactsAccount, String token){
+    public ResultBeanUtil<Object> updateData(ContactsAccount contactsAccount, String token , String accountType){
         if(StringUtils.isNotEmpty(token) && null != contactsAccount){
             try {
-                resultBeanUtilObject = contactsAccountServerImpl.updateData(contactsAccount , token);
+                resultBeanUtilObject = contactsAccountServerImpl.updateData(contactsAccount , token , accountType);
             } catch (Exception e) {
                 e.printStackTrace();
                 resultBeanUtilObject = ResultBeanUtil.getResultBeanUtil("逻辑处理异常" ,false);

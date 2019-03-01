@@ -920,7 +920,7 @@ function chooseInvestmentType() {
 function getTheMonthData(){
     var date1 = new Date();
     var start = date1.getFullYear() + '-' + (date1.getMonth() + 1) + '-01';
-    var end = date1.getFullYear() + '-' + (date1.getMonth() + 1) + '-' + date1.getDate();
+    var end = date1.getFullYear() + '-' + (date1.getMonth() + 1) + '-' + getMonthDays(date1.getFullYear() , date1.getMonth() + 1);
     $.ajax({
         url: '/BusinessOrder/selectExpenditure',
         type: 'POST',
@@ -945,7 +945,7 @@ function getTheMonthData(){
 function getThisYear() {
     var date1 = new Date();
     var start = date1.getFullYear() + '-' + '01-01';
-    var end = date1.getFullYear() + '-' + (date1.getMonth() + 1) + '-' + date1.getDate();
+    var end = date1.getFullYear() + '-12-31';
     $.ajax({
         url: '/BusinessOrder/selectExpenditure',
         type: 'POST',

@@ -11,10 +11,11 @@ public interface ContactsAccountServer {
      *
      * @param contactsAccount
      * @param token
+     * @param accountType
      * @return
      * @throws Exception
      */
-    ResultBeanUtil<Object> insertData(ContactsAccount contactsAccount , String token) throws Exception;
+    ResultBeanUtil<Object> insertData(ContactsAccount contactsAccount , String token , String accountType) throws Exception;
 
 
     /**
@@ -25,7 +26,7 @@ public interface ContactsAccountServer {
      * @return
      * @throws Exception
      */
-    ResultBeanUtil<Object> updateData(ContactsAccount contactsAccount , String token) throws Exception;
+    ResultBeanUtil<Object> updateData(ContactsAccount contactsAccount , String token , String accountType) throws Exception;
 
 
     /**

@@ -254,6 +254,12 @@ function addData(){
             '   <input id="sort" type="text" class="sort">' +
             '</div>' +
             '<div>' +
+            '   <label for="ptzh">普通账户</label>' +
+            '   <input value="1" type="radio" name="accountType" id="ptzh" checked="checked">' +
+            '   <label for="xyzh">信用账户</label>' +
+            '   <input value="-1" type="radio" name="accountType" id="xyzh">' +
+            '</div>' +
+            '<div>' +
             '   <button class="saveData" onclick="saveContactsAccountValue()">保存</button>' +
             '</div>';
 
@@ -379,15 +385,18 @@ function saveContactsAccountValue(){
     var accountNumber = $('#accountNumber').val();
     var balance = $('#balance').val();
     var sort = $('#sort').val();
+    var accountType = '';
     var t = '';
     if(name == '' || balance == '' || sort == ''){
         alert('请填写有效数据');
         return;
     }
 
-    if(nature == '2'){
+    if(nature == '2'){//账户
         t = '0';
-    }else if(nature == '3'){
+        var radio = $('.Pop-ups .panel .inputs input[type="radio"]:checked');
+        accountType = radio.val();
+    }else if(nature == '3'){//成员
         agency = '';
         accountNumber = '';
         t = '1';
@@ -408,6 +417,7 @@ function saveContactsAccountValue(){
     formData.append('accountNumber',accountNumber);
     formData.append('balance',balance);
     formData.append('sort',sort);
+    formData.append('accountType',accountType);
     formData.append('token','1');
 
     $.ajax({

@@ -77,7 +77,7 @@ public class BusinessOrderServerImpl implements BusinessOrderServer {
              */
             String id = UUIDUtil.getUUID(20);
             businessOrder.setId(id);
-            businessOrder.setDocumentNumber(UUIDUtil.getUUID(30));
+            businessOrder.setDocumentNumber(DateUtils.getDateNoSeparator());
             businessOrder.setDel("0");
             businessOrder.setInsertTime(new Date());
             businessOrder.setInsertUserId("");

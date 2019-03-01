@@ -70,7 +70,14 @@ public final class DateUtils {
 
 
 
-
+    /**
+     * 获取格式化后的没有分隔符及空格的当前日期字符串
+     * @return
+     */
+    public static String getDateNoSeparator(){
+        String DateStr = DateUtils.getCurrentDateTimes(DateUtilEnum.SPACE , DateUtilEnum.SPACE);
+        return DateStr.replaceAll(" " , "");
+    }
 
 
 

@@ -254,6 +254,14 @@ html,body{
     text-indent: 10px;
 }
 
+.Pop-ups .panel .inputs div input[type="radio"]{
+    height: auto;
+    width: auto;
+}
+.Pop-ups .panel .inputs div input[type="radio"]:first-of-type{
+    margin-right: 50px;
+}
+
 .Pop-ups .panel .inputs div:last-of-type{
     height: 80px;
     line-height: 80px;
