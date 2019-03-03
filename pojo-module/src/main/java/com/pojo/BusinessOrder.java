@@ -9,9 +9,23 @@ public class BusinessOrder extends CommonBean{
 
     private String documentNumber;//单据编号
 
-    private String documentType;//单据类型(1:支出，2：收入)
+    private String documentType;//单据类型(1:支出，2：收入，3：账户转换)
 
-    private String businessType;//业务类型
+    /**
+     * 业务类型
+     * 0：创建期初数据及修改余额生成的单据
+     * 1：支出数据
+     * 2：收入数据
+     * 3：转账数据
+     * 4：借出数据
+     * 5：借入数据
+     * 6：贷出数据
+     * 7：贷入数据
+     * 8：投资支出数据
+     * 9：投资赎回数据
+     * 10：还款数据
+     */
+    private String businessType;
 
     private Object income;//收入账户
 

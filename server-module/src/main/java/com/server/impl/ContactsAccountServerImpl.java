@@ -68,7 +68,7 @@ public class ContactsAccountServerImpl implements ContactsAccountServer {
         if("0".equals(contactsAccount.getType())){//账户数据
             if("1".equals(accountType)){//普通账户
                 businessOrder.setDocumentType("2");
-                businessOrder.setBusinessType("2");
+                businessOrder.setBusinessType("0");
                 businessOrder.setIncome(contactsAccount.getId());
                 businessOrder.setAmount(balance);
                 businessOrder.setRemark("新增加“" + contactsAccount.getName() + "”账户数据，增加期初余额【" + Float.valueOf(balance) + "】元");
@@ -77,13 +77,13 @@ public class ContactsAccountServerImpl implements ContactsAccountServer {
             if("-1".equals(accountType)){//信用账户
                 if(0 > Float.valueOf(balance)){//如果余额为负数
                     businessOrder.setDocumentType("1");
-                    businessOrder.setBusinessType("5");
+                    businessOrder.setBusinessType("0");
                     businessOrder.setExpenditure(contactsAccount.getId());
                     businessOrder.setAmount(String.valueOf(Float.valueOf(balance) * -1));
                     businessOrder.setRemark("新增加“" + contactsAccount.getName() + "”账户数据，增加欠款余额【" + Float.valueOf(balance) * -1 + "】元");
                 }else{
                     businessOrder.setDocumentType("2");
-                    businessOrder.setBusinessType("4");
+                    businessOrder.setBusinessType("0");
                     businessOrder.setIncome(contactsAccount.getId());
                     businessOrder.setAmount(balance);
                     businessOrder.setRemark("新增加“" + contactsAccount.getName() + "”账户数据，增加欠款余额【" + Float.valueOf(balance) + "】元");
@@ -93,13 +93,13 @@ public class ContactsAccountServerImpl implements ContactsAccountServer {
         }else{//成员数据
             if(0 > Float.valueOf(balance)){//如果余额为负数
                 businessOrder.setDocumentType("1");
-                businessOrder.setBusinessType("5");
+                businessOrder.setBusinessType("0");
                 businessOrder.setExpenditure(contactsAccount.getId());
                 businessOrder.setAmount(String.valueOf(Float.valueOf(balance) * -1));
                 businessOrder.setRemark("新增加“" + contactsAccount.getName() + "”成员数据，增加欠款余额【" + Float.valueOf(balance) * -1 + "】元");
             }else{
                 businessOrder.setDocumentType("2");
-                businessOrder.setBusinessType("4");
+                businessOrder.setBusinessType("0");
                 businessOrder.setIncome(contactsAccount.getId());
                 businessOrder.setAmount(balance);
                 businessOrder.setRemark("新增加“" + contactsAccount.getName() + "”成员数据，增加欠款余额【" + Float.valueOf(balance) + "】元");
@@ -265,28 +265,14 @@ public class ContactsAccountServerImpl implements ContactsAccountServer {
             businessOrder.setHandMan("");
 
             if(0 > difference){//增加
-                if("1".equals(accountType)){
-                    businessOrder.setBusinessType("2");
-                }else{
-                    businessOrder.setBusinessType("2");
-                }
-
-
-
-
-
-
-
-
-
-
-
                 businessOrder.setDocumentType("2");
+                businessOrder.setBusinessType("0");
                 businessOrder.setExpenditure(contactsAccount.getId());
                 businessOrder.setAmount(String.valueOf(difference * -1));
                 businessOrder.setRemark("账户余额变动，增加" + difference * -1 + "金额");
             }else if(0 < difference){//减少
                 businessOrder.setDocumentType("1");
+                businessOrder.setBusinessType("0");
                 businessOrder.setIncome(contactsAccount.getId());
                 businessOrder.setAmount(String.valueOf(difference));
                 businessOrder.setRemark("账户余额变动，减少" + difference + "金额");
