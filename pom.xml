@@ -18,20 +18,43 @@
 	</parent>
 	<groupId>com.puzhibing</groupId>
 	<artifactId>familymanager</artifactId>
-	<version>1.0.1</version>
+	<version>1.0.1.RELEASE</version>
 	<name>FamilyManager</name>
 	<description>FamilyManager project for Spring Boot</description>
 
 	<properties>
 		<java.version>1.8</java.version>
-
-		<!--<familymanager.version>1.0.1</familymanager.version>-->
-		<!--<dao-module.version>1.0.1</dao-module.version>-->
-		<!--<pojo-module.version>1.0.1</pojo-module.version>-->
-		<!--<server-module.version>1.0.1</server-module.version>-->
-		<!--<webapi-module.version>1.0.1</webapi-module.version>-->
-		<!--<tools-module.version>1.0.1</tools-module.version>-->
 	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.puzhibing</groupId>
+				<artifactId>dao-module</artifactId>
+				<version>1.0.1.RELEASE</version>
+			</dependency>
+			<dependency>
+				<groupId>com.puzhibing</groupId>
+				<artifactId>pojo-module</artifactId>
+				<version>1.0.1.RELEASE</version>
+			</dependency>
+			<dependency>
+				<groupId>com.puzhibing</groupId>
+				<artifactId>server-module</artifactId>
+				<version>1.0.1.RELEASE</version>
+			</dependency>
+			<dependency>
+				<groupId>com.puzhibing</groupId>
+				<artifactId>tools-module</artifactId>
+                <version>1.0.1.RELEASE</version>
+            </dependency>
+			<dependency>
+				<groupId>com.puzhibing</groupId>
+				<artifactId>webapi-module</artifactId>
+				<version>1.0.1.RELEASE</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<dependencies>
 		<dependency>
@@ -45,32 +68,4 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-
-			<!-- jar插件 -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.3.1</version>
-				<configuration>
-					<archive>
-						<manifest>
-							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
-						</manifest>
-					</archive>
-				</configuration>
-			</plugin>
-		</plugins>
-
-
-	</build>
-
-
 </project>
