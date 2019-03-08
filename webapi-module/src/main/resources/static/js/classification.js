@@ -6,6 +6,7 @@ var title = '支出分类管理';//标题
 var classificationId = '';
 var valueId = '';
 var v = '';
+var notdel = '';//是否运行对此项进行操作
 
 $(function () {
 
@@ -104,7 +105,10 @@ $(function () {
 
     //修改按钮
     $('.updateButton').click(function () {
-
+        if(notdel == '-1'){
+            alert('系统默认项，不允许修改！');
+            return;
+        }
         if(valueId == '' || v == ''){
             alert('请选择需要修改的项');
             return;
@@ -114,6 +118,10 @@ $(function () {
 
     //删除值
     $('.deleteButton').click(function () {
+        if(notdel == '-1'){
+            alert('系统默认项，不允许删除！');
+            return;
+        }
         if(valueId == ''){
             alert('请选择需要删除的项');
             return;
@@ -143,7 +151,7 @@ function getClassification(){
                 var str = '<ul>';
                 var list = res.result;
                 for(var i = 0 ; i < list.length ; i++){
-                    str += '<li value="' + list[i].id + '" onclick="getClassificationVal(this)"><div><span>' + list[i].name + '</span></div><i class="fa fa-trash-o" onclick="deleteClassification(this)"></i></li>'
+                    str += '<li value="' + list[i].id + '" notdel="' + list[i].notdel + '" onclick="getClassificationVal(this)"><div><span>' + list[i].name + '</span></div><i class="fa fa-trash-o" onclick="deleteClassification(this)"></i></li>'
                 }
                 str += '</ul>';
                 $('.pages .classification .ul').html(str);
@@ -190,7 +198,7 @@ function getClassificationVal(e){
                     str += '<tr><th>序号</th><th>名称</th></tr>';
                     for(var i = 0 ; i < list.length ; i++){
                         str +=
-                            '<tr value="' + list[i].id + '" onclick="chooseVaue(this)" v="' + list[i].name + ';' + list[i].sort + '">' +
+                            '<tr value="' + list[i].id + '" notdel="' + list[i].notdel + '" onclick="chooseVaue(this)" v="' + list[i].name + ';' + list[i].sort + '">' +
                                 '<td>' + (i + 1) + '</td><td>' + list[i].name + '</td>' +
                             '</tr>';
                     }
@@ -198,7 +206,7 @@ function getClassificationVal(e){
                     str += '<tr><th>序号</th><th>名称</th><th style="width: 200px;">余额</th></tr>';
                     for(var i = 0 ; i < list.length ; i++){
                         str +=
-                            '<tr value="' + list[i].id + '"  onclick="chooseVaue(this)"  v="' + list[i].name + ';' + list[i].agency + ';' + list[i].accountNumber + ';' + list[i].balance + ';' + list[i].sort + '">' +
+                            '<tr value="' + list[i].id + '" notdel="' + list[i].notdel + ' onclick="chooseVaue(this)"  v="' + list[i].name + ';' + list[i].agency + ';' + list[i].accountNumber + ';' + list[i].balance + ';' + list[i].sort + '">' +
                                 '<td>' + (i + 1) + '</td><td>' + list[i].name + '</td><td>' + list[i].balance + '</td>' +
                             '</tr>';
                     }
@@ -323,6 +331,11 @@ function addClassification(){
 //点击分类上的删除按钮实现分类数据的删除
 function deleteClassification(e){
     var id = $(e).parent('li').attr('value');
+    var notdel = $(e).parent('li').attr('notdel');
+    if(notdel == '-1'){
+        alert('系统默认项，不允许删除！');
+        return;
+    }
     $.ajax({
         url: '/Classification/deleteData',
         type: 'POST',
@@ -359,6 +372,7 @@ function saveClassificationValue(){
     }
     formData.append('classification',classificationId);
     formData.append('name',name);
+    formData.append('notdel','1');
     formData.append('sort',sort);
     formData.append('token','1');
     $.ajax({
@@ -416,6 +430,7 @@ function saveContactsAccountValue(){
     formData.append('agency',agency);
     formData.append('accountNumber',accountNumber);
     formData.append('balance',balance);
+    formData.append('notdel','1');
     formData.append('sort',sort);
     formData.append('accountType',accountType);
     formData.append('token','1');
@@ -446,6 +461,7 @@ function chooseVaue(e) {
     });
     $(e).siblings('tr').removeAttr('style');
     valueId = $(e).attr('value');
+    notdel = $(e).attr('notdel');
     v = $(e).attr('v');
 }
 

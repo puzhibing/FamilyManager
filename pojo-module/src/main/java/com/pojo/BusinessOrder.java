@@ -24,6 +24,7 @@ public class BusinessOrder extends CommonBean{
      * 8：投资支出数据
      * 9：投资赎回数据
      * 10：还款数据
+     * 11：收款数据
      */
     private String businessType;
 

@@ -6,6 +6,8 @@ public class ClassificationValue extends CommonBean {
 
     private String name;
 
+    private String notdel;//是否允许删除修改标识
+
     private Integer sort;//排序
 
     public Object getClassification() {
@@ -24,6 +26,14 @@ public class ClassificationValue extends CommonBean {
         this.name = name;
     }
 
+    public String getNotdel() {
+        return notdel;
+    }
+
+    public void setNotdel(String notdel) {
+        this.notdel = notdel;
+    }
+
     public Integer getSort() {
         return sort;
     }
@@ -37,7 +47,8 @@ public class ClassificationValue extends CommonBean {
         return "ClassificationValue{" +
                 "classification=" + classification +
                 ", name='" + name + '\'' +
-                ", sort='" + sort + '\'' +
+                ", notdel='" + notdel + '\'' +
+                ", sort=" + sort +
                 '}';
     }
 }

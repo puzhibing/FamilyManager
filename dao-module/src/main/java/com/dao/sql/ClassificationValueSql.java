@@ -15,9 +15,9 @@ public class ClassificationValueSql {
     public String insertData(ClassificationValue classificationValue){
         return new SQL(){{
             INSERT_INTO("db_classification_value");
-            INTO_COLUMNS("id , classification , name , sort");
+            INTO_COLUMNS("id , classification , name , notdel , sort");
             INTO_COLUMNS("del , insertUserId , insertTime , updateUserId , updateTime");
-            INTO_VALUES("#{id} , #{classification} , #{name} , #{sort}");
+            INTO_VALUES("#{id} , #{classification} , #{name} , #{notdel} , #{sort}");
             INTO_VALUES("#{del} , #{insertUserId} , #{insertTime} , #{updateUserId} , #{updateTime}");
         }}.toString();
     }
@@ -46,7 +46,7 @@ public class ClassificationValueSql {
      */
     public String selectDataByClassification(String classification){
         return new SQL(){{
-            SELECT("id , classification , name , sort");
+            SELECT("id , classification , name , notdel , sort");
             FROM("db_classification_value");
             WHERE("classification = #{classification} and del = '0'");
             ORDER_BY("sort");
@@ -78,7 +78,7 @@ public class ClassificationValueSql {
      */
     public String selectDataById(String id){
         return new SQL(){{
-            SELECT("id , classification , name , sort");
+            SELECT("id , classification , name , notdel , sort");
             FROM("db_classification_value");
             WHERE("id = #{id} and del = '0'");
         }}.toString();

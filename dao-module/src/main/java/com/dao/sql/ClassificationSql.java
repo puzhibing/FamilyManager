@@ -16,8 +16,8 @@ public class ClassificationSql {
     public String insertData(Classification classification){
         return new SQL(){{
             INSERT_INTO("db_classification");
-            INTO_COLUMNS("id , name , kind , sort , del , insertUserId , insertTime , updateUserId , updateTime");
-            INTO_VALUES("#{id} , #{name} , #{kind} , #{sort} , #{del} , #{insertUserId} , #{insertTime} , #{updateUserId} , #{updateTime}");
+            INTO_COLUMNS("id , name , kind , notdel , sort , del , insertUserId , insertTime , updateUserId , updateTime");
+            INTO_VALUES("#{id} , #{name} , #{kind} , #{notdel} , #{sort} , #{del} , #{insertUserId} , #{insertTime} , #{updateUserId} , #{updateTime}");
         }}.toString();
     }
 
@@ -28,7 +28,7 @@ public class ClassificationSql {
      */
     public String selectAll(){
         return new SQL(){{
-            SELECT("id , name , kind , sort , del , insertUserId , insertTime , updateUserId , updateTime");
+            SELECT("id , name , kind , notdel , sort , del , insertUserId , insertTime , updateUserId , updateTime");
             FROM("db_classification");
             WHERE("del = '0'");
             ORDER_BY("sort");
@@ -73,7 +73,7 @@ public class ClassificationSql {
      */
     public String selectDataByKind(String kind){
         return new SQL(){{
-            SELECT("id , name , kind , sort");
+            SELECT("id , name , kind , notdel , sort");
             FROM("db_classification");
             WHERE("del = '0' and kind = #{kind}");
             ORDER_BY("sort");

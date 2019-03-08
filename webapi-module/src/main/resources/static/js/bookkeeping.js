@@ -661,10 +661,17 @@ function saveTransferData(){
     var amount = $('.transfer_text .amount').val();
     var documentDate = getDateForDatetimeLocal($('.transfer_text .documentDate').val());
     var remark = $('.transfer_text .remark').val();
+    var classificationValue = '';
 
     var businessType = '3';//转账
     if(type == '2'){
         businessType = '10';//还款
+        classificationValue = 'fa5eb829090e4a67a985';
+    }else if('3'){
+        businessType = '11';//收款
+        expenditure = $('.transfer_text #transferToAccount').attr('valueId');//支出
+        income = $('.transfer_text #transferAccount').attr('valueId');//收入
+        classificationValue = 'd79e5553c02945568a43';
     }
 
 
@@ -686,6 +693,7 @@ function saveTransferData(){
             income: income,
             expenditure: expenditure,
             amount: amount,
+            classificationValue: classificationValue,
             remark: remark,
             token: '1'
         },
@@ -712,8 +720,15 @@ function chooseTransferType() {
         $('.transfer_text .date').text('转账日期');
 
         $('#transferToAccount').attr('clazz','incomeAccount');
-    }else{
+    }else if(type == '2'){//还款
         $('.transfer_text .outAccount').text('支出账户');
+        $('.transfer_text .enterAccount').text('还款对象');
+        $('.transfer_text .amountName').text('还款金额');
+        $('.transfer_text .date').text('还款日期');
+
+        $('#transferToAccount').attr('clazz','repaymentObject');
+    }else{//收款
+        $('.transfer_text .outAccount').text('收入账户');
         $('.transfer_text .enterAccount').text('还款对象');
         $('.transfer_text .amountName').text('还款金额');
         $('.transfer_text .date').text('还款日期');

@@ -126,7 +126,7 @@ public class BusinessOrderSql {
 
     /**
      * 查询给定日期范围内的有效数据
-     * 查询支出数据（消费支出、借出、贷出、投资支出）
+     * 查询支出数据（消费支出、借出、贷出、投资支出、还款）
      * @param startDate
      * @param endDate
      * @return
@@ -135,7 +135,7 @@ public class BusinessOrderSql {
         return new SQL(){{
             SELECT("id , documentDate , documentNumber , documentType, businessType , income , expenditure , amount , contacts , classificationValue , handMan , remark");
             FROM("db_business_order");
-            WHERE("del = '0' and businessType in ('1' , '4' , '6' , '8') and documentDate BETWEEN #{param1} AND #{param2}");
+            WHERE("del = '0' and businessType in ('1' , '4' , '6' , '8' , '10') and documentDate BETWEEN #{param1} AND #{param2}");
             ORDER_BY("documentDate");
         }}.toString();
     }
@@ -143,7 +143,7 @@ public class BusinessOrderSql {
 
     /**
      * 查询给定日期范围内的收入数据
-     * （收入、借入、贷入、投资赎回）
+     * （收入、借入、贷入、投资赎回、收款）
      * @param startDate
      * @param endDate
      * @return
@@ -152,7 +152,7 @@ public class BusinessOrderSql {
         return new SQL(){{
             SELECT("id , documentDate , documentNumber , documentType, businessType , income , expenditure , amount , contacts , classificationValue , handMan , remark");
             FROM("db_business_order");
-            WHERE("del = '0' and businessType in ('2' , '5' , '7' , '9') and documentDate BETWEEN #{param1} AND #{param2}");
+            WHERE("del = '0' and businessType in ('2' , '5' , '7' , '9' , '11') and documentDate BETWEEN #{param1} AND #{param2}");
             ORDER_BY("documentDate");
         }}.toString();
     }

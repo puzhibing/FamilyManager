@@ -17,6 +17,8 @@ public class ContactsAccount extends CommonBean {
 
     private String balance;//余额
 
+    private String notdel;//是否允许删除修改标识
+
     private Integer sort;//排序
 
     public Object getClassification() {
@@ -67,6 +69,14 @@ public class ContactsAccount extends CommonBean {
         this.balance = balance;
     }
 
+    public String getNotdel() {
+        return notdel;
+    }
+
+    public void setNotdel(String notdel) {
+        this.notdel = notdel;
+    }
+
     public Integer getSort() {
         return sort;
     }
@@ -84,7 +94,8 @@ public class ContactsAccount extends CommonBean {
                 ", agency='" + agency + '\'' +
                 ", accountNumber='" + accountNumber + '\'' +
                 ", balance='" + balance + '\'' +
-                ", sort='" + sort + '\'' +
+                ", notdel='" + notdel + '\'' +
+                ", sort=" + sort +
                 '}';
     }
 }

@@ -9,6 +9,8 @@ public class Classification extends CommonBean {
 
     private String kind;
 
+    private String notdel;//是否允许删除修改标识
+
     private Integer sort;//排序
 
     public String getName() {
@@ -27,6 +29,14 @@ public class Classification extends CommonBean {
         this.kind = kind;
     }
 
+    public String getNotdel() {
+        return notdel;
+    }
+
+    public void setNotdel(String notdel) {
+        this.notdel = notdel;
+    }
+
     public Integer getSort() {
         return sort;
     }
@@ -40,6 +50,7 @@ public class Classification extends CommonBean {
         return "Classification{" +
                 "name='" + name + '\'' +
                 ", kind='" + kind + '\'' +
+                ", notdel='" + notdel + '\'' +
                 ", sort=" + sort +
                 '}';
     }
