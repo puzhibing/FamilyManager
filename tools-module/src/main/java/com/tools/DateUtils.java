@@ -80,6 +80,21 @@ public final class DateUtils {
     }
 
 
+    /**
+     * 将日期对象转换成字符串格式（精确到日）
+     * @param date
+     * @param dateSplitter
+     * @return
+     */
+    public static String getDateToString(Date date , DateUtilEnum dateSplitter){
+        simpleDateFormat = DateUtils.getSimpleDateFormat(dateSplitter);
+        return simpleDateFormat.format(date);
+    }
+
+
+
+
+
 
 
     /**

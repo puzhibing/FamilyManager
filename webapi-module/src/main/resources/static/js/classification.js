@@ -198,7 +198,7 @@ function getClassificationVal(e){
                     str += '<tr><th>序号</th><th>名称</th></tr>';
                     for(var i = 0 ; i < list.length ; i++){
                         str +=
-                            '<tr value="' + list[i].id + '" notdel="' + list[i].notdel + '" onclick="chooseVaue(this)" v="' + list[i].name + ';' + list[i].sort + '">' +
+                            '<tr value="' + list[i].id + '" notdel="' + list[i].notdel + '" onclick="chooseValue(this)" v="' + list[i].name + ';' + list[i].sort + '">' +
                                 '<td>' + (i + 1) + '</td><td>' + list[i].name + '</td>' +
                             '</tr>';
                     }
@@ -206,7 +206,7 @@ function getClassificationVal(e){
                     str += '<tr><th>序号</th><th>名称</th><th style="width: 200px;">余额</th></tr>';
                     for(var i = 0 ; i < list.length ; i++){
                         str +=
-                            '<tr value="' + list[i].id + '" notdel="' + list[i].notdel + ' onclick="chooseVaue(this)"  v="' + list[i].name + ';' + list[i].agency + ';' + list[i].accountNumber + ';' + list[i].balance + ';' + list[i].sort + '">' +
+                            '<tr value="' + list[i].id + '" notdel="' + list[i].notdel + '" onclick="chooseValue(this)"  v="' + list[i].name + ';' + list[i].agency + ';' + list[i].accountNumber + ';' + list[i].balance + ';' + list[i].sort + '">' +
                                 '<td>' + (i + 1) + '</td><td>' + list[i].name + '</td><td>' + list[i].balance + '</td>' +
                             '</tr>';
                     }
@@ -454,7 +454,7 @@ function saveContactsAccountValue(){
 
 
 //选中分类值表格中的数据的处理
-function chooseVaue(e) {
+function chooseValue(e) {
     $(e).css({
         'background-color':'#DF5353',
         'color':'#FFFFFF'
