@@ -714,8 +714,8 @@ function saveTransferData(){
 function chooseTransferType() {
     var type = $('.transfer_text .type').val();
     if(type == '1'){
-        $('.transfer_text .outAccount').text('转出账户');
-        $('.transfer_text .enterAccount').text('转入账户');
+        $('.transfer_text .outAccount').text('转入账户');
+        $('.transfer_text .enterAccount').text('转出账户');
         $('.transfer_text .amountName').text('转账金额');
         $('.transfer_text .date').text('转账日期');
 
