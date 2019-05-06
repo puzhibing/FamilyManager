@@ -30,6 +30,8 @@ $(function () {
     $('.accountingFlow_panel div div button').click(function () {
         pageTurning(this);
     });
+
+
 });
 
 
@@ -134,9 +136,9 @@ function getBusinessOrders(page){
                 var nowPage = $('.nowPage').text();
                 $('.accountingFlow_panel div table').html('');
                 var list = eval(res.result);
-                var str = '<tr><th>序号</th><th>单据日期</th><th>收入方</th><th>支出方</th><th>发生金额</th><th>业务类型</th><th>相关人员</th><th>备注</th></tr>';
+                var str = '<tr><th>序号</th><th>单据日期</th><th>收入方</th><th>支出方</th><th>发生金额</th><th>业务类型</th><th>相关人员</th><th>备注</th><th>操作</th></tr>';
                 for (var i = 0; i < list.length ; i++){
-                    str += '<tr><td>' + (((parseInt(nowPage) - 1) * 20) + (i + 1)) + '</td><td>' + getDateString(list[i].documentDate) + '</td>';
+                    str += '<tr id="' + list[i].id + '"><td>' + (((parseInt(nowPage) - 1) * 20) + (i + 1)) + '</td><td>' + getDateString(list[i].documentDate) + '</td>';
 
                     if(list[i].income == null){
                         str += '<td></td>';
@@ -164,7 +166,7 @@ function getBusinessOrders(page){
                         str += '<td>' + list[i].contacts.name + '</td>';
                     }
 
-                    str += '<td title="' + list[i].remark + '"><div>' + list[i].remark + '</div></td></tr>';
+                    str += '<td class="remark" title="' + list[i].remark + '"><div>' + list[i].remark + '</div></td><td><button class="deleteDocument">删除</button></td></tr>';
                 }
                 $('.accountingFlow_panel div table').html(str);
                 $('.sunPage').text(res.totalPage);
@@ -192,6 +194,14 @@ function getBusinessOrders(page){
                     $('.nextPage').removeAttr('disabled');
                 }
 
+                //添加删除按钮的点击事件
+                $('.deleteDocument').bind('click',function (ev) {
+                    var current = $(this);
+                    var id = current.parent('td').parent('tr').attr('id');
+                    if(confirm('确定删除数据？')){
+                        deleteDocuments(id);
+                    }
+                })
             }
         }
     });
@@ -210,4 +220,24 @@ function pageTurning(a){
     }
     $('.nowPage').text(nowPage);
     getBusinessOrders(nowPage);
+}
+
+
+
+//删除单据
+function deleteDocuments(id){
+    $.ajax({
+        url: '/BusinessOrder/deleteData',
+        type: 'POST',
+        data: {
+            id: id,
+            token: '1'
+        },
+        success: function (res) {
+            if(res.b){
+                alert(res.msg);
+                getBusinessOrders(1);
+            }
+        }
+    });
 }

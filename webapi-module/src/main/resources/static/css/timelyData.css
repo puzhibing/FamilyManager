@@ -173,11 +173,11 @@
     text-align: center;
 }
 
-.accountingFlow_panel>div table td:last-of-type{
+.accountingFlow_panel>div table .remark{
     width: 235px;
 }
 
-.accountingFlow_panel>div table td:last-of-type div{
+.accountingFlow_panel>div table .remark div{
     width: 230px;
     overflow: hidden;
     text-overflow:ellipsis;
@@ -217,4 +217,24 @@
 
 .accountingFlow_panel>div div>span span{
     color: #880015;
+}
+
+.deleteDocument{
+    border: 1px solid #880015;
+    background-color: #880015;
+    color: #FFFFFF;
+    height: 25px;
+    width: 50px;
+    border-radius: 3px;
+}
+
+.accountingFlow_panel table tr td:last-of-type{
+    text-align: center;
+    text-indent: 0px;
+}
+
+.deleteDocument:hover{
+    background-color: #760012;
+    border: 1px solid #760012;
+    cursor: pointer;
 }
