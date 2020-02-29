@@ -128,7 +128,8 @@ function dynamicContent(clazz){
             getExpenditureAccount();
             break;
         case 'incomeAccount'://收入账户、转入账户、转出账户、借贷入账户
-            getIncomeAccount();
+            // getIncomeAccount();
+            getExpenditureAccount();
             break
         case 'contacts'://成员
             getContacts();

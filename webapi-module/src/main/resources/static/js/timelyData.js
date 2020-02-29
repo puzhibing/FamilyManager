@@ -136,20 +136,20 @@ function getBusinessOrders(page){
                 var nowPage = $('.nowPage').text();
                 $('.accountingFlow_panel div table').html('');
                 var list = eval(res.result);
-                var str = '<tr><th>序号</th><th>单据日期</th><th>收入方</th><th>支出方</th><th>发生金额</th><th>业务类型</th><th>相关人员</th><th>备注</th><th>操作</th></tr>';
+                var str = '<tr><th>序号</th><th>单据日期</th><th>支出方</th><th>收入方</th><th>发生金额</th><th>业务类型</th><th>相关人员</th><th>备注</th><th>操作</th></tr>';
                 for (var i = 0; i < list.length ; i++){
                     str += '<tr id="' + list[i].id + '"><td>' + (((parseInt(nowPage) - 1) * 20) + (i + 1)) + '</td><td>' + getDateString(list[i].documentDate) + '</td>';
-
-                    if(list[i].income == null){
-                        str += '<td></td>';
-                    }else{
-                        str += '<td>' + list[i].income.name + '</td>';
-                    }
 
                     if(list[i].expenditure == null){
                         str += '<td></td>';
                     }else{
                         str += '<td>' + list[i].expenditure.name + '</td>';
+                    }
+
+                    if(list[i].income == null){
+                        str += '<td></td>';
+                    }else{
+                        str += '<td>' + list[i].income.name + '</td>';
                     }
 
                     str += '<td>' + list[i].amount + '</td>';
